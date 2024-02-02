@@ -1,0 +1,137 @@
+@import './../../src/app/variables.scss';
+
+.hero {
+  padding-top: 64px;
+  padding-bottom: 64px;
+
+  @include lg {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 80px;
+    line-height: 88px;
+    text-align: center;
+    color: $light;
+    margin-bottom: 24px;
+
+    @include lg {
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+  }
+
+  &__desc {
+    @include bigText;
+    color: $grey2;
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+
+
+  &__block {
+    max-width: 592px;
+    margin: 56px auto 0;
+    background:
+      linear-gradient($dark 0 0) padding-box,
+      linear-gradient(95.07deg, #305EFF 0%, #30E6FF 33.33%, #FFFFFF 66.67%, #121212 85%) border-box;
+    color: #313149;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 2000px;
+    position: relative;
+
+    &_hashtag {
+      position: absolute;
+      top: 35px;
+      left: 40px;
+      z-index: 5;
+    }
+
+
+    .hero__custom_select {
+      width: 100%;
+      position: relative;
+
+      &.active {
+        .select_dropdown {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+
+
+      .select_button {
+        position: relative;
+        width: 100%;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $light;
+        color: $dark;
+        cursor: pointer;
+        border-radius: 1000px;
+        padding: 16px 24px 16px 48px;
+        font-family: inherit;
+        z-index: 3;
+
+        @include text;
+      }
+
+      .selected_value {
+        text-align: left;
+      }
+
+      .arrow {
+        border-left: 0.4rem solid transparent;
+        border-right: 0.4rem solid transparent;
+        border-top: 0.4rem solid $dark;
+        border-top: 6px solid $dark;
+      }
+
+      .select_dropdown {
+        position: absolute;
+        list-style: none;
+        width: 100%;
+        background-color: $light;
+        border-bottom-left-radius: 28px;
+        border-bottom-right-radius: 28px;
+        padding-top: 30px;
+        padding-bottom: 12px;
+        margin-top: -30px;
+        overflow-y: auto;
+        transition: 0.3s ease;
+        z-index: 0;
+        opacity: 0;
+        visibility: hidden;
+
+
+        & li {
+          position: relative;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+        }
+
+        & li label {
+          width: 100%;
+          padding: 16px 24px;
+          cursor: pointer;
+        }
+
+        & input[type="radio"] {
+          position: absolute;
+          left: 0;
+          opacity: 0;
+        }
+      }
+    }
+
+  }
+}
