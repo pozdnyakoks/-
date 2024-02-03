@@ -38,14 +38,19 @@
   }
 
   &__burger_btn {
+
     width: 40px;
     height: 40px;
     background-color: $primary;
     border-radius: 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @include lg {
+      display: flex;
+    }
 
     @include transitionOPacity;
 

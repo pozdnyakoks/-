@@ -84,10 +84,35 @@ $primary: #30E6FF;
   line-height: 16px;
 }
 
+@mixin subtitle {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 40px;
+
+  @include lg {
+    font-size: 17px;
+    line-height: 24px;
+
+  }
+}
+
+
+@mixin title {
+  font-weight: 500;
+  font-size: 64px;
+  line-height: 72px;
+
+  @include lg {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
 @mixin transitionOPacity {
   transition: .3s ease;
 
-  &:hover, &:active {
+  &:hover,
+  &:active {
     opacity: .7;
   }
 }

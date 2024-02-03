@@ -1,0 +1,174 @@
+@import './../../variables.scss';
+
+.developer {
+  margin-top: 64px;
+
+  @include lg {
+    margin-top: 32px;
+  }
+
+  &__title {
+    text-align: center;
+    @include title;
+    color: $light;
+    margin-bottom: 64px;
+
+    @include lg {
+      margin-bottom: 32px;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 64px;
+
+
+    @include lg {
+      grid-template-columns: 1fr;
+      margin-bottom: 48px;
+
+    }
+
+    &_open {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    &_cell {
+      border-radius: 1000px;
+      padding: 24px;
+      background-color: $grey5;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: $grey1;
+      @include text;
+
+      @include lg {
+        justify-content: center;
+        padding: 16px;
+        font-size: 15px;
+        line-height: 16px;
+      }
+
+      svg {
+        path {
+          fill: $grey1;
+        }
+      }
+
+      &_closed {
+        color: #FF9494;
+
+        svg {
+          path {
+            fill: #FF9494;
+          }
+        }
+      }
+
+      &_open {
+        color: $primary;
+
+        svg {
+          path {
+            fill: $primary;
+          }
+        }
+      }
+
+      &_btn {
+        background-color: $light;
+        border-radius: 1000px;
+        padding: 24px;
+        text-align: center;
+        @include text;
+        color: $dark;
+        @include transitionOPacity;
+        font-weight: 600;
+
+        @include lg {
+          padding: 16px;
+          font-size: 15px;
+          line-height: 16px;
+        }
+      }
+
+    }
+
+  }
+
+  &__subtitle {
+    @include subtitle;
+    color: $light;
+    margin-bottom: 40px;
+
+    @include lg {
+      margin-bottom: 25px;
+    }
+  }
+
+  &__title_list {
+    @include text;
+    color: $light;
+    margin-bottom: 30px;
+  }
+
+  &__list {
+    margin-bottom: 30px;
+
+    &_item {
+
+      @include text;
+      color: $grey2;
+      position: relative;
+      padding-left: 25px;
+
+      &::before {
+        position: absolute;
+        content: '';
+        width: 2px;
+        height: 2px;
+        border-radius: 1000px;
+        background-color: $grey2;
+        top: 12px;
+        left: 12px;
+      }
+    }
+  }
+
+  &__btn {
+    display: block;
+    margin-left: auto;
+    margin-top: 56px;
+    background-color: $light;
+    border-radius: 1000px;
+    padding: 12px 24px;
+    text-align: center;
+    @include text;
+    color: $dark;
+    @include transitionOPacity;
+    font-weight: 600;
+    min-width: 200px;
+
+    @include lg {
+      width: 100%;
+      margin-top: 32px;
+    }
+  }
+
+  &__follow {
+    margin-top: 96px;
+    margin-bottom: 96px;
+
+    @include lg {
+      margin-top: 32px;
+      margin-bottom: 56px;
+    }
+    ;
+  }
+
+}

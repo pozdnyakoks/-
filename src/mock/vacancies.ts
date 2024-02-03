@@ -1,9 +1,20 @@
+export type TVacancy = {
+    title: string;
+    date: string;
+    company: string;
+    location: string;
+    status: string;
+    tags: string[];
+    salary: string;
+}
+
 export const vacancies = [
   {
     title: 'Smart Contract Developer',
     date: 'yesterday',
     company: 'All in Bits, Inc',
     location: 'Global Remote',
+    // status: 'Closed',
     status: 'Still Open',
     tags: ['Software Engineer', 'Rust', 'Go'],
     salary: '$160K - $200K'

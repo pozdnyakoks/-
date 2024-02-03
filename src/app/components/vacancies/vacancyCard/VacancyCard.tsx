@@ -2,6 +2,9 @@
 import s from './VacancyCard.module.scss';
 import { Door } from '../../icons/door';
 import { Location } from '../../icons/location';
+import { setJob } from '@/lib/slices/jobSlice';
+import { useDispatch } from 'react-redux';
+import Link from 'next/link';
 
 type TCard = {
 
@@ -15,8 +18,14 @@ type TCard = {
 }
 
 export const VacancyCard = ({ cardInfo }: { cardInfo: TCard }) => {
+
+  const dispatch = useDispatch();
+
+  const tagHandler = (value: string) => {
+    dispatch(setJob(value))
+  }
   return (
-    <div className={s.card}>
+    <Link href='/developer' className={s.card}>
       <div className={s.card__block}>
         <h2 className={s.card__block_title}>{cardInfo.title}</h2>
         <p className={s.card__block_desc}>{cardInfo.date}</p>
@@ -37,11 +46,11 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TCard }) => {
             {cardInfo.status}
           </li>
           {cardInfo.tags.map(tag => (
-            <li className={s.card__block_list_item} key='tag'>{tag}</li>
+            <li onClick={() => tagHandler(tag)} className={s.card__block_list_item} key='tag'>{tag}</li>
           ))}
         </ul>
         <span className={s.card__block_year}>{cardInfo.salary}  / year</span>
       </div>
-    </div>
+    </Link>
   )
 }

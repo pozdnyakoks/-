@@ -4,25 +4,24 @@
   border-radius: 16px;
   padding: 32px;
   background-color: $light;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   max-width: 848px;
   margin: 0 auto;
 
   @include lg {
-    flex-direction: column;
-    gap: 16px;
     padding: 24px;
   }
 
-
-  &.dark {
-    background-color: $grey5;
-
-    &__desc {
-      color: $grey1;
+  &__block {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    @include lg {
+      max-width: 500px;
+      flex-direction: column;
+      gap: 16px;
     }
   }
 
@@ -33,10 +32,20 @@
     color: $dark;
     max-width: 500px;
   }
+  
+  &.dark {
+    background-color: $grey5;
+
+    .follow__desc {
+      color: $grey1;
+    }
+  }
+
 
   &__socials {
     display: flex;
     gap: 16px;
+
 
     @include lg {
       align-self: flex-start;

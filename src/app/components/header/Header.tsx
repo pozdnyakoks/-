@@ -32,9 +32,9 @@ export const Header = () => {
       {!isMobile &&
         <nav>
           <ul className={s.header__list}>
-            <li><Link className={s.header__link} href='/jobs'>Jobs</Link></li>
+            <li><Link className={s.header__link} href='/'>Jobs</Link></li>
             <li><Link className={s.header__link} href='/about'>About</Link></li>
-            <li><Link className={`${s.header__link} ${s.header__link_last}`} href='/post'>Post a Job</Link></li>
+            <li><Link className={`${s.header__link} ${s.header__link_last}`} href='/'>Post a Job</Link></li>
           </ul>
         </nav>
       }
@@ -46,9 +46,9 @@ export const Header = () => {
       }
       {isMobile && <div className={`${s.header__burger_menu} ${isShow && s.active}`}>
         <ul className={s.header__list}>
-          <li><Link className={s.header__link} href='/jobs'>Jobs</Link></li>
+          <li><Link className={s.header__link} href='/'>Jobs</Link></li>
           <li><Link className={s.header__link} href='/about'>About</Link></li>
-          <li><Link className={`${s.header__link} ${s.header__link_last}`} href='/post'>Post a Job</Link></li>
+          <li><Link className={`${s.header__link} ${s.header__link_last}`} href='/'>Post a Job</Link></li>
         </ul>
       </div>}
     </header>
