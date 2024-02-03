@@ -3,6 +3,7 @@
 .footer {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 32px;
 
   @include lg {
     flex-direction: column-reverse;
