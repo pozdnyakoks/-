@@ -1,0 +1,56 @@
+@import './../../variables.scss';
+
+.follow {
+  border-radius: 16px;
+  padding: 32px;
+  background-color: $light;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 848px;
+  margin: 0 auto;
+
+  @include lg {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+  }
+
+
+  &.dark {
+    background-color: $grey5;
+
+    &__desc {
+      color: $grey1;
+    }
+  }
+
+  &__desc {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 24px;
+    color: $dark;
+    max-width: 500px;
+  }
+
+  &__socials {
+    display: flex;
+    gap: 16px;
+
+    @include lg {
+      align-self: flex-start;
+    }
+
+    a {
+      @include transitionOPacity;
+
+      img {
+        @include lg {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+}

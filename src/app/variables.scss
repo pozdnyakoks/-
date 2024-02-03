@@ -1,6 +1,9 @@
 $dark: #121212;
 $light: #ffffff;
+$grey1: #DADADA;
 $grey2: #787878;
+$grey3: #414141;
+$grey4: #2A2A2A;
 $grey5: #1B1B1B;
 $primary: #30E6FF;
 
@@ -84,7 +87,7 @@ $primary: #30E6FF;
 @mixin transitionOPacity {
   transition: .3s ease;
 
-  &:hover {
+  &:hover, &:active {
     opacity: .7;
   }
 }

@@ -1,4 +1,4 @@
-@import './../../src/app/variables.scss';
+@import './../../variables.scss';
 
 .header {
   overflow-x: hidden;
@@ -85,9 +85,10 @@
     width: 100%;
     height: calc(100vh - 80px);
     right: 0;
-    padding: 0 16px;
+    padding: 0;
     visibility: hidden;
     background-color: $dark;
+    z-index: 50;
 
     &.active {
       transform: translateX(0);
@@ -100,7 +101,12 @@
       align-items: flex-start;
 
       li {
+        padding: 0 16px;
         width: 100%;
+        transition: .3s ease;
+        &:hover, &:active {
+          background-color: $grey5;
+        }
       }
 
       .header__link {
@@ -108,10 +114,13 @@
         padding-top: 16px;
         padding-bottom: 16px;
 
+        &:hover {
+          opacity: 1;
+        }
+
         &_last {
           width: 100%;
           margin-top: 16px;
-          ;
         }
       }
     }

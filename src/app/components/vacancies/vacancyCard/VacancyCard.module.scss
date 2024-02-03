@@ -1,0 +1,129 @@
+@import './../../../variables.scss';
+
+.card {
+  background-color: $grey5;
+  border-radius: 16px;
+  padding: 32px;
+  color: $grey2;
+  width: 100%;
+  max-width: 848px;
+  margin: 0 auto;
+
+  @include lg {
+    padding: 24px 24px 32px 24px;
+  }
+
+  &__block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:first-child {
+      margin-bottom: 12px;
+
+      @include lg {
+        gap: 32px;
+      }
+    }
+
+    @include lg {
+      flex-direction: column-reverse;
+    }
+
+    &_title {
+      color: $light;
+      @include bigText;
+
+      @include lg {
+        align-self: flex-start;
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
+
+    &_desc {
+      @include text;
+
+      @include lg {
+        align-self: flex-end;
+      }
+    }
+
+    &_list {
+      margin-top: 32px;
+      display: flex;
+      gap: 8px;
+
+      @include lg {
+        flex-wrap: wrap;
+        padding-top: 16px;
+        border-top: 1px solid $grey4;
+        margin-top: 0;
+      }
+
+      &_item {
+        @include tagText;
+        color: $grey2;
+        padding: 8px 16px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 1000px;
+        color: #787878;
+        cursor: pointer;
+
+        @include transitionOPacity;
+
+        &:hover,
+        &:active {
+          opacity: 1;
+          color: #ffffff;
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        &:first-child {
+          background-color: $primary;
+          color: $dark;
+          opacity: 1;
+
+          &:hover,
+          &:active {
+            opacity: 1;
+          }
+
+          &.closed {
+            background-color: #FF9494;
+          }
+        }
+      }
+    }
+
+
+    &_year {
+      margin-top: 32px;
+
+      @include text;
+      font-weight: 500;
+      color: $light;
+
+      @include lg {
+        align-self: flex-start;
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+
+  &__icon_block {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+
+      path {
+        fill: $grey2;
+      }
+    }
+  }
+}

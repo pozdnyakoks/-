@@ -1,0 +1,27 @@
+@import './../../variables.scss';
+
+.vacancies__title {
+  padding-top: 32px;
+  @include bigText;
+  color: $light;
+  max-width: 848px;
+  margin: 0 auto 24px;
+
+  @include lg {
+    text-align: center;
+    font-size: 24px;
+    line-height: 32px;  
+  }
+}
+
+.vacancies {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 96px;
+
+  @include lg {
+    margin-bottom: 56px;
+    gap: 16px;
+  }
+}
