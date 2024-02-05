@@ -16,10 +16,9 @@
   &__block {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 
     &:first-child {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
 
       @include lg {
         gap: 32px;
@@ -33,6 +32,7 @@
     &_title {
       color: $light;
       @include bigText;
+      @include letter;
 
       @include lg {
         align-self: flex-start;
@@ -43,6 +43,8 @@
 
     &_desc {
       @include text;
+      @include letterMore;
+
 
       @include lg {
         align-self: flex-end;
@@ -50,7 +52,7 @@
     }
 
     &_list {
-      margin-top: 32px;
+      margin-top: 30px;
       display: flex;
       gap: 8px;
 
@@ -69,6 +71,8 @@
         border-radius: 1000px;
         color: #787878;
         cursor: pointer;
+        letter-spacing: 0.08em;
+
 
         @include transitionOPacity;
 
@@ -83,6 +87,8 @@
           background-color: $primary;
           color: $dark;
           opacity: 1;
+          min-width: 105px;
+          text-align: center;
 
           &:hover,
           &:active {
@@ -103,10 +109,12 @@
       @include text;
       font-weight: 500;
       color: $light;
+      @include letterMore;
 
       @include lg {
         align-self: flex-start;
         margin-bottom: 16px;
+        margin-top: 29px;
       }
     }
   }
@@ -116,6 +124,9 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+
 
     svg {
       width: 16px;

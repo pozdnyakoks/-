@@ -8,10 +8,12 @@
   display: flex;
   gap: 8px;
   align-items: center;
-
+  letter-spacing: 0.07em;
 
   @include tagText;
   color: $light;
+
+  
 
   &:hover, &:active {
     background-color: $grey5;

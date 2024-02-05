@@ -1,7 +1,7 @@
 @import './../../variables.scss';
 
 .about {
-
+  max-width: 880px;
   padding-top: 64px;
 
   @include lg {
@@ -15,7 +15,9 @@
     color: $grey2;
 
     @include lg {
+      @include letterMore;
       text-align: left;
+      margin-bottom: 16px;
     }
   }
 
@@ -32,19 +34,22 @@
     }
 
     &_small {
-      margin-top: 16px;
+      margin-top: 40px;
       @include subtitle;
       color: $light;
       margin-bottom: 21px;
 
       @include lg {
+        @include letterMore;
         font-weight: 500;
+        margin-bottom: 24px;
       }
     }
   }
 
   &__desc {
     @include text;
+    @include letterMore;
     color: $grey2;
     margin-bottom: 24px;
     color: $grey2;
@@ -54,6 +59,7 @@
     margin-bottom: 24px;
     @include text;
     color: $light;
+    @include letterMore;
 
     &:last-child {
       margin-bottom: 0;
@@ -61,17 +67,17 @@
 
     a {
       text-decoration: underline;
-word-wrap: break-word;
+      word-wrap: break-word;
 
     }
   }
 
   &__follow {
-    padding-top: 96px;
+    padding-top: 71px;
     padding-bottom: 96px;
 
     @include lg {
-      padding-top: 32px;
+      padding-top: 8spx;
       padding-bottom: 56px;
     }
   }

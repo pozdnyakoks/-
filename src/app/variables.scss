@@ -92,7 +92,6 @@ $primary: #30E6FF;
   @include lg {
     font-size: 17px;
     line-height: 24px;
-
   }
 }
 
@@ -115,4 +114,11 @@ $primary: #30E6FF;
   &:active {
     opacity: .7;
   }
+}
+
+@mixin letter {
+  letter-spacing: 0.03em;
+}
+@mixin letterMore {
+  letter-spacing: 0.05em;
 }

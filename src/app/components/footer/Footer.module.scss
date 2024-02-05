@@ -4,10 +4,11 @@
   display: flex;
   justify-content: space-between;
   padding-bottom: 32px;
+  @include letterMore;
 
   @include lg {
     flex-direction: column-reverse;
-    gap: 40px;
+    gap: 36px;
   }
 
   &__text {

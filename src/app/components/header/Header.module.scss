@@ -25,6 +25,7 @@
     color: $light;
     text-decoration: none;
     @include transitionOPacity;
+    @include letterMore;
   }
 
   &__link_last {
@@ -35,6 +36,11 @@
     font-weight: 600;
     width: 204px;
     text-align: center;
+
+    @include lg {
+      padding: 12px 24px 12px 24px;
+
+    }
   }
 
   &__burger_btn {
@@ -109,7 +115,9 @@
         padding: 0 16px;
         width: 100%;
         transition: .3s ease;
-        &:hover, &:active {
+
+        &:hover,
+        &:active {
           background-color: $grey5;
         }
       }
@@ -118,6 +126,7 @@
         width: 100%;
         padding-top: 16px;
         padding-bottom: 16px;
+        @include letterMore;
 
         &:hover {
           opacity: 1;
@@ -126,6 +135,11 @@
         &_last {
           width: 100%;
           margin-top: 16px;
+          @include letterMore;
+
+          @include lg {
+            padding: 12px 24px;
+          }
         }
       }
     }
