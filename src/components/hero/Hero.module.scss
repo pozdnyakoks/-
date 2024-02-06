@@ -1,0 +1,262 @@
+@import '@/styles/variables.scss';
+
+
+.hero {
+  padding-top: 64px;
+  padding-bottom: 64px;
+
+  @include lg {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 80px;
+    line-height: 88px;
+    text-align: center;
+    color: $light;
+    margin-bottom: 24px;
+
+    @include lg {
+      font-size: 32px;
+      line-height: 40px;
+      margin-bottom: 16px;
+    }
+
+  }
+
+  &__desc {
+    @include bigText;
+    color: $grey2;
+    text-align: center;
+    max-width: 690px;
+    margin: 0 auto;
+    @include letter;
+
+    @include lg {
+      @include letterMore;
+    }
+  }
+
+  &__block {
+    max-width: 592px;
+    margin: 56px auto 0;
+    background:
+      linear-gradient($dark 0 0) padding-box,
+      linear-gradient(95.07deg, #305EFF 0%, #30E6FF 33.33%, #FFFFFF 66.67%, #121212 85%) border-box;
+    color: #313149;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 2000px;
+    position: relative;
+
+    @include lg {
+      margin-top: 24px;
+      background: none;
+      padding: 0;
+    }
+
+    &_hashtag {
+      display: block;
+      position: absolute;
+      top: 35px;
+      left: 40px;
+      z-index: 5;
+      width: 16px;
+      height: 16px;
+      img {
+        height: 100%;
+        width: 100%;
+      }
+
+      @include lg {
+        left: 16px;
+        top: 15px;
+        height: 12px;
+        width: 12px;
+
+      }
+    }
+
+    .hero__custom_select {
+      width: 100%;
+      position: relative;
+
+      &.active {
+        .select_dropdown {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+
+
+      .select_button {
+        position: relative;
+        width: 100%;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $light;
+        color: $dark;
+        cursor: pointer;
+        border-radius: 1000px;
+        padding: 16px 24px 16px 48px;
+        font-family: inherit;
+        z-index: 3;
+        @include letterMore;
+
+        @include text;
+
+        @include lg {
+          border-radius: 16px;
+          padding: 16px 16px 16px 34px;
+          letter-spacing: 0.07em;
+          font-size: 15px;
+          line-height: 16px;
+        }
+      }
+
+      .selected_value {
+        text-align: left;
+      }
+
+      .arrow {
+        border-left: 0.4rem solid transparent;
+        border-right: 0.4rem solid transparent;
+        border-top: 0.4rem solid $dark;
+        border-top: 6px solid $dark;
+
+        @include lg {
+          border-left: 0.3rem solid transparent;
+          border-right: 0.3rem solid transparent;
+          border-top: 0.3rem solid $dark;
+        }
+      }
+
+      .select_dropdown {
+        position: absolute;
+        list-style: none;
+        width: 100%;
+        background-color: $light;
+        border-bottom-left-radius: 28px;
+        border-bottom-right-radius: 28px;
+        padding-top: 30px;
+        padding-bottom: 12px;
+        margin-top: -30px;
+        overflow-y: auto;
+        transition: 0.3s ease;
+        z-index: 0;
+        opacity: 0;
+        visibility: hidden;
+
+        @include lg {
+          border-bottom-left-radius: 16px;
+          border-bottom-right-radius: 16px;
+        }
+
+
+        & li {
+          position: relative;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+        }
+
+        & li label {
+          width: 100%;
+          padding: 16px 24px;
+          cursor: pointer;
+          @include letterMore;
+          @include text;
+          background-color: $light;
+          transition: .3s ease;
+
+          &:hover, &:active {
+            background-color: $grey0;
+          }
+
+          @include lg {
+            padding-left: 16px;
+            ;
+          }
+        }
+
+        & input[type="radio"] {
+          position: absolute;
+          left: 0;
+          opacity: 0;
+        }
+      }
+    }
+
+  }
+
+  &__dropdown_mobile {
+    transition: .3s ease;
+    transform: translateX(100%);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    right: 0;
+    visibility: hidden;
+    background-color: $dark;
+    z-index: 50;
+
+    &_block {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      border-bottom: 1px solid $grey4;
+      padding: 7px 16px 4px;
+      background-color: $grey5;
+
+      &_btn {
+        @include transitionOPacity;
+      }
+
+      &_input {
+        background-color: transparent;
+        @include text;
+        color: $light;
+        border: none;
+
+        &::placeholder {
+          color: $grey3;
+        }
+
+        &:focus-visible {
+          border: none;
+          outline: none;
+        }
+      }
+    }
+
+    &.active {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    &_item {
+
+      button {
+        text-align: left;
+        padding: 16px;
+        width: 100%;
+        color: $light;
+        @include text;
+        transition: .3s ease;
+        @include letterMore;
+
+        &:active,
+        &:hover {
+          background-color: $grey5;
+        }
+      }
+    }
+  }
+
+}

@@ -1,0 +1,140 @@
+@import '@/styles/variables.scss';
+
+.card {
+  background-color: $grey5;
+  border-radius: 16px;
+  padding: 32px;
+  color: $grey2;
+  width: 100%;
+  // max-width: 848px;
+  margin: 0 auto;
+
+  @include lg {
+    padding: 24px 24px 32px 24px;
+  }
+
+  &__block {
+    display: flex;
+    justify-content: space-between;
+
+    &:first-child {
+      margin-bottom: 14px;
+
+      @include lg {
+        gap: 32px;
+      }
+    }
+
+    @include lg {
+      flex-direction: column-reverse;
+    }
+
+    &_title {
+      color: $light;
+      @include bigText;
+      @include letter;
+
+      @include lg {
+        align-self: flex-start;
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
+
+    &_desc {
+      @include text;
+      @include letterMore;
+
+
+      @include lg {
+        align-self: flex-end;
+      }
+    }
+
+    &_list {
+      margin-top: 30px;
+      display: flex;
+      gap: 8px;
+
+      @include lg {
+        flex-wrap: wrap;
+        padding-top: 16px;
+        border-top: 1px solid $grey4;
+        margin-top: 0;
+      }
+
+      &_item {
+        @include tagText;
+        color: $grey2;
+        padding: 8px 16px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 1000px;
+        color: #787878;
+        cursor: pointer;
+        letter-spacing: 0.08em;
+
+
+        @include transitionOPacity;
+
+        &:hover,
+        &:active {
+          opacity: 1;
+          color: #ffffff;
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        &:first-child {
+          background-color: $primary;
+          color: $dark;
+          opacity: 1;
+          min-width: 105px;
+          text-align: center;
+
+          &:hover,
+          &:active {
+            opacity: 1;
+          }
+
+          &.closed {
+            background-color: #FF9494;
+          }
+        }
+      }
+    }
+
+
+    &_year {
+      margin-top: 32px;
+
+      @include text;
+      font-weight: 500;
+      color: $light;
+      @include letterMore;
+
+      @include lg {
+        align-self: flex-start;
+        margin-bottom: 16px;
+        margin-top: 29px;
+      }
+    }
+  }
+
+
+  &__icon_block {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+
+
+    svg {
+      width: 16px;
+      height: 16px;
+
+      path {
+        fill: $grey2;
+      }
+    }
+  }
+}

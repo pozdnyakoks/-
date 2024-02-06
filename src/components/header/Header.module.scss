@@ -1,0 +1,149 @@
+@import '@/styles/variables.scss';
+
+
+.header {
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  padding-top: 32px;
+  padding-bottom: 16px;
+  justify-content: space-between;
+  align-items: center;
+
+  @include lg {
+    padding-top: 24px;
+  }
+
+  &__list {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  &__link {
+    display: block;
+    @include text;
+    color: $light;
+    text-decoration: none;
+    @include transitionOPacity;
+    @include letterMore;
+  }
+
+  &__link_last {
+    padding: 12px 24px 12px 24px;
+    color: $dark;
+    background-color: $primary;
+    border-radius: 1000px;
+    font-weight: 600;
+    width: 204px;
+    text-align: center;
+
+    @include lg {
+      padding: 12px 24px 12px 24px;
+
+    }
+  }
+
+  &__burger_btn {
+
+    width: 40px;
+    height: 40px;
+    background-color: $primary;
+    border-radius: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @include lg {
+      display: flex;
+    }
+
+    @include transitionOPacity;
+
+    &_line {
+      transition: .3s ease;
+      transform-origin: center center;
+      width: 20px;
+      height: 2px;
+      border-radius: 100px;
+      background-color: $dark;
+
+      &:first-child {
+        margin-bottom: 4px;
+      }
+    }
+
+    &.active {
+      .header__burger_btn_line {
+
+        &:first-child {
+          transform: translateY(0) rotate(45deg);
+          margin-bottom: 0;
+        }
+
+        &:last-child {
+          transform: translateY(-2px) rotate(-45deg)
+        }
+      }
+    }
+  }
+
+  &__burger_menu {
+    transition: .3s ease;
+    transform: translateX(100%);
+    position: fixed;
+    top: 80px;
+    width: 100%;
+    height: calc(100vh - 80px);
+    right: 0;
+    padding: 0;
+    visibility: hidden;
+    background-color: $dark;
+    z-index: 50;
+
+    &.active {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    .header__list {
+      flex-direction: column;
+      gap: 0;
+      align-items: flex-start;
+
+      li {
+        padding: 0 16px;
+        width: 100%;
+        transition: .3s ease;
+
+        &:hover,
+        &:active {
+          background-color: $grey5;
+        }
+      }
+
+      .header__link {
+        width: 100%;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        @include letterMore;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &_last {
+          width: 100%;
+          margin-top: 16px;
+          @include letterMore;
+
+          @include lg {
+            padding: 12px 24px;
+          }
+        }
+      }
+    }
+  }
+
+}

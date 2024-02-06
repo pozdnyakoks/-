@@ -1,0 +1,63 @@
+@import '@/styles/variables.scss';
+
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 32px;
+  @include letterMore;
+
+  @include lg {
+    flex-direction: column-reverse;
+    gap: 36px;
+  }
+
+  &__text {
+    @include text;
+    color: $light;
+
+    &:last-child {
+      text-align: right;
+
+      @include lg {
+        text-align: left;
+      }
+    }
+  }
+
+  &__color_text {
+    color: $grey2;
+  }
+
+  &__link {
+    @include transitionOPacity
+  }
+
+  &__socials {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+    justify-content: flex-end;
+
+    @include lg {
+      justify-content: flex-start;
+    }
+
+    a {
+      svg {
+        path {
+          fill: $grey2;
+          transition: .3s ease;
+        }
+      }
+
+      &:hover {
+        svg {
+          path {
+            fill: $light;
+          }
+        }
+      }
+    }
+  }
+}
