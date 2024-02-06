@@ -19,6 +19,10 @@ export const Header = () => {
     document.body.style.width = !isShow ? `calc(100% - ${scroll}px)` : '100%';
   }, [isShow])
 
+  const closeMenu = () => {
+    setIsShow(false);
+  }
+
   return (
     <header className={`${s.header} container`}>
       <Link href='/'>
@@ -46,9 +50,9 @@ export const Header = () => {
       }
       {isMobile && <div className={`${s.header__burger_menu} ${isShow && s.active}`}>
         <ul className={s.header__list}>
-          <li><Link className={s.header__link} href='/'>Jobs</Link></li>
-          <li><Link className={s.header__link} href='/about'>About</Link></li>
-          <li><Link className={`${s.header__link} ${s.header__link_last}`} href='/'>Post a Job</Link></li>
+          <li><Link onClick={closeMenu} className={s.header__link} href='/'>Jobs</Link></li>
+          <li><Link onClick={closeMenu} className={s.header__link} href='/about'>About</Link></li>
+          <li><Link onClick={closeMenu} className={`${s.header__link} ${s.header__link_last}`} href='/'>Post a Job</Link></li>
         </ul>
       </div>}
     </header>

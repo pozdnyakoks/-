@@ -21,7 +21,6 @@
       font-size: 32px;
       line-height: 40px;
       margin-bottom: 16px;
-
     }
 
   }
@@ -58,19 +57,24 @@
     }
 
     &_hashtag {
+      display: block;
       position: absolute;
       top: 35px;
       left: 40px;
       z-index: 5;
+      width: 16px;
+      height: 16px;
+      img {
+        height: 100%;
+        width: 100%;
+      }
 
       @include lg {
         left: 16px;
-        top: 18px;
+        top: 15px;
+        height: 12px;
+        width: 12px;
 
-        img {
-          height: 12px;
-          width: 12px;
-        }
       }
     }
 
@@ -106,8 +110,10 @@
 
         @include lg {
           border-radius: 16px;
-          ;
-          padding: 13px 16px 12px 34px;
+          padding: 16px 16px 16px 34px;
+          letter-spacing: 0.07em;
+          font-size: 15px;
+          line-height: 16px;
         }
       }
 
@@ -163,6 +169,12 @@
           cursor: pointer;
           @include letterMore;
           @include text;
+          background-color: $light;
+          transition: .3s ease;
+
+          &:hover, &:active {
+            background-color: $grey0;
+          }
 
           @include lg {
             padding-left: 16px;
@@ -197,7 +209,7 @@
       display: flex;
       gap: 8px;
       align-items: center;
-      border: 1px solid $grey4;
+      border-bottom: 1px solid $grey4;
       padding: 7px 16px 4px;
       background-color: $grey5;
 

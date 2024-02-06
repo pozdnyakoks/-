@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import s from './FollowUs.module.scss';
+import Link from 'next/link';
 
 export const FollowUs = ({ mode }: { mode: 'dark' | 'light' }) => {
   return (
@@ -9,12 +10,12 @@ export const FollowUs = ({ mode }: { mode: 'dark' | 'light' }) => {
           Follow us to not miss out on exciting Cosmos opportunities and hiring news
         </p>
         <div className={s.follow__socials}>
-          <a href='/'>
+          <Link target='_blank' href='https://twitter.com/home'>
             <Image src='/twitter.svg' alt='twitter' width='56' height='56' />
-          </a>
-          <a href='/'>
+          </Link>
+          <Link target='_blank' href='https://www.linkedin.com/company/incosmos-work'>
             <Image src='/linkedIn.svg' alt='linkedIn' width='56' height='56' />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

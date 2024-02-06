@@ -77,12 +77,12 @@
       .header__burger_btn_line {
 
         &:first-child {
-          transform: translateY(0) rotate(135deg);
+          transform: translateY(0) rotate(45deg);
           margin-bottom: 0;
         }
 
         &:last-child {
-          transform: translateY(-2px) rotate(-135deg)
+          transform: translateY(-2px) rotate(-45deg)
         }
       }
     }

@@ -8,15 +8,15 @@ import { TelegramIcon } from '../icons/telegram'
 const socials = [
   {
     icon: <TwitterIcon />,
-    link: '/',
+    link: 'https://twitter.com/home',
   },
   {
     icon: <LinkedinIcon />,
-    link: '/',
+    link: 'https://www.linkedin.com/company/incosmos-work',
   },
   {
     icon: <TelegramIcon />,
-    link: '/',
+    link: 'https://t.me/incosmoswork',
   },
 ]
 
@@ -34,7 +34,7 @@ export const Footer = () => {
           <span className={s.footer__color_text}>
             Designed by {' '}
           </span>
-          <Link href='/'>
+          <Link target='_blank' href='https://penfell.com/'>
             Penfell
           </Link>
         </p>
@@ -46,7 +46,7 @@ export const Footer = () => {
         <div className={s.footer__socials}>
           {socials.map((link, ind) => {
             return (
-              <Link href={link.link} key={ind}>
+              <Link target='_blank' href={link.link} key={ind}>
                 {link.icon}
               </Link>
             )
