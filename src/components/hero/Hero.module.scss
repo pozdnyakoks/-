@@ -150,6 +150,12 @@
         z-index: 0;
         opacity: 0;
         visibility: hidden;
+        max-height: 320px;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
 
         @include lg {
           border-bottom-left-radius: 16px;

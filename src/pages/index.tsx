@@ -1,66 +1,59 @@
 'use client'
 
-import store, { RootState } from "@/lib/store";
-import { Provider, useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { useDispatch, useSelector } from "react-redux";
 import { Hero } from "@/components/hero/Hero";
 import { Vacancies } from "@/components/vacancies/Vacancies";
-import { getVacancies } from "@/api/vacancies";
-import Airtable, { FieldSet } from "airtable";
+import { setTags } from "@/lib/slices/tagsSlice";
+import { setJobs } from "@/lib/slices/jobsSlice";
+
 import { GetServerSideProps } from 'next';
 
+import { TJob } from "@/lib/types";
+import { setfilteredJobs } from "@/lib/slices/filteredJobsSlice";
+import { useEffect } from "react";
+
 interface Props {
-  fetchedJobs: FieldSet[];
+  allRecords: TJob[];
+  uniqueTags: string[];
 }
 
-export default function Home({ fetchedJobs }: { fetchedJobs: FieldSet[] }) {
-  const currentJob = useSelector(
-    (state: RootState) => state.job.job
-  );
- 
-  console.log(currentJob)
-  console.log(fetchedJobs)
+export default function Home() {
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/jobs'); // Отправляем HTTP запрос к API роуту
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const {allRecords, uniqueTags} = await response.json(); // Получаем данные из ответа
+         // Выводим данные в консоль
+          dispatch(setTags(uniqueTags));
+          dispatch(setJobs(allRecords))
+          dispatch(setfilteredJobs(allRecords))
+        // Далее можете использовать данные в вашем компоненте или функции
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Обработка ошибок
+      }
+    };
+    
+    // Вызываем функцию для получения данных
+    fetchData();
+  }, [])
+
+
+
 
   return (
     <>
       <Hero />
       <Vacancies />
     </>
-
   );
 }
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
- Airtable.configure({
-    endpointUrl: 'https://api.airtable.com',
-    apiKey: process.env.API_TOKEN
-  });
-
-  const base = Airtable.base('appuWSjhfaZZZfaRo');
-  const records: FieldSet[] = await new Promise((resolve, reject) => {
-    const fetchedJobs: FieldSet[] = [];
-    base('Jobs').select({
-      // maxRecords: 15,
-      view: "Grid view"
-    }).eachPage(function page(pageRecords, fetchNextPage) {
-      pageRecords.forEach(record => {
-        fetchedJobs.push(record.fields);
-      });
-      fetchNextPage();
-    }, function done(err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(fetchedJobs);
-      }
-    });
-  });
-
-  return {
-    props: {
-      fetchedJobs: records,
-    },
-  };
-};
 
 
 

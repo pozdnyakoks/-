@@ -1,4 +1,4 @@
-type TJob = {
+export type TJob = {
   id: string;
   createdTime: string;
   fields: {
@@ -16,6 +16,7 @@ type TJob = {
     Status: 'Active' | 'Closed',
     'Job Title + Company': string,
     Social: string;
+    'Salary Short': string;
   }
 }
 

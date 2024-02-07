@@ -5,12 +5,16 @@ import s from './Hero.module.scss'
 import Image from 'next/image'
 import { useGetWindowDimensions } from '../../utils/use-get-window-dimensions';
 import { mobile } from '../../utils/constants';
-import { jobsList } from '@/mock/jobsList';
+// import { jobsList } from '@/mock/jobsList';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { setJob } from '@/lib/slices/jobSlice';
+import { setfilteredJobs } from '@/lib/slices/filteredJobsSlice';
 
 export const Hero = () => {
+  const jobsList = useSelector(
+    (state: RootState) => state.tags.tags
+  );
   const [isDropdown, setIsDropdown] = useState(false);
   const [isDropdownMobile, setIsDropdownMobile] = useState(false);
   const [mobileInputValue, setMobileInputValue] = useState('');
@@ -22,8 +26,20 @@ export const Hero = () => {
     (state: RootState) => state.job.job
   );
 
+  const jobsArray = useSelector(
+    (state: RootState) => state.jobs.jobs
+  );
+
   const changeJob = (value: string) => {
     dispatch(setJob(value));
+    if (value !== '') {
+      const filteredJobs = jobsArray.filter(job => {
+        return job.fields.Tags.some(tag => tag.toLowerCase() === value.toLowerCase())
+      })
+      dispatch(setfilteredJobs(filteredJobs));
+    } else {
+      dispatch(setfilteredJobs(jobsArray))
+    }
   }
 
   const mobileInputHandler = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -73,11 +89,11 @@ export const Hero = () => {
           </button>
           {!isMobile &&
             <ul className={s.select_dropdown}>
-                <li key='all' onClick={() => jobHandler('')}>
-                  <label>All jobs
-                    <input type="radio" value='' name="job" />
-                  </label>
-                </li>
+              <li key='all' onClick={() => jobHandler('')}>
+                <label>All jobs
+                  <input type="radio" value='' name="job" />
+                </label>
+              </li>
               {jobsList.map(job => (
                 <li key={job} onClick={() => jobHandler(job)}>
                   <label>{job}
@@ -111,11 +127,11 @@ export const Hero = () => {
         </div>
 
         <ul>
-        <li className={s.hero__dropdown_mobile_item} key='all'>
-              <button
-                onClick={() => jobHandler('')}
-              >All jobs</button>
-            </li>
+          {mobileInputValue === '' && <li className={s.hero__dropdown_mobile_item} key='all'>
+            <button
+              onClick={() => jobHandler('')}
+            >All jobs</button>
+          </li>}
           {jobs.map(job => (
             <li className={s.hero__dropdown_mobile_item} key={job}>
               <button

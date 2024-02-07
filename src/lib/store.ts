@@ -1,11 +1,19 @@
 
 import { configureStore } from '@reduxjs/toolkit';
-import jobsReducer from './slices/jobSlice';
+import jobReducer from './slices/jobSlice';
+import jobsReducer from './slices/jobsSlice';
+import tagsReducer from './slices/tagsSlice';
+import filteredJobsReducer from './slices/filteredJobsSlice';
+import currentPageReducer from './slices/currentPageSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 const store = configureStore({
   reducer: {
-    job: jobsReducer
+    job: jobReducer,
+    jobs: jobsReducer,
+    tags: tagsReducer,
+    currentPage: currentPageReducer,
+    filteredJobs: filteredJobsReducer,
   },
 });
 
