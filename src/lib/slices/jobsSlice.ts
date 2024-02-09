@@ -24,5 +24,5 @@ export const jobsSlice = createSlice({
 
 export const { setJobs } = jobsSlice.actions;
 
-export const jobsArray = (state: RootState) => state.jobs.jobs;
+// export const jobsArray = (state: RootState) => state.jobs.jobs;
 export default jobsSlice.reducer;

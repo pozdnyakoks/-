@@ -1,3 +1,6 @@
+import Markdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
+import breaks from 'remark-breaks';
 import { TJob } from '@/lib/types';
 import { FollowUs } from '../followUs/FollowUs';
 import { Dollar } from '../icons/dollar';
@@ -5,9 +8,6 @@ import { Door } from '../icons/door';
 import { Location } from '../icons/location';
 import { Tick } from '../icons/tick';
 import s from './Developer.module.scss';
-import Markdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
-import breaks from 'remark-breaks';
 
 import { useState, useEffect } from 'react';
 

@@ -41,7 +41,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     fetchData();
   }
 
-  const pagePropsWithCustomData = { ...pageProps, customData: { records, tags } };
+  const pagePropsWithCustomData = { ...pageProps, customData: { records, tags, isFetched } };
   return (
     <Provider store={store}>
       <div className={urbanist.className}>

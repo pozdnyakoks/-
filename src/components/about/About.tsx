@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import s from './About.module.scss';
 import { FollowUs } from '../followUs/FollowUs';
+import s from './About.module.scss';
 
 export const About = () => {
   return (

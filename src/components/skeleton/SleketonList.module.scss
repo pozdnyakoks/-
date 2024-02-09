@@ -1,0 +1,11 @@
+@import '@/styles/variables.scss';
+
+.skeleton_list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  @include lg {
+    gap: 24px;
+  }
+}

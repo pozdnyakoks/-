@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import s from './FollowUs.module.scss';
 import Link from 'next/link';
+import s from './FollowUs.module.scss';
 
 export const FollowUs = ({ mode }: { mode: 'dark' | 'light' }) => {
   return (

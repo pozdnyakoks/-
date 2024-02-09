@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import s from './Footer.module.scss'
 import { TwitterIcon } from '../icons/twitter'
 import { LinkedinIcon } from '../icons/linkedin'
 import { TelegramIcon } from '../icons/telegram'
+import s from './Footer.module.scss'
 
 
 const socials = [

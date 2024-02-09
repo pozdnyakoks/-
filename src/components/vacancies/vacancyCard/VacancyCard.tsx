@@ -1,13 +1,12 @@
-import s from './VacancyCard.module.scss';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import { Door } from '../../icons/door';
 import { Location } from '../../icons/location';
-import { useDispatch, useSelector } from 'react-redux';
-import { TJob } from '@/lib/types';
 import { RootState } from '@/lib/store';
 import { setfilteredJobs } from '@/lib/slices/filteredJobsSlice';
 import { makeDate } from '@/lib/makeDate';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { TJob } from '@/lib/types';
+import s from './VacancyCard.module.scss';
 
 export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
 
@@ -22,7 +21,6 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
   const tagHandler = (ev: React.MouseEvent, value: string) => {
     ev.preventDefault()
     ev.stopPropagation();
-    console.log('tag')
     const { pathname, query } = router;
 
     if (value !== '') {
@@ -43,14 +41,9 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
   }
 
   const cardHandler = (ev: React.MouseEvent) => {
-    // ev.preventDefault();
-    // router.push(linkMaker());
-
     const target = ev.target as HTMLElement;
     const isButton = target.tagName.toLowerCase() === 'button';
-    console.log(isButton)
 
-    // Если клик произошел не на кнопке, переходим по ссылке
     if (!isButton) {
       router.push(linkMaker());
     }
@@ -60,8 +53,6 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
     ev.preventDefault()
     console.log('link')
   }
-
-
 
   return (
     <div onClick={cardHandler} className={s.card}>

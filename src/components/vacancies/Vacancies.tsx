@@ -1,21 +1,23 @@
 'use client'
 
-import s from './Vacancies.module.scss';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { Tag } from '../tag/Tag';
 import { FollowUs } from '../followUs/FollowUs';
 import { VacancyCard } from './vacancyCard/VacancyCard';
 import { Pagination } from '../pagination/Pagination';
+import { RootState } from '@/lib/store';
+import { Loading } from '@/pages/loading';
 import { ON_PAGE } from '@/utils/constants';
-import { useRouter } from 'next/router';
 import { TJob } from '@/lib/types';
+import s from './Vacancies.module.scss';
 
 export const Vacancies = () => {
 
   const router = useRouter();
   const jobsArray = useSelector((state: RootState) => state.jobs.jobs);
+  const isFetched = useSelector((state: RootState) => state.isFetched.isFetched);
 
   const filtering = (arr: TJob[]) => {
     return arr.slice(
@@ -24,6 +26,7 @@ export const Vacancies = () => {
     );
   };
 
+  const [isLoading, setIsLoading] = useState(!isFetched);
   const [currentTag, setCurrentTag] = useState<string | string[]>(router.query.tag || '');
   const [currentPage, setCurrentPage] = useState<number>(
     router.query.page ? Number(router.query.page) : 1
@@ -31,9 +34,8 @@ export const Vacancies = () => {
   const [filteredArray, setFilteredArray] = useState<TJob[]>(jobsArray);
   const [currentJobsArray, setCurrentJobsArray] = useState<TJob[]>([]);
 
-
-
   useEffect(() => {
+
     setCurrentPage(router.query.page ? Number(router.query.page) : 1);
     setCurrentTag(router.query.tag || '');
 
@@ -57,6 +59,10 @@ export const Vacancies = () => {
     setCurrentJobsArray(filtering(filteredArray));
   }, [currentPage, filteredArray]);
 
+  useEffect(() => {
+    if (isFetched) setIsLoading(false)
+  }, [isFetched])
+
 
 
   return (
@@ -69,7 +75,9 @@ export const Vacancies = () => {
           <Tag value={typeof currentTag === 'object' ? currentTag[0] : currentTag} />
         </div>
       }
-      <div className={s.vacancies}>
+
+      {isLoading ? <Loading /> : <div className={s.vacancies}>
+
         {
           currentJobsArray.slice(0, 2).map((vacancy => (
             <VacancyCard key={vacancy.id} cardInfo={vacancy} />
@@ -85,7 +93,7 @@ export const Vacancies = () => {
           )))
         }
 
-      </div>
+      </div>}
 
       {filteredArray.length > 15 &&
         <Pagination />

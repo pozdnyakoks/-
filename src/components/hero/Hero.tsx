@@ -1,13 +1,13 @@
 'use client';
 
 import { ChangeEvent, useEffect, useState } from 'react';
-import s from './Hero.module.scss'
+import { useRouter } from 'next/router';
+import {  useSelector } from 'react-redux';
 import Image from 'next/image'
 import { useGetWindowDimensions } from '../../utils/use-get-window-dimensions';
 import { mobile } from '../../utils/constants';
-import {  useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
-import { useRouter } from 'next/router';
+import s from './Hero.module.scss'
 
 export const Hero = () => {
   const router = useRouter()

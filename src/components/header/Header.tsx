@@ -1,12 +1,12 @@
 'use client'
 
+import { useEffect, useState } from "react";
 import Image from "next/image"
 import Link from "next/link"
-import s from './Header.module.scss';
 import { useGetWindowDimensions } from "../../utils/use-get-window-dimensions";
 import { mobile } from "../../utils/constants";
-import { useEffect, useState } from "react";
 import { useScrollbarWidth } from "../../utils/scrollbar";
+import s from './Header.module.scss';
 
 export const Header = () => {
   const [isShow, setIsShow] = useState(false);

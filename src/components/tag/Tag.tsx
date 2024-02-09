@@ -1,6 +1,6 @@
-import s from './Tag.module.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import s from './Tag.module.scss';
 
 export const Tag = ({ value }: { value: string }) => {
 const router = useRouter()

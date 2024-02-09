@@ -1,0 +1,116 @@
+@import '@/styles/variables.scss';
+
+.skeleton {
+  border-radius: 16px;
+  padding: 32px;
+  background-color: $grey5;
+
+  @include lg {
+    padding: 24px 24px 32px 24px;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 56px;
+
+    @include lg {
+      flex-direction: column-reverse;
+      gap: 32px;
+
+    }
+
+    .skeleton__cell {
+      &:last-child {
+        width: 112px;
+
+        @include lg {
+          align-self: flex-end;
+        }
+      }
+
+    }
+
+    &_block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+
+      .skeleton__cell {
+        &:first-child {
+          width: 320px;
+
+          @include lg {
+            width: 184px;
+          }
+        }
+
+        &:last-child {
+          width: 160px;
+          height: 24px;
+          align-self: flex-start;
+
+          @include lg {
+            width: 104px;
+          }
+        }
+
+      }
+    }
+
+ 
+
+  }
+
+  &__cell {
+    border-radius: 1000px;
+    background-color: $grey4;
+    height: 32px;
+
+    &_small {
+      height: 24px;
+    }
+  }
+
+  &__tags {
+
+    display: flex;
+    justify-content: space-between;
+
+    @include lg {
+      flex-direction: column-reverse;
+      gap: 16px;
+    }
+
+    .skeleton__cell {
+      width: 176px;
+
+      @include lg {
+        width: 148px;
+        height: 24px;
+      }
+    }
+
+    &_row {
+      display: flex;
+      gap: 8px;
+
+
+      @include lg {
+        padding-top: 16px;
+        border-top: 1px solid $grey4;
+      }
+
+      .skeleton__cell {
+        width: 112px;
+
+        @include lg {
+          width: 240px;
+        }
+      }
+    }
+
+    
+  }
+}

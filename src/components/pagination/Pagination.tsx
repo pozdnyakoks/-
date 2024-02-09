@@ -1,11 +1,12 @@
-import { useSelector } from 'react-redux';
-import s from './Pagination.module.scss';
-import { RootState } from '@/lib/store';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
 import { ON_PAGE, mobile } from '@/utils/constants';
 import { createNumbersArray } from '@/lib/createNumbersArray';
+import { createMobileNumbersArray } from '@/lib/createMobileNumbersArray';
 import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
+import s from './Pagination.module.scss';
 
 export const Pagination = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ export const Pagination = () => {
 
   const [currentPage, setCurrentPage] = useState(router.query.page === undefined ? 1 : Number(router.query.page))
   const [pagesCount, setPageCount] = useState(Math.ceil(jobsArray.length / ON_PAGE))
-  const [pagesToShow, setPagesToShow] = useState<number[]>([]);
+  const [pagesToShow, setPagesToShow] = useState<(number | string)[]>([]);
 
   const paginationHandler = (page: number) => {
     if (currentPage !== page) {
@@ -36,7 +37,7 @@ export const Pagination = () => {
   }, [jobsArray])
 
   useEffect(() => {
-    const pages = createNumbersArray(currentPage, pagesCount, isMobile)
+    const pages = isMobile ? createMobileNumbersArray(currentPage, pagesCount) : createNumbersArray(currentPage, pagesCount)
     setPagesToShow(pages);
   }, [currentPage, pagesCount, isMobile]);
 
@@ -55,49 +56,55 @@ export const Pagination = () => {
       >
         Previous Page
       </button>
-
-
-      {pagesToShow[0] > 2 && (
-        <button className={`
-        ${s.pagination__btn} `} disabled>...</button>
-      )}
-
-
-      {pagesToShow.map(pageNumber => (
+      {isMobile && pagesToShow.map((pageNumber, index) => (
         <button
-          key={pageNumber}
-          className={`
-        ${s.pagination__btn} 
-        ${router.query.page === `${pageNumber}` && s.active}
-        ${router.query.page === undefined && pageNumber === 1 && s.active}
-        
-        `}
-          onClick={() => paginationHandler(pageNumber)}
-        >
+          key={index}
+          className={`${s.pagination__btn} ${router.query.page === `${pageNumber}` && s.active}
+          ${router.query.page === undefined && pageNumber === 1 && s.active}`}
+          disabled={pageNumber === '...'}
+          onClick={() => paginationHandler(typeof pageNumber === 'number' ? pageNumber : 1)}>
           {pageNumber}
         </button>
       ))}
 
 
-       {pagesCount - pagesToShow[pagesToShow.length - 1] > 1 && (
-        <>
+      {!isMobile && <>
+        {Number(pagesToShow[0]) > 2 && (
           <button className={`
+        ${s.pagination__btn} `} disabled>...</button>
+        )}
+        {pagesToShow.map(pageNumber => (
+          <button
+            key={pageNumber}
+            className={`
+        ${s.pagination__btn} 
+        ${router.query.page === `${pageNumber}` && s.active}
+        ${router.query.page === undefined && pageNumber === 1 && s.active}
+        
+        `}
+            onClick={() => paginationHandler(Number(pageNumber))}
+          >
+            {pageNumber}
+          </button>
+        ))}
+        {pagesCount - Number(pagesToShow[pagesToShow.length - 1]) > 1 && (
+          <>
+            <button className={`
         ${s.pagination__btn}         
         `} disabled>...</button>
 
-        <button className={`
+            <button className={`
         ${s.pagination__btn} 
         ${router.query.page === `${pagesCount - 1}` && s.active}        
         `} onClick={() => paginationHandler(pagesCount - 1)}>{pagesCount - 1}</button>
-          <button className={`
+            <button className={`
         ${s.pagination__btn} 
         ${router.query.page === `${pagesCount}` && s.active}
         
         `} onClick={() => paginationHandler(pagesCount)}>{pagesCount}</button>
-        </>
-      )}
-
-
+          </>
+        )}
+      </>}
       <button
         onClick={() => paginationHandler(currentPage + 1)}
         className={s.pagination__btn}
