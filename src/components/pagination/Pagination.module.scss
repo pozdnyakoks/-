@@ -6,6 +6,10 @@
   gap: 8px;
   justify-content: space-between;
 
+  @include lg {
+    margin-top: 16px;
+  }
+
   &__btn {
     font-family: var(--font-inter);
     padding: 16px;
@@ -25,10 +29,16 @@
 
     @include lg {
       padding: 8px 12px;
+      flex: 1 1 auto;
+
     }
 
     &:first-child, &:last-child {
       flex: 1 1 auto;
+
+      @include lg {
+        display: none;
+      }
     }
 
   }

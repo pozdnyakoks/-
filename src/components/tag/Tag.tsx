@@ -1,14 +1,16 @@
-import { useDispatch } from 'react-redux';
 import s from './Tag.module.scss';
 import Image from 'next/image';
-
-import { setJob } from '@/lib/slices/jobSlice';
+import { useRouter } from 'next/router';
 
 export const Tag = ({ value }: { value: string }) => {
-  const dispatch = useDispatch();
+const router = useRouter()
 
   const tagHandler = () => {
-    dispatch(setJob(''))
+
+    router.push({
+      pathname: router.pathname,
+      query: { page: '1' }
+    })
   }
 
   return (

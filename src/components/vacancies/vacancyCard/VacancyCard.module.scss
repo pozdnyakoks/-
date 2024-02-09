@@ -31,6 +31,7 @@
 
     &_title {
       color: $light;
+      max-width: 608px;
       @include bigText;
       @include letter;
 
@@ -52,6 +53,8 @@
     }
 
     &_list {
+      position: relative;
+      z-index: 10;
       margin-top: 30px;
       display: flex;
       gap: 8px;

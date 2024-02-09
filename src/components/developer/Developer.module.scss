@@ -122,35 +122,44 @@
     }
   }
 
-  &__title_list {
-    @include letterMore;
-    @include text;
-    color: $light;
-    margin-bottom: 24px;
-  }
-
-  &__list {
-    margin-bottom: 24px;
-
-    &_item {
-
+  &__desc {
+    p {
       @include text;
       color: $grey2;
-      position: relative;
-      padding-left: 25px;
       @include letterMore;
+      margin-bottom: 16px;
 
-
-      &::before {
-        position: absolute;
-        content: '';
-        width: 2px;
-        height: 2px;
-        border-radius: 1000px;
-        background-color: $grey2;
-        top: 12px;
-        left: 12px;
+      strong {
+        display: block;
+        color: $light;
+        margin-bottom: 24px;
       }
+    }
+
+    ul {
+      margin-bottom: 24px;
+
+      li {
+
+        @include text;
+        color: $grey2;
+        position: relative;
+        padding-left: 25px;
+        @include letterMore;
+
+
+        &::before {
+          position: absolute;
+          content: '';
+          width: 2px;
+          height: 2px;
+          border-radius: 1000px;
+          background-color: $grey2;
+          top: 12px;
+          left: 12px;
+        }
+      }
+
     }
   }
 
@@ -167,8 +176,10 @@
     @include transitionOPacity;
     font-weight: 600;
     min-width: 200px;
+    max-width: 200px;
 
     @include lg {
+      max-width: unset;
       width: 100%;
       margin-top: 32px;
     }

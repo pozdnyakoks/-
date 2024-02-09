@@ -4,7 +4,6 @@ import { Footer } from './footer/Footer';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   
-
   return (
     <>
       <Header />

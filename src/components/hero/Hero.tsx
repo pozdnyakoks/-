@@ -1,17 +1,16 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import s from './Hero.module.scss'
 import Image from 'next/image'
 import { useGetWindowDimensions } from '../../utils/use-get-window-dimensions';
 import { mobile } from '../../utils/constants';
-// import { jobsList } from '@/mock/jobsList';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
-import { setJob } from '@/lib/slices/jobSlice';
-import { setfilteredJobs } from '@/lib/slices/filteredJobsSlice';
+import { useRouter } from 'next/router';
 
 export const Hero = () => {
+  const router = useRouter()
   const jobsList = useSelector(
     (state: RootState) => state.tags.tags
   );
@@ -21,24 +20,33 @@ export const Hero = () => {
   const [jobs, setJobs] = useState(jobsList)
   const { width } = useGetWindowDimensions()
   const isMobile = width < mobile;
-  const dispatch = useDispatch();
-  const currentJob = useSelector(
-    (state: RootState) => state.job.job
-  );
+
 
   const jobsArray = useSelector(
     (state: RootState) => state.jobs.jobs
   );
 
-  const changeJob = (value: string) => {
-    dispatch(setJob(value));
-    if (value !== '') {
-      const filteredJobs = jobsArray.filter(job => {
-        return job.fields.Tags.some(tag => tag.toLowerCase() === value.toLowerCase())
-      })
-      dispatch(setfilteredJobs(filteredJobs));
+  const [currentTag, setCurrentTag] = useState(router.query.tag === undefined ? '' : router.query.tag)
+
+  useEffect(() => {
+    if (router.query.tag !== '' && typeof router.query.tag !== 'object' && router.query.tag !== undefined) {
+      setCurrentTag(router.query.tag)
     } else {
-      dispatch(setfilteredJobs(jobsArray))
+      setCurrentTag('')
+    }
+  }, [router.query])
+
+  const changeJob = (value: string) => {
+    const { pathname, query } = router;
+
+    if (value !== '') {
+      router.push({
+        pathname,
+        query: { page: '1', tag: value }
+      });
+    } else {
+      delete query.tag;
+      router.push({ pathname, query }, undefined, { shallow: true });
     }
   }
 
@@ -84,7 +92,7 @@ export const Hero = () => {
         </span>
         <div className={`${s.hero__custom_select} ${isDropdown && s.active}`}>
           <button className={s.select_button} onClick={dropdownHandler} aria-expanded={isDropdown}>
-            <span className={s.selected_value}>{currentJob === '' ? 'All Jobs' : currentJob}</span>
+            <span className={s.selected_value}>{currentTag === '' ? 'All Jobs' : currentTag}</span>
             <span className={s.arrow}></span>
           </button>
           {!isMobile &&
