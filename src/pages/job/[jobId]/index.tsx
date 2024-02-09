@@ -24,21 +24,31 @@ export default function DeveloperPage({ data }: { data: TJob[] }) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 
-  const jobId = context.params?.jobId || '';
-  const id = typeof jobId !== 'object' ? jobId.split('-').pop() : jobId[0];
-  const filterByFormula = `{Job ID} = ${id}`;
+  try {
+    const jobId = context.params?.jobId || '';
+    const id = typeof jobId !== 'object' ? jobId.split('-').pop() : jobId[0];
+    const filterByFormula = `{Job ID} = ${id}`;
 
-  const response = await fetch(
-    `https://api.airtable.com/v0/${process.env.API_BASE_ID}/Jobs?filterByFormula=${filterByFormula}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.API_TOKEN}`
-    }
-  });
-  const data = await response.json();
+    const response = await fetch(
+      `https://api.airtable.com/v0/${process.env.API_BASE_ID}/Jobs?filterByFormula=${filterByFormula}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.API_TOKEN}`
+      }
+    });
+    const data = await response.json();
 
-  return {
-    props: {
-      data: data.records
-    }
+    return {
+      props: {
+        data: data.records
+      }
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      props: {
+        data: null,
+        error: 'Error fetching data'
+      }
+    };
   }
 }

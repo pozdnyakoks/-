@@ -21,7 +21,7 @@ export default function Home({ customData }: Props) {
   const jobsArray = useSelector(
     (state: RootState) => state.jobs.jobs
   );
-  console.log(customData)
+  // console.log(customData)
 
   const dispatch = useDispatch();
   useEffect(() => {
