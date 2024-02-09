@@ -8,7 +8,7 @@ import { setTags } from "@/lib/slices/tagsSlice";
 import { setJobs } from "@/lib/slices/jobsSlice";
 import { TJob } from "@/lib/types";
 import { Suspense, useEffect } from "react";
-import { Loading } from "./loading";
+import { Loading } from "../components/loading";
 import { setIsFetched } from "@/lib/slices/isFetchedSlice";
 
 type Props = {

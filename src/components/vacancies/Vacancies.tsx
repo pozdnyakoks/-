@@ -8,7 +8,7 @@ import { FollowUs } from '../followUs/FollowUs';
 import { VacancyCard } from './vacancyCard/VacancyCard';
 import { Pagination } from '../pagination/Pagination';
 import { RootState } from '@/lib/store';
-import { Loading } from '@/pages/loading';
+import { Loading } from '@/components/loading';
 import { ON_PAGE } from '@/utils/constants';
 import { TJob } from '@/lib/types';
 import s from './Vacancies.module.scss';
