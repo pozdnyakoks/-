@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TJob } from '../types';
-import { jobsArray } from './jobsSlice';
 
 export interface filteredJobsState {
   filteredJobs: TJob[];
