@@ -7,7 +7,7 @@ import { Tick } from '../icons/tick';
 import s from './Developer.module.scss';
 import Markdown from 'react-markdown'
   
-export const Developer = ({ job }: { job: TJob }) => {
+export const Developer = ({ job }: { job: TJob | null }) => {
   // console.log(job?.fields.Details)
 
 

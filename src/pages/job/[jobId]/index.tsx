@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function DeveloperPage({ data }: { data: TJob[] }) {
-  const [current, setCurrent] = useState<TJob[]>([])
+  const [current, setCurrent] = useState<TJob[] | null>(null)
 
   useEffect(() => {
      setCurrent(data)
@@ -17,7 +17,7 @@ export default function DeveloperPage({ data }: { data: TJob[] }) {
 
 
   return (
-    <Developer job={current[0]} />
+    <Developer job={current === null ? null : current[0]} />
   )
 }
 
