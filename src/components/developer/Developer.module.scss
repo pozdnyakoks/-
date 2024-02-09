@@ -123,31 +123,102 @@
   }
 
   &__desc {
-    p {
-      @include text;
-      color: $grey2;
-      @include letterMore;
-      margin-bottom: 16px;
+    color: $grey2;
 
-      strong {
-        display: block;
-        color: $light;
-        margin-bottom: 24px;
+    a {
+      text-decoration: underline;
+      color: $grey0;
+    }
+
+    br {
+      content: "A" !important;
+      display: block !important;
+      margin-bottom: 10px !important;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $light;
+      @include text;
+      margin-bottom: 16px;
+      margin-top: 16px;
+    }
+
+    li:has(code) {
+      padding-left: 0;
+
+      &::before {
+        display: none;
       }
     }
 
-    ul {
-      margin-bottom: 24px;
+    pre {
+      @include text;
+      padding: 16px;
+      background-color: $grey2;
+      color: $grey5;
+      border-radius: 16px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      // overflow-x: scroll;
+      white-space: pre-wrap;
+      /* Since CSS 2.1 */
+      white-space: -moz-pre-wrap;
+      /* Mozilla, since 1999 */
+      white-space: -pre-wrap;
+      /* Opera 4-6 */
+      white-space: -o-pre-wrap;
+      /* Opera 7 */
+      word-wrap: break-word;
+    }
+
+    p {
+      @include text;
+      @include letterMore;
+      margin-bottom: 16px;
+      margin-top: 10px;
+
+      strong {
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+
+    }
+    strong {
+      color: $light;
+      display: inline-block;
+    }
+
+    ul,
+    ol {
+      // margin-bottom: 24px;
 
       li {
-
         @include text;
         color: $grey2;
+        @include letterMore;
+        margin-bottom: 6px;
+        strong {
+          padding-left: 4px;
+          padding-right: 4px;
+        }
+      }
+    }
+
+    ol {
+      list-style-position: inside;
+      li {
+
+      }
+    }
+    
+    ul {
+      li {
         position: relative;
         padding-left: 25px;
-        @include letterMore;
-
-
         &::before {
           position: absolute;
           content: '';
@@ -159,7 +230,6 @@
           left: 12px;
         }
       }
-
     }
   }
 

@@ -7,20 +7,20 @@ import store from '@/lib/store';
 import { useEffect, useState } from 'react';
 import { TJob } from '@/lib/types';
 import { useRouter } from 'next/router';
-import path from 'path';
 
-const urbanist = Urbanist({ subsets: ["latin"], variable: '--font-urbanist', });
+
+const urbanist = Urbanist({ subsets: ["latin"] });
 // const inter = Inter({ subsets: ["latin"], variable: '--font-inter', });
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [records, setRecords] = useState<TJob[]>([])
   const [tags, setTags] = useState<string[]>([])
   const { pathname } = useRouter()
+  const [isFetched, setIsFetched] = useState(false)
 
   useEffect(() => {
-    
-    if (pathname === '/')  fetchDataOnMount();
-  }, []);
+    if (pathname === '/' && !isFetched) fetchDataOnMount();
+  }, [pathname]);
 
   async function fetchDataOnMount() {
     const fetchData = async () => {
@@ -32,6 +32,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         const { allRecords, uniqueTags } = await response.json();
         setTags(uniqueTags)
         setRecords(allRecords)
+        setIsFetched(true)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -43,7 +44,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const pagePropsWithCustomData = { ...pageProps, customData: { records, tags } };
   return (
     <Provider store={store}>
-      <div className={` ${urbanist.className} `}>
+      <div className={urbanist.className}>
         <RootLayout >
           <Component {...pagePropsWithCustomData} />
         </RootLayout>

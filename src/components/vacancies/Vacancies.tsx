@@ -13,44 +13,50 @@ import { useRouter } from 'next/router';
 import { TJob } from '@/lib/types';
 
 export const Vacancies = () => {
+
   const router = useRouter();
-  const jobsArray = useSelector(
-    (state: RootState) => state.jobs.jobs
-  );
+  const jobsArray = useSelector((state: RootState) => state.jobs.jobs);
+
   const filtering = (arr: TJob[]) => {
     return arr.slice(
       currentPage === 1 ? 0 : (currentPage * ON_PAGE) - ON_PAGE,
-      currentPage === 1 ? ON_PAGE : (currentPage * ON_PAGE))
-  }
-// console.log(jobsArray)
-  const [currentTag, setCurrentTag] = useState(router.query.tag === undefined ? '' : router.query.tag)
-  const [currentPage, setCurrentPage] = useState(router.query.page === undefined ? 1 : Number(router.query.page))
-  const [filteredArray, setFilteredArray] = useState(jobsArray)
-  const [currentJobsArray, setCurrentJobsArray] = useState(filtering(filteredArray))
+      currentPage === 1 ? ON_PAGE : (currentPage * ON_PAGE)
+    );
+  };
+
+  const [currentTag, setCurrentTag] = useState<string | string[]>(router.query.tag || '');
+  const [currentPage, setCurrentPage] = useState<number>(
+    router.query.page ? Number(router.query.page) : 1
+  );
+  const [filteredArray, setFilteredArray] = useState<TJob[]>(jobsArray);
+  const [currentJobsArray, setCurrentJobsArray] = useState<TJob[]>([]);
+
+
 
   useEffect(() => {
-    setCurrentPage(router.query.page === undefined ? 1 : Number(router.query.page))
-    setCurrentTag(router.query.tag === undefined ? '' : router.query.tag)
-  }, [router.query])
+    setCurrentPage(router.query.page ? Number(router.query.page) : 1);
+    setCurrentTag(router.query.tag || '');
+
+    const queryTag: string | string[] = router.query.tag || '';
+    const filteredByTag = jobsArray.filter(job => {
+      if (typeof queryTag === 'string') {
+        return queryTag !== '' ?
+          job.fields.Tags.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) :
+          true;
+      } else {
+        return queryTag.length > 0 ?
+          job.fields.Tags.some(tag => queryTag.includes(tag.toLowerCase())) :
+          true;
+      }
+    });
+
+    setFilteredArray(filteredByTag);
+  }, [router.query, jobsArray]);
 
   useEffect(() => {
-    const queryTag = router.query.tag === undefined ? '' : typeof router.query.tag === 'object' ? router.query.tag[0] : router.query.tag;
+    setCurrentJobsArray(filtering(filteredArray));
+  }, [currentPage, filteredArray]);
 
-    if (queryTag !== '') {
-      const filteredByTag = jobsArray.filter(job =>  job.fields.Tags.some(tag => tag.toLowerCase() === queryTag.toLowerCase()))
-      setFilteredArray(filteredByTag);
-      setCurrentJobsArray(filtering(filteredByTag));
-    }
-    if (queryTag === '') {
-      setFilteredArray(jobsArray)
-      setCurrentJobsArray(jobsArray)
-    }
-  }, [router.query])
-
-  useEffect(() => {
-    setFilteredArray(jobsArray)
-    setCurrentJobsArray(jobsArray)
-  }, [jobsArray])
 
 
   return (

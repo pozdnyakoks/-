@@ -1,4 +1,3 @@
-
 import s from './VacancyCard.module.scss';
 import { Door } from '../../icons/door';
 import { Location } from '../../icons/location';
@@ -21,7 +20,9 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
   const dispatch = useDispatch();
 
   const tagHandler = (ev: React.MouseEvent, value: string) => {
+    ev.preventDefault()
     ev.stopPropagation();
+    console.log('tag')
     const { pathname, query } = router;
 
     if (value !== '') {
@@ -32,45 +33,69 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
     } else {
       dispatch(setfilteredJobs(jobsArray))
 
-      delete query.tag; 
+      delete query.tag;
       router.push({ pathname, query }, undefined, { shallow: true });
     }
   }
 
-  const cardHandler = () => {
-    router.push({
-        pathname: `/job/${(cardInfo.fields['Job Title + Company'].trim().replaceAll(/[^a-zA-Z]+/g, '-'))}-${cardInfo.fields['Job ID']}`
-    })
+  const linkMaker = () => {
+    return `/job/${(cardInfo.fields['Job Title + Company'].trim().replaceAll(/[^a-zA-Z]+/g, '-'))}-${cardInfo.fields['Job ID']}`
   }
+
+  const cardHandler = (ev: React.MouseEvent) => {
+    // ev.preventDefault();
+    // router.push(linkMaker());
+
+    const target = ev.target as HTMLElement;
+    const isButton = target.tagName.toLowerCase() === 'button';
+    console.log(isButton)
+
+    // Если клик произошел не на кнопке, переходим по ссылке
+    if (!isButton) {
+      router.push(linkMaker());
+    }
+  }
+
+  const linkHandler = (ev: React.MouseEvent<HTMLAnchorElement>) => {
+    ev.preventDefault()
+    console.log('link')
+  }
+
+
+
   return (
     <div onClick={cardHandler} className={s.card}>
-      <div className={s.card__block}>
-        <h2 className={s.card__block_title}>{cardInfo.fields['Job Title']}</h2>
-        <p className={s.card__block_desc}>{makeDate(cardInfo.fields.Posted)}</p>
-      </div>
+      <a href={linkMaker()} onClick={(ev) => linkHandler(ev)}>
+        <div className={s.card__content}>
+          <div className={s.card__block}>
+            <h2 className={s.card__block_title}>{cardInfo.fields['Job Title']}</h2>
+            <p className={s.card__block_desc}>{makeDate(cardInfo.fields['Posted Actual Time'])}</p>
+          </div>
 
-      <div className={s.card__icon_block}>
-        <Door />
-        <span>{cardInfo.fields.Company}</span>
-      </div>
-      <div className={s.card__icon_block}>
-        <Location />
-        <span>{cardInfo.fields.Location}</span>
-      </div>
+          <div className={s.card__icon_block}>
+            <Door />
+            <span>{cardInfo.fields.Company}</span>
+          </div>
+          <div className={s.card__icon_block}>
+            <Location />
+            <span>{cardInfo.fields.Location}</span>
+          </div>
 
-      <div className={s.card__block}>
-        <ul className={s.card__block_list}>
-          <li className={`${s.card__block_list_item} ${cardInfo.fields.Status === 'Closed' && s.closed}`}>
-            {cardInfo.fields.Status}
-          </li>
-          {cardInfo.fields.Tags.map(tag => (
-            <li onClick={(ev) => tagHandler(ev, tag)} className={s.card__block_list_item} key='tag'>{tag}</li>
-          ))}
-        </ul>
-        {cardInfo.fields['Salary Short'] &&
-          <span className={s.card__block_year}>{cardInfo.fields['Salary Short']}  / year</span>
-        }
-      </div>
+          <div className={s.card__block}>
+            <div className={s.card__block_list}>
+              <button className={`${s.card__block_list_item} ${cardInfo.fields.Status === 'Closed' && s.closed}`} disabled>
+                {cardInfo.fields.Status}
+              </button>
+              {cardInfo.fields.Tags.map(tag => (
+                <button onClick={(ev) => tagHandler(ev, tag)} className={s.card__block_list_item} key={tag}>{tag}</button>
+              ))}
+            </div>
+            {cardInfo.fields['Salary Short'] &&
+              <span className={s.card__block_year}>{cardInfo.fields['Salary Short']}  / year</span>
+            }
+          </div>
+        </div>
+      </a>
     </div>
   )
 }

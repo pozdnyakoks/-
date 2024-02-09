@@ -6,10 +6,20 @@ import { Location } from '../icons/location';
 import { Tick } from '../icons/tick';
 import s from './Developer.module.scss';
 import Markdown from 'react-markdown'
-  
-export const Developer = ({ job }: { job: TJob | null }) => {
-  // console.log(job?.fields.Details)
+import rehypeRaw from 'rehype-raw'
+import breaks from 'remark-breaks';
 
+import { useState, useEffect } from 'react';
+
+export const Developer = ({ job }: { job: TJob | null }) => {
+  console.log(job?.fields.Details)
+
+  const [details, setDetails] = useState<undefined | string>(job?.fields.Details)
+
+  useEffect(() => {
+    const replaced = job?.fields.Details.replaceAll(' **', '**').replaceAll('** ', '**');
+    setDetails(replaced)
+  }, [job?.fields.Details])
 
   return (
 
@@ -57,8 +67,11 @@ export const Developer = ({ job }: { job: TJob | null }) => {
 
           <h3 className={s.developer__subtitle}>About</h3>
           <div className={s.developer__desc}>
-            <Markdown>
-              {job.fields.Details}
+            <Markdown
+              rehypePlugins={[rehypeRaw]}
+              remarkPlugins={[breaks]}
+            >
+              {details}
             </Markdown>
           </div>
         </>
@@ -70,6 +83,6 @@ export const Developer = ({ job }: { job: TJob | null }) => {
         <FollowUs mode='dark' />
       </div>
 
-    </section>
+    </section >
   )
 }
