@@ -17,6 +17,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [tags, setTags] = useState<string[]>([])
   const { pathname } = useRouter()
   const [isFetched, setIsFetched] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     if (pathname === '/' && !isFetched) fetchDataOnMount();
@@ -27,6 +28,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
       try {
         const response = await fetch('/api/jobs');
         if (!response.ok) {
+          setIsError(true)
           throw new Error('Failed to fetch data');
         }
         const { allRecords, uniqueTags } = await response.json();
@@ -34,6 +36,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         setRecords(allRecords)
         setIsFetched(true)
       } catch (error) {
+        setIsError(true)
         console.error('Error fetching data:', error);
       }
     }
@@ -41,7 +44,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     fetchData();
   }
 
-  const pagePropsWithCustomData = { ...pageProps, customData: { records, tags, isFetched } };
+  const pagePropsWithCustomData = { ...pageProps, customData: { records, tags, isFetched, isError } };
   return (
     <Provider store={store}>
       <div className={urbanist.className}>

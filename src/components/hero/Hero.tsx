@@ -21,11 +21,6 @@ export const Hero = () => {
   const { width } = useGetWindowDimensions()
   const isMobile = width < mobile;
 
-
-  const jobsArray = useSelector(
-    (state: RootState) => state.jobs.jobs
-  );
-
   const [currentTag, setCurrentTag] = useState(router.query.tag === undefined ? '' : router.query.tag)
 
   useEffect(() => {

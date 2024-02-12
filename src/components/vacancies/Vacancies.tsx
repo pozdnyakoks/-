@@ -18,6 +18,7 @@ export const Vacancies = () => {
   const router = useRouter();
   const jobsArray = useSelector((state: RootState) => state.jobs.jobs);
   const isFetched = useSelector((state: RootState) => state.isFetched.isFetched);
+  const isErrorData = useSelector((state: RootState) => state.isError.isError);
 
   const filtering = (arr: TJob[]) => {
     return arr.slice(
@@ -26,6 +27,8 @@ export const Vacancies = () => {
     );
   };
 
+
+  const [isError, setIsError] = useState(isErrorData);
   const [isLoading, setIsLoading] = useState(!isFetched);
   const [currentTag, setCurrentTag] = useState<string | string[]>(router.query.tag || '');
   const [currentPage, setCurrentPage] = useState<number>(
@@ -33,6 +36,7 @@ export const Vacancies = () => {
   );
   const [filteredArray, setFilteredArray] = useState<TJob[]>(jobsArray);
   const [currentJobsArray, setCurrentJobsArray] = useState<TJob[]>([]);
+
 
   useEffect(() => {
 
@@ -61,7 +65,11 @@ export const Vacancies = () => {
 
   useEffect(() => {
     if (isFetched) setIsLoading(false)
-  }, [isFetched])
+    if (isErrorData) {
+      setIsError(true)
+      setIsLoading(false)
+    }
+  }, [isFetched, isErrorData])
 
 
 
@@ -76,15 +84,17 @@ export const Vacancies = () => {
         </div>
       }
 
-      {isLoading ? <Loading /> : <div className={s.vacancies}>
-
+      {isLoading ?
+       <Loading /> : 
+       isError ? <p className={s.vacancies__title} style={{ textAlign: 'center' }}> Oops... Smth went wrong</p> : 
+      <div className={s.vacancies}>
         {
           currentJobsArray.slice(0, 2).map((vacancy => (
             <VacancyCard key={vacancy.id} cardInfo={vacancy} />
           )))
         }
         {
-          currentPage === 1
+          !isError && currentPage === 1
           && < FollowUs mode='light' />
         }
         {
@@ -95,7 +105,7 @@ export const Vacancies = () => {
 
       </div>}
 
-      {filteredArray.length > 15 &&
+      {!isError && filteredArray.length > 15 &&
         <Pagination />
       }
     </section>

@@ -4,6 +4,20 @@
   border-radius: 16px;
   padding: 32px;
   background-color: $grey5;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    top: 0;
+    display: block;
+    position: absolute;
+    width: 128px;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), $grey5, rgba(255, 255, 255, 0));
+    content: "";
+    animation: skeleton-animation 1.25s infinite;
+  }
+
 
   @include lg {
     padding: 24px 24px 32px 24px;
@@ -113,4 +127,24 @@
 
     
   }
+}
+
+@keyframes skeleton-animation
+{
+  
+  0%
+  {
+    right: 100%;
+  }
+  
+  50%
+  {
+    right: -128px;
+  }
+  
+  100%
+  {
+    right: 100%;
+  }
+  
 }
