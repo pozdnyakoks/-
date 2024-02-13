@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '@/lib/store';
 import { ON_PAGE, mobile } from '@/utils/constants';
 import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
 import s from './Pagination.module.scss';
 import { DOTS, usePagination } from '@/utils/usePagination';
-
-export const PaginationComp = () => {
+import { TJob } from '@/lib/types'
+export const PaginationComp = ({ arr }: { arr: TJob[] }) => {
   const router = useRouter();
   const { width } = useGetWindowDimensions();
   const isMobile = width <= mobile
-  const jobsArray = useSelector(
-    (state: RootState) => state.jobs.jobs
-  );
+  // const jobsArray = useSelector(
+  //   (state: RootState) => state.jobs.jobs
+  // );
 
-  
+  const [array, setArray] = useState(arr)
 
   const [currentPage, setCurrentPage] = useState(router.query.page === undefined ? 1 : Number(router.query.page))
-  const [pagesCount, setPageCount] = useState(Math.ceil(jobsArray.length / ON_PAGE))
+  const [pagesCount, setPageCount] = useState(Math.ceil(array?.length / ON_PAGE))
   const paginationEls = usePagination({
     currentPage: currentPage,
     totalCount: pagesCount,
@@ -41,8 +41,9 @@ export const PaginationComp = () => {
   }
 
   useEffect(() => {
-    setPageCount(Math.ceil(jobsArray.length / ON_PAGE))
-  }, [jobsArray])
+    setArray(arr);
+    setPageCount(Math.ceil(arr?.length / ON_PAGE))
+  }, [arr])
 
 
   useEffect(() => {

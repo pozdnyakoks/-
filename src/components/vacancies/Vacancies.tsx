@@ -106,7 +106,7 @@ export const Vacancies = () => {
       </div>}
 
       {!isError && filteredArray.length > 15 &&
-        <PaginationComp />
+        <PaginationComp arr={filteredArray} />
       }
     </section>
   )
