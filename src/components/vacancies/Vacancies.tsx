@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { Tag } from '../tag/Tag';
 import { FollowUs } from '../followUs/FollowUs';
 import { VacancyCard } from './vacancyCard/VacancyCard';
-import { Pagination } from '../pagination/Pagination';
+import { PaginationComp } from '../pagination/Pagination';
 import { RootState } from '@/lib/store';
 import { Loading } from '@/components/loading';
 import { ON_PAGE } from '@/utils/constants';
@@ -106,7 +106,7 @@ export const Vacancies = () => {
       </div>}
 
       {!isError && filteredArray.length > 15 &&
-        <Pagination />
+        <PaginationComp />
       }
     </section>
   )
