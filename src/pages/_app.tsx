@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 
 
 const urbanist = Urbanist({ subsets: ["latin"] });
-// const inter = Inter({ subsets: ["latin"], variable: '--font-inter', });
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [records, setRecords] = useState<TJob[]>([])
