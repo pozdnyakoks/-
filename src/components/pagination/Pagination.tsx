@@ -15,6 +15,8 @@ export const PaginationComp = () => {
     (state: RootState) => state.jobs.jobs
   );
 
+  
+
   const [currentPage, setCurrentPage] = useState(router.query.page === undefined ? 1 : Number(router.query.page))
   const [pagesCount, setPageCount] = useState(Math.ceil(jobsArray.length / ON_PAGE))
   const paginationEls = usePagination({
