@@ -12,7 +12,6 @@ import s from './Developer.module.scss';
 import { useState, useEffect } from 'react';
 
 export const Developer = ({ job }: { job: TJob | null }) => {
-  // console.log(job?.fields.Details)
 
   const [details, setDetails] = useState<undefined | string>(job?.fields.Details)
 

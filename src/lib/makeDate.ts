@@ -1,5 +1,4 @@
 export const makeDate = (date: string) => {
-  // console.log(date)
   const newDate = new Date(date).getTime();
   const now = new Date().getTime();
   const diff = now - newDate;

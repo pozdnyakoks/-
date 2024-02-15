@@ -13,9 +13,6 @@ export default function DeveloperPage({ data }: { data: TJob[] }) {
      setCurrent(data)
   }, [data])
 
-  // console.log(current)
-
-
   return (
     <Developer job={current === null ? null : current[0]} />
   )

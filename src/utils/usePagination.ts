@@ -94,9 +94,6 @@ export const usePagination = ({
       currentPage + siblingCount,
       totalPageCount
     );
-
-    // console.log(leftSiblingIndex)
-    // console.log(rightSiblingIndex)
     /*
       We do not show dots just when there is just one page number to be inserted between the extremes of sibling and the page limits i.e 1 and totalPageCount. Hence we are using leftSiblingIndex > 2 and rightSiblingIndex < totalPageCount - 2
     */
