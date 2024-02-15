@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import {  useSelector } from 'react-redux';
 import Image from 'next/image'
@@ -19,9 +19,29 @@ export const Hero = () => {
   const [mobileInputValue, setMobileInputValue] = useState('');
   const [jobs, setJobs] = useState(jobsList)
   const { width } = useGetWindowDimensions()
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const isMobile = width < mobile;
 
   const [currentTag, setCurrentTag] = useState(router.query.tag === undefined ? '' : router.query.tag)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdown(false);
+      }
+    };
+
+    if (isDropdown) {
+      document.addEventListener('click', handleClickOutside);
+    } else {
+      document.removeEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isDropdown]);
 
   useEffect(() => {
     if (router.query.tag !== '' && typeof router.query.tag !== 'object' && router.query.tag !== undefined) {
@@ -85,13 +105,13 @@ export const Hero = () => {
             height='15'
           />
         </span>
-        <div className={`${s.hero__custom_select} ${isDropdown && s.active}`}>
+        <div ref={dropdownRef} className={`${s.hero__custom_select} ${isDropdown && s.active}`}>
           <button className={s.select_button} onClick={dropdownHandler} aria-expanded={isDropdown}>
             <span className={s.selected_value}>{currentTag === '' ? 'All Jobs' : currentTag}</span>
             <span className={s.arrow}></span>
           </button>
           {!isMobile &&
-            <ul className={s.select_dropdown}>
+            <ul  className={s.select_dropdown}>
               <li key='all' onClick={() => jobHandler('')}>
                 <label>All jobs
                   <input type="radio" value='' name="job" />

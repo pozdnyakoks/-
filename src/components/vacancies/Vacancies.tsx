@@ -27,7 +27,6 @@ export const Vacancies = () => {
     );
   };
 
-
   const [isError, setIsError] = useState(isErrorData);
   const [isLoading, setIsLoading] = useState(!isFetched);
   const [currentTag, setCurrentTag] = useState<string | string[]>(router.query.tag || '');

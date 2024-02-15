@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     let shouldFetchMore = true;
     while (shouldFetchMore) {
-      const response = await fetch(`https://api.airtable.com/v0/${process.env.API_BASE_ID}/Jobs?pageSize=${pageSize}&offset=${offset}`, {
+      const response = await fetch(`https://api.airtable.com/v0/${process.env.API_BASE_ID}/Jobs?pageSize=${pageSize}&offset=${offset}&sortField=Job%20ID&sortDirection=desc`, {
         headers: {
           Authorization: `Bearer ${process.env.API_TOKEN}`
         }
