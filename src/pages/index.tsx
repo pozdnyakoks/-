@@ -45,11 +45,17 @@ export default function Home({ customData }: Props) {
           content="Find jobs and talents in Cosmos Blockchain" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Jobs in Cosmos Blockchain</title>
+        <meta property="og:url" content="https://cosmos-zni2.vercel.app/" />
         <meta property="og:title" content="Jobs in Cosmos Blockchain" />
         <meta property="og:description" content="Find jobs and talents in Cosmos Blockchain" />
-        <meta property="og:image" content="/og.png" />
-        {/* <meta property="og:url" content="https://example.com/page" /> */}
-        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://cosmos-zni2.vercel.app/og.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="cosmos-zni2.vercel.app" />
+        <meta property="twitter:url" content="https://cosmos-zni2.vercel.app/" />
+        <meta name="twitter:title" content="Jobs in Cosmos Blockchain" />
+        <meta name="twitter:description" content="Find jobs and talents in Cosmos Blockchain" />
+        <meta name="twitter:image" content="" />
       </Head>
       <Hero />
       <Vacancies />
