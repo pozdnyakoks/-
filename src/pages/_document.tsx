@@ -10,7 +10,7 @@ class MyDocument extends Document {
           <meta property="og:url" content="https://cosmos-sandy.vercel.app/" />
           <meta property="og:title" content="Jobs in Cosmos Blockchain" />
           <meta property="og:description" content="Find jobs and talents in Cosmos Blockchain" />
-          <meta property="og:image" content="https://cosmos-sandy.vercel.app//og.png" />
+          <meta property="og:image" content="https://cosmos-sandy.vercel.app/og.png" />
 
           <meta name="twitter:card" content="summary_large_image" />
           <meta property="twitter:domain" content="https://cosmos-sandy.vercel.app/" />
