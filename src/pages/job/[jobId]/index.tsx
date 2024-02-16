@@ -28,6 +28,9 @@ export default function DeveloperPage({ data }: { data: TJob[] }) {
           content={current ? current[0].fields.Details : ''} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{makeTitle()}</title>
+        <meta property="og:title" content={makeTitle()} />
+        <meta name="twitter:title" content={makeTitle()} />
+
       </Head>
       <Developer job={current === null ? null : current[0]} />
     </>
