@@ -45,6 +45,11 @@ export default function Home({ customData }: Props) {
           content="Find jobs and talents in Cosmos Blockchain" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Jobs in Cosmos Blockchain</title>
+        <meta property="og:image" content="<generated>" />
+        <meta property="og:image:type" content="<generated>" />
+        <meta property="og:image:width" content="<generated>" />
+        <meta property="og:image:height" content="<generated>" />
+        <meta property="og:image:alt" content="Find jobs and talents in Cosmos Blockchain" />
       </Head>
       <Hero />
       <Vacancies />
