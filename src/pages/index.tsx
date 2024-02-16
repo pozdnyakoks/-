@@ -10,6 +10,7 @@ import { TJob } from "@/lib/types";
 import { useEffect } from "react";
 import { setIsFetched } from "@/lib/slices/isFetchedSlice";
 import { setIsError } from "@/lib/slices/isErrorSlice";
+import Head from "next/head";
 
 type Props = {
   customData: {
@@ -39,6 +40,12 @@ export default function Home({ customData }: Props) {
 
   return (
     <>
+      <Head>
+        <meta name="description"
+          content="Find jobs and talents in Cosmos Blockchain" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jobs in Cosmos Blockchain</title>
+      </Head>
       <Hero />
       <Vacancies />
     </>

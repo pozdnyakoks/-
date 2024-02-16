@@ -1,20 +1,36 @@
 import { Developer } from "@/components/developer/Developer";
-import { RootState } from "@/lib/store";
 import { TJob } from "@/lib/types";
 import { GetServerSidePropsContext } from "next";
-import { useRouter } from "next/router";
+import Head from "next/head";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 export default function DeveloperPage({ data }: { data: TJob[] }) {
   const [current, setCurrent] = useState<TJob[] | null>(null)
 
   useEffect(() => {
-     setCurrent(data)
+
+    setCurrent(data)
+
   }, [data])
 
+  const makeTitle = () => {
+    if (current !== null) {
+      const cur = current[0].fields
+      const newTitle = `${cur['Job Title + Company']} - ${cur.Location}`
+      return cur["Salary Short"] ? newTitle + ` - ${cur['Salary Short']}` : newTitle
+    }
+  }
+
   return (
-    <Developer job={current === null ? null : current[0]} />
+    <>
+      <Head>
+        <meta name="description"
+          content={current ? current[0].fields.Details : ''} />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{makeTitle()}</title>
+      </Head>
+      <Developer job={current === null ? null : current[0]} />
+    </>
   )
 }
 

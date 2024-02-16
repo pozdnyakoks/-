@@ -70,8 +70,6 @@ export const Vacancies = () => {
     }
   }, [isFetched, isErrorData])
 
-
-
   return (
     <section className={`${s.container} container`}>
       <p className={s.vacancies__title}>

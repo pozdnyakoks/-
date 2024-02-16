@@ -10,10 +10,14 @@ import { Tick } from '../icons/tick';
 import s from './Developer.module.scss';
 
 import { useState, useEffect } from 'react';
+import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
+import { mobile } from '@/utils/constants';
 
 export const Developer = ({ job }: { job: TJob | null }) => {
 
   const [details, setDetails] = useState<undefined | string>(job?.fields.Details)
+  const { width } = useGetWindowDimensions();
+  const isMobile = width < mobile
 
   useEffect(() => {
     const replaced = job?.fields.Details.replaceAll(' **', '**').replaceAll('** ', '**');
@@ -40,26 +44,31 @@ export const Developer = ({ job }: { job: TJob | null }) => {
             </div>
 
 
-            {<div className={s.developer__grid_cell}>
+            {job.fields['Salary Short'] && !isMobile && <div className={s.developer__grid_cell}>
               <Dollar />
-              <span>{job.fields['Salary Short'] ? `${job.fields['Salary Short']} / year` : '-'}</span>
-
+              <span>{job.fields['Salary Short']} / year</span>
             </div>
             }
 
-            {job.fields.Status === 'Closed' && <div className={`${s.developer__grid_cell} ${s.developer__grid_cell_closed}`}>
+            {job.fields.Status === 'Closed' && <div className={`${s.developer__grid_cell} ${s.developer__grid_cell_closed} ${!job.fields['Salary Short'] && s.developer__grid_cell_full}`}>
               <Tick />
               <span>{job.fields.Status}</span>
             </div>}
 
             {job.fields.Status !== 'Closed' &&
               <div className={s.developer__grid_open}>
-                <div className={`${s.developer__grid_cell} ${s.developer__grid_cell_open}`}>
+                <div className={`${s.developer__grid_cell} ${s.developer__grid_cell_open} ${!job.fields['Salary Short'] && s.developer__grid_cell_full}`}>
                   <Tick />
                   <span>Open</span>
                 </div>
-                <button className={s.developer__grid_cell_btn}>Apply</button>
+                {job.fields['Salary Short'] && <button className={s.developer__grid_cell_btn}>Apply</button>}
               </div>
+            }
+
+            {!job.fields['Salary Short'] && job.fields.Status !== 'Closed' &&
+              // <div className={s.developer__grid_cell}>
+                <button className={s.developer__grid_cell_btn}>Apply</button>
+              // </div>
             }
 
           </div>

@@ -51,7 +51,7 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
 
   const linkHandler = (ev: React.MouseEvent<HTMLAnchorElement>) => {
     ev.preventDefault()
-    console.log('link')
+    // console.log('link')
   }
 
   return (

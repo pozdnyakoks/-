@@ -30,13 +30,8 @@ export const Footer = () => {
         <p>
           ©incosmos.work, {date.getFullYear()}
         </p>
-        <p>
-          <span className={s.footer__color_text}>
-            Designed by {' '}
-          </span>
-          <Link target='_blank' href='https://penfell.com/'>
-            Penfell
-          </Link>
+        <p className={s.footer__color_text}>
+          Penfell LLP, Palliser House, Second Floor, Palliser Road, London, Greater London, United Kingdom, W14 9EB
         </p>
       </div>
 

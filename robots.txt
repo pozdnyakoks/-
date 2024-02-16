@@ -1,0 +1,11 @@
+User-agent: Yandex
+Allow: /
+
+User-agent: Google
+Allow: /
+
+User-agent: *
+Allow: /
+
+sitemap: https://incosmos.work/sitemap.xml
+

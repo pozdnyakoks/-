@@ -1,6 +1,9 @@
 export const makeDate = (date: string) => {
   const newDate = new Date(date).getTime();
   const now = new Date().getTime();
+
+  // console.log(new Date(date))
+  // console.log(new Date())
   const diff = now - newDate;
 
   const millisecondsPerSecond = 1000;
@@ -12,19 +15,16 @@ export const makeDate = (date: string) => {
   const hours = Math.floor((diff % millisecondsPerDay) / millisecondsPerHour);
   const minutes = Math.floor((diff % millisecondsPerHour) / millisecondsPerMinute);
 
-  if (days === 30) {
-    return `1 months ago`
-  }
-  if (days > 30 ) {
+  if (days >= 60) {
     return `${Math.floor(days/30)} months ago`
+  }
+  if (days > 30 && days < 60) {
+    return `1 month ago`
   }
   if (days < 30 && days > 1 ) {
     return `${days} days ago`
   }
-  if (hours > 24) {
-    return `${days} days ago`
-  }
-  if (hours >= 24 && hours < 48) {
+  if (days == 1) {
     return `1 day ago`
   }
   if (hours < 24 && hours > 1) {
