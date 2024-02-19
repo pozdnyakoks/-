@@ -1,0 +1,64 @@
+@import '@/styles/variables.scss';
+
+.postJob {
+
+  &__title {
+    padding: 64px 0;
+    @include title;
+    color: $light;
+    text-align: center;
+
+    
+    @include lg {
+      padding: 32px 0;
+      text-align: left;
+    }
+  }
+  &__success {
+    max-width: 848px;
+    margin: 0 auto;
+
+    @include lg {
+      max-width: 288px;
+      margin: 0;
+    }
+  }
+
+  &__block {
+    max-width: 628px;
+    margin: 0 auto 96px;
+
+    @include lg {
+      margin-bottom: 56px;
+    }
+
+  }
+
+  &__desc {
+    @include text;
+    @include letterMore;
+    color: $light;
+    margin-bottom: 56px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+
+    &_btn {
+      padding: 12px 24px 12px 24px;
+      border-radius: 1000px;
+      background-color: $light;
+      width: 100%;
+      text-align: center;
+      @include text;
+      @include letterMore;
+      @include transitionOPacity;
+
+      @include lg {
+        margin-top: -24px;
+      }
+    }
+  }
+}

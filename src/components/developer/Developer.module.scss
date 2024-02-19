@@ -70,11 +70,11 @@
       }
 
       &_closed {
-        color: #FF9494;
+        color: $disruptive;
 
         svg {
           path {
-            fill: #FF9494;
+            fill: $disruptive;
           }
         }
       }

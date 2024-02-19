@@ -38,7 +38,7 @@ export const Header = () => {
           <ul className={s.header__list}>
             <li><Link className={s.header__link} href='/'>Jobs</Link></li>
             <li><Link className={s.header__link} href='/about'>About</Link></li>
-            <li><Link className={`${s.header__link} ${s.header__link_last}`} href='/'>Post a Job</Link></li>
+            <li><Link className={`${s.header__link} ${s.header__link_last}`} href='/create'>Post a Job</Link></li>
           </ul>
         </nav>
       }
@@ -52,7 +52,7 @@ export const Header = () => {
         <ul className={s.header__list}>
           <li><Link onClick={closeMenu} className={s.header__link} href='/'>Jobs</Link></li>
           <li><Link onClick={closeMenu} className={s.header__link} href='/about'>About</Link></li>
-          <li><Link onClick={closeMenu} className={`${s.header__link} ${s.header__link_last}`} href='/'>Post a Job</Link></li>
+          <li><Link onClick={closeMenu} className={`${s.header__link} ${s.header__link_last}`} href='/create'>Post a Job</Link></li>
         </ul>
       </div>}
     </header>
