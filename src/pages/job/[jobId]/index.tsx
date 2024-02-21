@@ -32,12 +32,12 @@ export default function DeveloperPage({ data }: { data: TJob[] }) {
           content={makeTitle()} />
         <meta property="og:title" content={makeTitle()} />
         <meta name="twitter:title" content={makeTitle()} />
-          <meta property="og:description" content="Find jobs and talents in Cosmos Blockchain" />
+          <meta property="og:description" content={current ? current[0].fields.Details : ''} />
           <meta property="og:image" content="https://cosmos-sandy.vercel.app/og.png" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta property="twitter:domain" content="https://cosmos-sandy.vercel.app/" />
           <meta property="twitter:url" content="https://cosmos-sandy.vercel.app/" />
-          <meta name="twitter:description" content="Find jobs and talents in Cosmos Blockchain" />
+          <meta name="twitter:description" content={current ? current[0].fields.Details : ''} />
           <meta name="twitter:image" content="" />
       </Head>
       <Developer job={current === null ? null : current[0]} />
