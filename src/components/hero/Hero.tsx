@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Image from 'next/image'
 import { useGetWindowDimensions } from '../../utils/use-get-window-dimensions';
 import { mobile } from '../../utils/constants';
@@ -24,6 +24,10 @@ export const Hero = () => {
   const isMobile = width < mobile;
 
   const [currentTag, setCurrentTag] = useState(router.query.tag === undefined ? '' : router.query.tag)
+
+  useEffect(() => {
+    setJobs(jobsList)
+  }, [jobsList])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -68,7 +72,7 @@ export const Hero = () => {
   const mobileInputHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     setMobileInputValue(ev.target.value);
     const filtered = jobsList.filter
-      (job => job.toLowerCase().includes(ev.target.value.toLowerCase()))
+      (job => job.toLowerCase().startsWith(ev.target.value.toLowerCase()))
     setJobs(filtered);
   }
 
@@ -111,7 +115,7 @@ export const Hero = () => {
             <span className={s.arrow}></span>
           </button>
           {!isMobile &&
-            <ul  className={s.select_dropdown}>
+            <ul className={s.select_dropdown}>
               <li key='all' onClick={() => jobHandler('')}>
                 <label>All jobs
                   <input type="radio" value='' name="job" />
