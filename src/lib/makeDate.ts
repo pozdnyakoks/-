@@ -2,8 +2,6 @@ export const makeDate = (date: string) => {
   const newDate = new Date(date).getTime();
   const now = new Date().getTime();
 
-  // console.log(new Date(date))
-  // console.log(new Date())
   const diff = now - newDate;
 
   const millisecondsPerSecond = 1000;

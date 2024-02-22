@@ -1,21 +1,22 @@
 'use client'
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import { Tag } from '../tag/Tag';
-import { FollowUs } from '../followUs/FollowUs';
-import { VacancyCard } from './vacancyCard/VacancyCard';
-import { PaginationComp } from '../pagination/Pagination';
 import { RootState } from '@/lib/store';
 import { Loading } from '@/components/loading';
 import { ON_PAGE } from '@/utils/constants';
 import { TJob } from '@/lib/types';
+import { Tag } from '../tag/Tag';
+import { FollowUs } from '../followUs/FollowUs';
+import { VacancyCard } from './vacancyCard/VacancyCard';
+import { PaginationComp } from '../pagination/Pagination';
 import s from './Vacancies.module.scss';
+
 
 export const Vacancies = () => {
 
-  const router = useRouter();
+  const router = useSearchParams();
   const jobsArray = useSelector((state: RootState) => state.jobs.jobs);
   const isFetched = useSelector((state: RootState) => state.isFetched.isFetched);
   const isErrorData = useSelector((state: RootState) => state.isError.isError);
@@ -29,34 +30,29 @@ export const Vacancies = () => {
 
   const [isError, setIsError] = useState(isErrorData);
   const [isLoading, setIsLoading] = useState(!isFetched);
-  const [currentTag, setCurrentTag] = useState<string | string[]>(router.query.tag || '');
+  const [currentTag, setCurrentTag] = useState<string | string[]>(router.get('tag') || '');
   const [currentPage, setCurrentPage] = useState<number>(
-    router.query.page ? Number(router.query.page) : 1
+    router.get('page') ? Number(router.get('page')) : 1
   );
   const [filteredArray, setFilteredArray] = useState<TJob[]>(jobsArray);
   const [currentJobsArray, setCurrentJobsArray] = useState<TJob[]>([]);
 
-
   useEffect(() => {
 
-    setCurrentPage(router.query.page ? Number(router.query.page) : 1);
-    setCurrentTag(router.query.tag || '');
+    setCurrentPage(router.get('page') ? Number(router.get('page')) : 1);
+    setCurrentTag(router.get('tag ') || '');
 
-    const queryTag: string | string[] = router.query.tag || '';
+    const queryTag: string = router.get('tag') || '';
     const filteredByTag = jobsArray.filter(job => {
-      if (typeof queryTag === 'string') {
-        return queryTag !== '' ?
-          job.fields.Tags.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) :
-          true;
-      } else {
-        return queryTag.length > 0 ?
-          job.fields.Tags.some(tag => queryTag.includes(tag.toLowerCase())) :
-          true;
-      }
+
+      return queryTag !== '' ?
+        job.fields.Tags.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) :
+        true;
+
     });
 
     setFilteredArray(filteredByTag);
-  }, [router.query, jobsArray]);
+  }, [router, jobsArray]);
 
   useEffect(() => {
     setCurrentJobsArray(filtering(filteredArray));
@@ -82,25 +78,25 @@ export const Vacancies = () => {
       }
 
       {isLoading ?
-       <Loading /> : 
-       isError ? <p className={s.vacancies__title} style={{ textAlign: 'center' }}> Oops... Smth went wrong</p> : 
-      <div className={s.vacancies}>
-        {
-          currentJobsArray.slice(0, 2).map((vacancy => (
-            <VacancyCard key={vacancy.id} cardInfo={vacancy} />
-          )))
-        }
-        {
-          !isError && currentPage === 1
-          && < FollowUs mode='light' />
-        }
-        {
-          currentJobsArray.slice(2, 15).map((vacancy => (
-            <VacancyCard key={vacancy.id} cardInfo={vacancy} />
-          )))
-        }
+        <Loading /> :
+        isError ? <p className={s.vacancies__title} style={{ textAlign: 'center' }}> Oops... Smth went wrong</p> :
+          <div className={s.vacancies}>
+            {
+              currentJobsArray.slice(0, 2).map((vacancy => (
+                <VacancyCard key={vacancy.id} cardInfo={vacancy} />
+              )))
+            }
+            {
+              !isError && currentPage === 1
+              && < FollowUs mode='light' />
+            }
+            {
+              currentJobsArray.slice(2, 15).map((vacancy => (
+                <VacancyCard key={vacancy.id} cardInfo={vacancy} />
+              )))
+            }
 
-      </div>}
+          </div>}
 
       {!isError && filteredArray.length > 15 &&
         <PaginationComp arr={filteredArray} />

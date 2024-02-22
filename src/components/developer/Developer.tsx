@@ -1,3 +1,5 @@
+'use client'
+
 import Markdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import breaks from 'remark-breaks';

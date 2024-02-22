@@ -1,16 +1,13 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import s from './Tag.module.scss';
 
 export const Tag = ({ value }: { value: string }) => {
-const router = useRouter()
+  const router = useRouter()
+  const pathname = usePathname();
 
   const tagHandler = () => {
-
-    router.push({
-      pathname: router.pathname,
-      query: { page: '1' }
-    })
+    router.push(pathname + '?page=1')
   }
 
   return (

@@ -1,14 +1,17 @@
-import { TJob } from "@/lib/types";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { TJob } from '@/lib/types';
 
-export const getVacancies = async () => {
-
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const pageSize = 100;
   let offset = '';
   let allRecords: TJob[] = [];
+
   try {
     let shouldFetchMore = true;
     while (shouldFetchMore) {
-      const response = await fetch(`https://api.airtable.com/v0/${process.env.API_BASE_ID}/Jobs?pageSize=${pageSize}&offset=${offset}`, {
+      const response = await 
+      fetch(
+        `https://api.airtable.com/v0/${process.env.API_BASE_ID}/Jobs?pageSize=${pageSize}&offset=${offset}&sortField=Job%20ID&sortDirection=desc`, {
         headers: {
           Authorization: `Bearer ${process.env.API_TOKEN}`
         }
@@ -26,24 +29,11 @@ export const getVacancies = async () => {
         tags.push(...record.fields.Tags);
       }
       return tags;
-    }, []).filter((tag, index, array) => array.indexOf(tag) === index).sort()
+    }, []).filter((tag, index, array) => array.indexOf(tag) === index).sort();
 
-
-    return {
-      props: {
-        allRecords,
-        uniqueTags
-      }
-    };
+    res.status(200).json({ allRecords, uniqueTags });
   } catch (error) {
     console.error('Error fetching records:', error);
-
-    return {
-      props: {
-        allRecords: [],
-        uniqueTags: [],
-      }
-    };
+    res.status(500).json({ error: 'Error fetching records' });
   }
-
 }

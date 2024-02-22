@@ -1,16 +1,18 @@
-import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Door } from '../../icons/door';
-import { Location } from '../../icons/location';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { RootState } from '@/lib/store';
 import { setfilteredJobs } from '@/lib/slices/filteredJobsSlice';
 import { makeDate } from '@/lib/makeDate';
 import { TJob } from '@/lib/types';
+import { Door } from '../../icons/door';
+import { Location } from '../../icons/location';
 import s from './VacancyCard.module.scss';
 
 export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
 
   const router = useRouter()
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const jobsArray = useSelector(
     (state: RootState) => state.jobs.jobs
@@ -21,18 +23,12 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
   const tagHandler = (ev: React.MouseEvent, value: string) => {
     ev.preventDefault()
     ev.stopPropagation();
-    const { pathname, query } = router;
 
     if (value !== '') {
-      router.push({
-        pathname,
-        query: { page: '1', tag: value }
-      });
+      router.push(pathname + '?' + `page=1&tag=${value}`);
     } else {
       dispatch(setfilteredJobs(jobsArray))
-
-      delete query.tag;
-      router.push({ pathname, query }, undefined, { shallow: true });
+      router.push(pathname + '?' + `page=${searchParams.get('page') || 1}`);
     }
   }
 
@@ -51,7 +47,6 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
 
   const linkHandler = (ev: React.MouseEvent<HTMLAnchorElement>) => {
     ev.preventDefault()
-    // console.log('link')
   }
 
   return (

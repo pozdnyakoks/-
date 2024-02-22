@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/skeleton/Skeleton"
+import { Skeleton } from "./Skeleton"
 import s from './SleketonList.module.scss'
 
 export const SkeletonList = () => {

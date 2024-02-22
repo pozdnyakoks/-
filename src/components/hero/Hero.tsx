@@ -1,33 +1,78 @@
 'use client';
 
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image'
-import { useGetWindowDimensions } from '../../utils/use-get-window-dimensions';
-import { mobile } from '../../utils/constants';
+import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
+import { mobile } from '@/utils/constants';
 import { RootState } from '@/lib/store';
+import { TJob } from '@/lib/types';
+import { setTags } from '@/lib/slices/tagsSlice';
+import { setIsFetched } from '@/lib/slices/isFetchedSlice';
+import { setIsError } from '@/lib/slices/isErrorSlice';
+import { setJobs } from '@/lib/slices/jobsSlice';
+import { getVacancies } from '@/app/api/getVacancies';
 import s from './Hero.module.scss'
 
 export const Hero = () => {
-  const router = useRouter()
-  const jobsList = useSelector(
+
+  const [records, setRecords] = useState<TJob[]>([])
+  const [tagsAr, setTagsAr] = useState<string[]>([])
+  const pathname= usePathname();
+  const [isFetchedS, setIsFetchedS] = useState(false)
+  const [isErrorS, setIsErrorS] = useState(false)
+
+  useEffect(() => {
+    if (pathname === '/' && !isFetchedS) fetchDataOnMount();
+  }, [pathname]);
+
+  async function fetchDataOnMount() {
+    const fetchData = async () => {
+      try {
+        const response = await getVacancies();
+        const { allRecords, uniqueTags } = response.props;
+        setTagsAr(uniqueTags)
+        setRecords(allRecords)
+        setIsFetchedS(true)
+      } catch (error) {
+        setIsErrorS(true)
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchData();
+  }
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setTags(tagsAr));
+    dispatch(setJobs(records))
+    dispatch(setIsFetched(isFetchedS))
+    dispatch(setIsError(isErrorS))
+  }, [records, tagsAr])
+
+
+  const searchParams = useSearchParams()
+  const router = useRouter();
+  const jobsListState = useSelector(
     (state: RootState) => state.tags.tags
   );
+
   const [isDropdown, setIsDropdown] = useState(false);
   const [isDropdownMobile, setIsDropdownMobile] = useState(false);
   const [mobileInputValue, setMobileInputValue] = useState('');
-  const [jobs, setJobs] = useState(jobsList)
+  const [jobsCur, setJobsCur] = useState(jobsListState)
   const { width } = useGetWindowDimensions()
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const isMobile = width < mobile;
 
-  const [currentTag, setCurrentTag] = useState(router.query.tag === undefined ? '' : router.query.tag)
+  const [currentTag, setCurrentTag] = useState(searchParams.get('tag') === null ? '' : searchParams.get('tag'))
 
   useEffect(() => {
-    setJobs(jobsList)
-  }, [jobsList])
+    setJobsCur(jobsListState)
+  }, [jobsListState])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -48,32 +93,27 @@ export const Hero = () => {
   }, [isDropdown]);
 
   useEffect(() => {
-    if (router.query.tag !== '' && typeof router.query.tag !== 'object' && router.query.tag !== undefined) {
-      setCurrentTag(router.query.tag)
+    if (searchParams.get('tag') !== '' && typeof searchParams.get('tag') !== 'object' && searchParams.get('tag') !== null) {
+      setCurrentTag(searchParams.get('tag'))
     } else {
       setCurrentTag('')
     }
-  }, [router.query])
+  }, [searchParams])
 
   const changeJob = (value: string) => {
-    const { pathname, query } = router;
-
     if (value !== '') {
-      router.push({
-        pathname,
-        query: { page: '1', tag: value }
-      });
+      router.push(pathname + '?' + 'page=1' + '&' + 'tag=' + value)
     } else {
-      delete query.tag;
-      router.push({ pathname, query }, undefined, { shallow: true });
+      router.push(pathname + '?' + 'page=' + (searchParams.get('page') || '1'))
     }
   }
 
   const mobileInputHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     setMobileInputValue(ev.target.value);
-    const filtered = jobsList.filter
+    const filtered = jobsListState.filter
       (job => job.toLowerCase().startsWith(ev.target.value.toLowerCase()))
-    setJobs(filtered);
+    setJobsCur(filtered);
+
   }
 
   const dropdownHandler = () => {
@@ -121,7 +161,7 @@ export const Hero = () => {
                   <input type="radio" value='' name="job" />
                 </label>
               </li>
-              {jobsList.map(job => (
+              {jobsListState.map(job => (
                 <li key={job} onClick={() => jobHandler(job)}>
                   <label>{job}
                     <input type="radio" value={job} name="job" />
@@ -159,7 +199,7 @@ export const Hero = () => {
               onClick={() => jobHandler('')}
             >All jobs</button>
           </li>}
-          {jobs.map(job => (
+          {jobsCur.map(job => (
             <li className={s.hero__dropdown_mobile_item} key={job}>
               <button
                 onClick={() => jobHandler(job)}

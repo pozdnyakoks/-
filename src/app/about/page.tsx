@@ -1,5 +1,5 @@
-import { About } from "@/components/about/About";
 import Head from "next/head";
+import { About } from "@/components/about/About";
 
 export default function AboutPage() {
 

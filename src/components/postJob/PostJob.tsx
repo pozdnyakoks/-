@@ -1,7 +1,9 @@
+'use client'
+
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { Input } from '../input/Input';
 import s from './PostJob.module.scss';
-import { FormProvider, useForm } from 'react-hook-form';
 
 const inputs = [
   {

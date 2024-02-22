@@ -1,23 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-// import { useSelector } from 'react-redux';
-// import { RootState } from '@/lib/store';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { DOTS, usePagination } from '@/utils/usePagination';
 import { ON_PAGE, mobile } from '@/utils/constants';
 import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
-import s from './Pagination.module.scss';
-import { DOTS, usePagination } from '@/utils/usePagination';
 import { TJob } from '@/lib/types'
+import s from './Pagination.module.scss';
+
 export const PaginationComp = ({ arr }: { arr: TJob[] }) => {
   const router = useRouter();
+  const pathname = usePathname()
   const { width } = useGetWindowDimensions();
   const isMobile = width <= mobile
-  // const jobsArray = useSelector(
-  //   (state: RootState) => state.jobs.jobs
-  // );
 
+const searchParams = useSearchParams();
   const [array, setArray] = useState(arr)
 
-  const [currentPage, setCurrentPage] = useState(router.query.page === undefined ? 1 : Number(router.query.page))
+  const [currentPage, setCurrentPage] = useState(searchParams.get('page') === null ? 1 : Number(searchParams.get('page')))
   const [pagesCount, setPageCount] = useState(Math.ceil(array?.length / ON_PAGE))
   const paginationEls = usePagination({
     currentPage: currentPage,
@@ -26,16 +24,12 @@ export const PaginationComp = ({ arr }: { arr: TJob[] }) => {
     width: width,
   })
 
+
   const paginationHandler = (page: number | string) => {
     if (typeof page === 'number') {
       if (currentPage !== page) {
-        const currentParams = { ...router.query };
-        const newParams = { ...currentParams, page };
-
-        router.push({
-          pathname: router.pathname,
-          query: newParams
-        });
+        const tag = searchParams.get('tag');
+        router.push(`${pathname}?page=${page}${tag === null ? '' : `&tag=${tag}`}`)
       }
     }
   }
@@ -47,8 +41,8 @@ export const PaginationComp = ({ arr }: { arr: TJob[] }) => {
 
 
   useEffect(() => {
-    setCurrentPage(router.query.page === undefined ? 1 : Number(router.query.page))
-  }, [router.query.page])
+    setCurrentPage(searchParams.get('page') === null ? 1 : Number(searchParams.get('page')))
+  }, [searchParams])
 
 
   return (

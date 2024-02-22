@@ -9,7 +9,6 @@ export async function getVacancies() {
     });
     const base = Airtable.base('appuWSjhfaZZZfaRo');
     base('Jobs').select({
-      // Selecting the first 3 records in Grid view:
       maxRecords: 15,
       view: "Grid view"
     }).eachPage(function page(records, fetchNextPage) {
@@ -17,7 +16,6 @@ export async function getVacancies() {
       records.forEach(record => {
         fetchedJobs.push(record.fields);
       });
-      // setJobs(prevJobs => [...prevJobs, ...fetchedJobs]);
       fetchNextPage();
       return fetchedJobs;
     });

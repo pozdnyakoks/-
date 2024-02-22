@@ -1,4 +1,4 @@
-import { SkeletonList } from "@/components/skeleton/SkeletonList"
+import { SkeletonList } from "./skeleton/SkeletonList"
 
 export const Loading = () => {
   return (
