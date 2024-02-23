@@ -5,10 +5,10 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About Incosmos.Work",
   description: "The only job board in Cosmos Blockchain",
-  openGraph: { images: ['/og.png'] },
-  icons: {
-    icon: '/favicon.ico',
-  }
+  // openGraph: { images: ['/og.png'] },
+  // icons: {
+  //   icon: '/favicon.ico',
+  // }
 };
 
 export default function AboutPage() {

@@ -7,6 +7,7 @@ import { TJob } from '@/lib/types';
 import { Door } from '../../icons/door';
 import { Location } from '../../icons/location';
 import s from './VacancyCard.module.scss';
+import { setIsFetched } from '@/lib/slices/isFetchedSlice';
 
 export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
 
@@ -23,7 +24,6 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
   const tagHandler = (ev: React.MouseEvent, value: string) => {
     ev.preventDefault()
     ev.stopPropagation();
-
     if (value !== '') {
       router.push(pathname + '?' + `page=1&tag=${value}`);
     } else {

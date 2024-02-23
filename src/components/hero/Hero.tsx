@@ -109,7 +109,7 @@ export const Hero = (
 
   const changeJob = (value: string) => {
     if (value !== '') {
-      router.push(pathname + '?' + 'page=1' + '&' + 'tag=' + value)
+      router.push(pathname + '?' + 'page=1' + '&' + 'tag=' + value,  )
     } else {
       router.push(pathname + '?' + 'page=' + (searchParams.get('page') || '1'))
     }

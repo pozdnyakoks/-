@@ -1,8 +1,9 @@
 import { Hero } from "@/components/hero/Hero";
 import { Vacancies } from "@/components/vacancies/Vacancies";
-import { Suspense } from "react";
+import { Suspense, useMemo } from "react";
 import { getVacancies } from "./api/getVacancies";
 import { Loading } from "@/components/loading";
+import { useSearchParams } from "next/navigation";
 
 const getData = async () => {
   const response = await getVacancies();
@@ -13,20 +14,16 @@ const getData = async () => {
   };
 };
 
-// export async function load() {
-//   const data = await getVacancies();
-//   return { data };
-// }
-
 export default function Home() {
+
+  
   return (
     <main>
       <Suspense>
-
         <Hero />
       </Suspense>
       <Suspense fallback={<Loading />}>
-        <VacanciesWrapper />
+        <VacanciesWrapper  />
       </Suspense>
     </main>
   );
@@ -34,7 +31,7 @@ export default function Home() {
 
 async function VacanciesWrapper() {
   const data = await getData();
-  return <Vacancies data={data} />;
+  return <Vacancies data={data}   />;
 }
 
 

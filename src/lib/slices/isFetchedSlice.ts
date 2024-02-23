@@ -4,7 +4,7 @@ export interface isFetchedState {
   isFetched: boolean;
 }
 
-const defValue = false;
+const defValue = true;
 
 const initialState: isFetchedState = {
   isFetched: defValue,

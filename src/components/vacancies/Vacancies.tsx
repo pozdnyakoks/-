@@ -22,7 +22,7 @@ export const Vacancies = ({ data }: {
     uniqueTags: string[]
   }
 }) => {
-
+  // console.log(data.allRecords)
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -33,8 +33,9 @@ export const Vacancies = ({ data }: {
   }, [data])
 
   const router = useSearchParams();
+  // console.log(router.entries())
   const jobsArray = useSelector((state: RootState) => state.jobs.jobs);
-  // const isFetched = useSelector((state: RootState) => state.isFetched.isFetched);
+  // console.log(isFetched)
   // const isErrorData = useSelector((state: RootState) => state.isError.isError);
 
   const filtering = (arr: TJob[]) => {
@@ -45,8 +46,8 @@ export const Vacancies = ({ data }: {
   };
 
   // const [isError, setIsError] = useState(isErrorData);
-  // const [isLoading, setIsLoading] = useState(!isFetched);
-  const [currentTag, setCurrentTag] = useState<string | string[]>(router.get('tag') || '');
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentTag, setCurrentTag] = useState<string>(router.get('tag') || '');
   const [currentPage, setCurrentPage] = useState<number>(
     router.get('page') ? Number(router.get('page')) : 1
   );
@@ -54,25 +55,50 @@ export const Vacancies = ({ data }: {
   const [currentJobsArray, setCurrentJobsArray] = useState<TJob[]>([]);
 
   useEffect(() => {
+    // setIsLoading(true)
 
-    setCurrentPage(router.get('page') ? Number(router.get('page')) : 1);
-    setCurrentTag(router.get('tag ') || '');
 
-    const queryTag: string = router.get('tag') || '';
-    const filteredByTag = jobsArray.filter(job => {
+    // setCurrentPage(router.get('page') ? Number(router.get('page')) : 1);
+    // setCurrentTag(router.get('tag') || '');
+    // const queryTag: string = router.get('tag') || '';
+    // const filteredByTag = jobsArray.filter(job => {
+    //   return queryTag !== '' ?
+    //     job.fields.Tags.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) :
+    //     true;
+    // });
+    // setFilteredArray(filteredByTag);
+    // setIsLoading(false)
 
-      return queryTag !== '' ?
-        job.fields.Tags.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) :
-        true;
+    setIsLoading(true); // Установка isLoading в true перед запросом данных
+    const fetchData = async () => {
+      setCurrentPage(router.get('page') ? Number(router.get('page')) : 1);
+      setCurrentTag(router.get('tag') || '');
 
-    });
+      const queryTag: string = router.get('tag') || '';
+      const filteredByTag = jobsArray.filter(job => {
+        return queryTag !== '' ? job.fields.Tags.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) : true;
+      });
+      setFilteredArray(filteredByTag);
+      setIsLoading(false); // Установка isLoading в false после получения данных
+    };
 
-    setFilteredArray(filteredByTag);
+    const finishLoading = () => {
+      setIsLoading(false); // Установка isLoading в false после получения данных
+    };
+
+    fetchData().then(finishLoading).catch(finishLoading);
   }, [router, jobsArray]);
 
   useEffect(() => {
     setCurrentJobsArray(filtering(filteredArray));
   }, [currentPage, filteredArray]);
+
+  // useEffect(() => {
+  //   setIsLoading(!isFetched);
+  //   // console.log('load', isFetched)
+  // }, [isFetched])
+
+  // console.log(isFetched)
 
   // useEffect(() => {
   // if (isFetched) setIsLoading(false)
@@ -81,7 +107,7 @@ export const Vacancies = ({ data }: {
   // setIsLoading(false)
   // }
   // }, [isFetched, isErrorData])
-
+  // console.log(router.get('tag') || '')
   return (
     <section className={`${s.container} container`}>
       <p className={s.vacancies__title}>
@@ -93,11 +119,11 @@ export const Vacancies = ({ data }: {
         </div>
       }
 
-      {/* {isLoading ? */}
-      {/* <Loading /> : */}
       {/* isError ?  */}
       {/* <p className={s.vacancies__title} style={{ textAlign: 'center' }}> Oops... Smth went wrong</p> : */}
       {/* <Suspense fallback={<Loading />}> */}
+      {/* {isLoading ? <Loading /> : */}
+      <Suspense fallback={<Loading />}>
 
         <div className={s.vacancies}>
           {
@@ -117,15 +143,15 @@ export const Vacancies = ({ data }: {
           }
 
         </div>
-        {/* } */}
+      </Suspense>
 
-        {
-          // !isError && 
-          filteredArray.length > 15 &&
-          <PaginationComp arr={filteredArray} />
-        }
+      {/* } */}
+      {/* } */}
 
-      {/* </Suspense> */}
+      {filteredArray.length > 15 &&
+        <PaginationComp arr={filteredArray} />}
+
+
     </section>
   )
 }
