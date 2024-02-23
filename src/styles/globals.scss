@@ -12,6 +12,8 @@ html {
 
 body {
   background-color: $dark;
+  overflow-x: hidden;
+  position: relative;
 }
 
 a {

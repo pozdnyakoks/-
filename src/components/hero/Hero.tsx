@@ -125,6 +125,11 @@ export const Hero = (
 
   const dropdownHandler = () => {
     if (isMobile) {
+    //   if (isDropdownMobile) {
+    //     console.log('ccc')
+    //   document.body.style.overflow = 'hidden'
+
+    // } else document.body.style.overflow = ''
       setIsDropdownMobile((prev => !prev))
     } else {
       setIsDropdown((prev) => !prev)

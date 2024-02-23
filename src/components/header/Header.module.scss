@@ -102,6 +102,7 @@
     visibility: hidden;
     background-color: $dark;
     z-index: 50;
+    overflow: hidden;
 
     &.active {
       transform: translateX(0);

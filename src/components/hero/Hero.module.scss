@@ -136,6 +136,7 @@
       }
 
       .select_dropdown {
+        // display: none;
         position: absolute;
         list-style: none;
         width: 100%;
@@ -152,6 +153,7 @@
         visibility: hidden;
         max-height: 320px;
         overflow-y: scroll;
+
 
         &::-webkit-scrollbar {
           display: none;
@@ -202,16 +204,19 @@
   &__dropdown_mobile {
     transition: .3s ease;
     transform: translateX(100%);
-    position: fixed;
+    position: absolute;
     top: 0;
+    left: 0;
+    right: 0;
     bottom: 0;
     width: 100%;
-    // height: 100vh;
-    overflow-y: auto;
+    height: 100vh;
+    // overflow-y: auto;
     right: 0;
     visibility: hidden;
     background-color: $dark;
     z-index: 50;
+    display: none;
 
     &_block {
       display: flex;
@@ -245,6 +250,7 @@
     &.active {
       transform: translateX(0);
       visibility: visible;
+      display: block;
     }
 
     &_item {
