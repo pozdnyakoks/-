@@ -4,7 +4,6 @@ import { Header } from "@/components/header/Header";
 import { Footer } from "@/components/footer/Footer";
 import StoreProvider from "./StoreProvider";
 import "@/styles/globals.scss";
-
 const urbanist = Urbanist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
   description: "Find jobs and talents in Cosmos Blockchain",
   openGraph: { images: ['/og.png'] },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icon.ico',
   }
 };
 
@@ -26,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={urbanist.className}>
         <Header />
-        <StoreProvider>{children}</StoreProvider>
+          <StoreProvider>{children}</StoreProvider>
         <Footer />
       </body>
     </html>

@@ -15,42 +15,49 @@ import { setJobs } from '@/lib/slices/jobsSlice';
 import { getVacancies } from '@/app/api/getVacancies';
 import s from './Hero.module.scss'
 
-export const Hero = () => {
+export const Hero = (
+//   { data }: {
+//   data: {
+//     allRecords: TJob[];
+//     uniqueTags: string[]
+//   }
+// }
+) => {
 
-  const [records, setRecords] = useState<TJob[]>([])
-  const [tagsAr, setTagsAr] = useState<string[]>([])
-  const pathname= usePathname();
-  const [isFetchedS, setIsFetchedS] = useState(false)
-  const [isErrorS, setIsErrorS] = useState(false)
+  // const [records, setRecords] = useState<TJob[]>([])
+  // const [tagsAr, setTagsAr] = useState<string[]>([])
+  const pathname = usePathname();
+  // const [isFetchedS, setIsFetchedS] = useState(false)
+  // const [isErrorS, setIsErrorS] = useState(false)
 
-  useEffect(() => {
-    if (pathname === '/' && !isFetchedS) fetchDataOnMount();
-  }, [pathname]);
+  // useEffect(() => {
+  //   if (pathname === '/' && !isFetchedS) fetchDataOnMount();
+  // }, [pathname]);
 
-  async function fetchDataOnMount() {
-    const fetchData = async () => {
-      try {
-        const response = await getVacancies();
-        const { allRecords, uniqueTags } = response.props;
-        setTagsAr(uniqueTags)
-        setRecords(allRecords)
-        setIsFetchedS(true)
-      } catch (error) {
-        setIsErrorS(true)
-        console.error('Error fetching data:', error);
-      }
-    }
+  // async function fetchDataOnMount() {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await getVacancies();
+  //       const { allRecords, uniqueTags } = response.props;
+  //       setTagsAr(uniqueTags)
+  //       setRecords(allRecords)
+  //       setIsFetchedS(true)
+  //     } catch (error) {
+  //       setIsErrorS(true)
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   }
 
-    fetchData();
-  }
+  //   fetchData();
+  // }
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setTags(tagsAr));
-    dispatch(setJobs(records))
-    dispatch(setIsFetched(isFetchedS))
-    dispatch(setIsError(isErrorS))
-  }, [records, tagsAr])
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(setTags(data.uniqueTags));
+  //   dispatch(setJobs(data.allRecords))
+  //   // dispatch(setIsFetched(isFetchedS))
+  //   // dispatch(setIsError(isErrorS))
+  // }, [data])
 
 
   const searchParams = useSearchParams()

@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { Loading } from '@/components/loading';
 import { ON_PAGE } from '@/utils/constants';
@@ -12,14 +12,30 @@ import { FollowUs } from '../followUs/FollowUs';
 import { VacancyCard } from './vacancyCard/VacancyCard';
 import { PaginationComp } from '../pagination/Pagination';
 import s from './Vacancies.module.scss';
+import { setTags } from '@/lib/slices/tagsSlice';
+import { setJobs } from '@/lib/slices/jobsSlice';
 
 
-export const Vacancies = () => {
+export const Vacancies = ({ data }: {
+  data: {
+    allRecords: TJob[];
+    uniqueTags: string[]
+  }
+}) => {
+
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setTags(data.uniqueTags));
+    dispatch(setJobs(data.allRecords))
+    // dispatch(setIsFetched(isFetchedS))
+    // dispatch(setIsError(isErrorS))
+  }, [data])
 
   const router = useSearchParams();
   const jobsArray = useSelector((state: RootState) => state.jobs.jobs);
-  const isFetched = useSelector((state: RootState) => state.isFetched.isFetched);
-  const isErrorData = useSelector((state: RootState) => state.isError.isError);
+  // const isFetched = useSelector((state: RootState) => state.isFetched.isFetched);
+  // const isErrorData = useSelector((state: RootState) => state.isError.isError);
 
   const filtering = (arr: TJob[]) => {
     return arr.slice(
@@ -28,8 +44,8 @@ export const Vacancies = () => {
     );
   };
 
-  const [isError, setIsError] = useState(isErrorData);
-  const [isLoading, setIsLoading] = useState(!isFetched);
+  // const [isError, setIsError] = useState(isErrorData);
+  // const [isLoading, setIsLoading] = useState(!isFetched);
   const [currentTag, setCurrentTag] = useState<string | string[]>(router.get('tag') || '');
   const [currentPage, setCurrentPage] = useState<number>(
     router.get('page') ? Number(router.get('page')) : 1
@@ -58,13 +74,13 @@ export const Vacancies = () => {
     setCurrentJobsArray(filtering(filteredArray));
   }, [currentPage, filteredArray]);
 
-  useEffect(() => {
-    if (isFetched) setIsLoading(false)
-    if (isErrorData) {
-      setIsError(true)
-      setIsLoading(false)
-    }
-  }, [isFetched, isErrorData])
+  // useEffect(() => {
+  // if (isFetched) setIsLoading(false)
+  // if (isErrorData) {
+  // setIsError(true)
+  // setIsLoading(false)
+  // }
+  // }, [isFetched, isErrorData])
 
   return (
     <section className={`${s.container} container`}>
@@ -77,30 +93,39 @@ export const Vacancies = () => {
         </div>
       }
 
-      {isLoading ?
-        <Loading /> :
-        isError ? <p className={s.vacancies__title} style={{ textAlign: 'center' }}> Oops... Smth went wrong</p> :
-          <div className={s.vacancies}>
-            {
-              currentJobsArray.slice(0, 2).map((vacancy => (
-                <VacancyCard key={vacancy.id} cardInfo={vacancy} />
-              )))
-            }
-            {
-              !isError && currentPage === 1
-              && < FollowUs mode='light' />
-            }
-            {
-              currentJobsArray.slice(2, 15).map((vacancy => (
-                <VacancyCard key={vacancy.id} cardInfo={vacancy} />
-              )))
-            }
+      {/* {isLoading ? */}
+      {/* <Loading /> : */}
+      {/* isError ?  */}
+      {/* <p className={s.vacancies__title} style={{ textAlign: 'center' }}> Oops... Smth went wrong</p> : */}
+      {/* <Suspense fallback={<Loading />}> */}
 
-          </div>}
+        <div className={s.vacancies}>
+          {
+            currentJobsArray.slice(0, 2).map((vacancy => (
+              <VacancyCard key={vacancy.id} cardInfo={vacancy} />
+            )))
+          }
+          {
+            // !isError && 
+            currentPage === 1
+            && < FollowUs mode='light' />
+          }
+          {
+            currentJobsArray.slice(2, 15).map((vacancy => (
+              <VacancyCard key={vacancy.id} cardInfo={vacancy} />
+            )))
+          }
 
-      {!isError && filteredArray.length > 15 &&
-        <PaginationComp arr={filteredArray} />
-      }
+        </div>
+        {/* } */}
+
+        {
+          // !isError && 
+          filteredArray.length > 15 &&
+          <PaginationComp arr={filteredArray} />
+        }
+
+      {/* </Suspense> */}
     </section>
   )
 }
