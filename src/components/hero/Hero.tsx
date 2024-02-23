@@ -16,12 +16,12 @@ import { getVacancies } from '@/app/api/getVacancies';
 import s from './Hero.module.scss'
 
 export const Hero = (
-//   { data }: {
-//   data: {
-//     allRecords: TJob[];
-//     uniqueTags: string[]
-//   }
-// }
+  //   { data }: {
+  //   data: {
+  //     allRecords: TJob[];
+  //     uniqueTags: string[]
+  //   }
+  // }
 ) => {
 
   // const [records, setRecords] = useState<TJob[]>([])
@@ -109,7 +109,7 @@ export const Hero = (
 
   const changeJob = (value: string) => {
     if (value !== '') {
-      router.push(pathname + '?' + 'page=1' + '&' + 'tag=' + value,  )
+      router.push(pathname + '?' + 'page=1' + '&' + 'tag=' + value,)
     } else {
       router.push(pathname + '?' + 'page=' + (searchParams.get('page') || '1'))
     }
@@ -125,11 +125,6 @@ export const Hero = (
 
   const dropdownHandler = () => {
     if (isMobile) {
-    //   if (isDropdownMobile) {
-    //     console.log('ccc')
-    //   document.body.style.overflow = 'hidden'
-
-    // } else document.body.style.overflow = ''
       setIsDropdownMobile((prev => !prev))
     } else {
       setIsDropdown((prev) => !prev)
@@ -145,6 +140,15 @@ export const Hero = (
     }
   }
 
+
+  useEffect(() => {
+    if (isDropdownMobile) {
+      document.body.style.overflow = 'hidden'
+      
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [isDropdownMobile])
   return (
     <section className={`${s.hero} container`}>
       <h1 className={s.hero__title}>Find jobs & talents<br />
