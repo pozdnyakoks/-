@@ -1,13 +1,17 @@
 import { Hero } from "@/components/hero/Hero";
 import { Vacancies } from "@/components/vacancies/Vacancies";
+import { Suspense } from "react";
 
 
 export default async function Home() {
 
   return (
     <main>
-      <Hero />
-      <Vacancies />
+      <Suspense>
+        <Hero />
+        <Vacancies />
+
+      </Suspense>
     </main>
   );
 }
