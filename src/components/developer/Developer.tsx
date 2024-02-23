@@ -16,6 +16,7 @@ import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
 import { mobile } from '@/utils/constants';
 
 export const Developer = ({ job }: { job: TJob | null }) => {
+  console.log(job === null)
 
   const [details, setDetails] = useState<undefined | string>(job?.fields.Details)
   const { width } = useGetWindowDimensions();

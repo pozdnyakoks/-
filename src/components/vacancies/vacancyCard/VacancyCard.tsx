@@ -41,6 +41,7 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
     const isButton = target.tagName.toLowerCase() === 'button';
 
     if (!isButton) {
+      // console.log(linkMaker())
       router.push(linkMaker());
     }
   }
