@@ -5,7 +5,8 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About Incosmos.Work",
   description: "The only job board in Cosmos Blockchain",
-  // openGraph: { images: ['/og.png'] },
+  metadataBase: new URL('https://cosmos-sandy.vercel.app'),
+  openGraph: { images: ['/og.png'] },
   // icons: {
   //   icon: '/favicon.ico',
   // }

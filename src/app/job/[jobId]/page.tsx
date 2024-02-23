@@ -47,7 +47,9 @@ export async function generateMetadata(
 
   return {
     title: makeTitle(data.props.data),
-    description: data.props.data[0].fields.Details
+    description: data.props.data[0].fields.Details,
+    metadataBase: new URL('https://cosmos-sandy.vercel.app'),
+    openGraph: { images: ['/og.png'] },
   }
 }
 
