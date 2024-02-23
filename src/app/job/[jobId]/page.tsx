@@ -50,6 +50,7 @@ export async function generateMetadata(
     description: data.props.data[0].fields.Details,
     metadataBase: new URL('https://cosmos-sandy.vercel.app'),
     openGraph: { images: ['/og.png'] },
+    viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   }
 }
 
