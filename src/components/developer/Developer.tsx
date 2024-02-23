@@ -22,9 +22,12 @@ export const Developer = ({ job }: { job: TJob | null }) => {
   const isMobile = width < mobile
 
   useEffect(() => {
-    const replaced = job?.fields.Details.replaceAll(' **', '**').replaceAll('** ', '**');
-    setDetails(replaced)
+    // console.log(job?.fields.Details)
+    // const replaced = job?.fields.Details.replaceAll(' **', '**').replaceAll('** ', '**');
+    // setDetails(replaced)
+    // console.log(replaced)
   }, [job?.fields.Details])
+
 
   return (
 

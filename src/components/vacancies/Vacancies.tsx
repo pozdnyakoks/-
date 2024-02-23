@@ -54,6 +54,8 @@ export const Vacancies = ({ data }: {
   const [filteredArray, setFilteredArray] = useState<TJob[]>(jobsArray);
   const [currentJobsArray, setCurrentJobsArray] = useState<TJob[]>([]);
 
+  // console.log(currentJobsArray)
+
   useEffect(() => {
     // setIsLoading(true)
 
@@ -137,7 +139,7 @@ export const Vacancies = ({ data }: {
             && < FollowUs mode='light' />
           }
           {
-            currentJobsArray.slice(2, 15).map((vacancy => (
+            currentJobsArray.slice(2, ON_PAGE).map((vacancy => (
               <VacancyCard key={vacancy.id} cardInfo={vacancy} />
             )))
           }
