@@ -144,11 +144,16 @@ export const Hero = (
   useEffect(() => {
     if (isDropdownMobile) {
       document.body.style.overflow = 'hidden'
-      
+
     } else {
       document.body.style.overflow = ''
     }
   }, [isDropdownMobile])
+  useEffect(() => {
+    window.visualViewport?.addEventListener("resize", function () {
+      (document.querySelector("#content") as HTMLLIElement).style.height = window.visualViewport?.height + "px";
+    })
+  }, []);
   return (
     <section className={`${s.hero} container`}>
       <h1 className={s.hero__title}>Find jobs & talents<br />
