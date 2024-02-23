@@ -7,6 +7,7 @@ import "@/styles/globals.scss";
 const urbanist = Urbanist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://cosmos-sandy.vercel.app'),
   title: "Jobs in Cosmos Blockchain",
   description: "Find jobs and talents in Cosmos Blockchain",
   openGraph: { images: ['/og.png'] },
