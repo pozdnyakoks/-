@@ -7,7 +7,6 @@ import { TJob } from '@/lib/types';
 import { Door } from '../../icons/door';
 import { Location } from '../../icons/location';
 import s from './VacancyCard.module.scss';
-import { setIsFetched } from '@/lib/slices/isFetchedSlice';
 
 export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
 
@@ -41,7 +40,6 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
     const isButton = target.tagName.toLowerCase() === 'button';
 
     if (!isButton) {
-      // console.log(linkMaker())
       router.push(linkMaker());
     }
   }

@@ -15,51 +15,9 @@ import { setJobs } from '@/lib/slices/jobsSlice';
 import { getVacancies } from '@/app/api/getVacancies';
 import s from './Hero.module.scss'
 
-export const Hero = (
-  //   { data }: {
-  //   data: {
-  //     allRecords: TJob[];
-  //     uniqueTags: string[]
-  //   }
-  // }
-) => {
+export const Hero = () => {
 
-  // const [records, setRecords] = useState<TJob[]>([])
-  // const [tagsAr, setTagsAr] = useState<string[]>([])
   const pathname = usePathname();
-  // const [isFetchedS, setIsFetchedS] = useState(false)
-  // const [isErrorS, setIsErrorS] = useState(false)
-
-  // useEffect(() => {
-  //   if (pathname === '/' && !isFetchedS) fetchDataOnMount();
-  // }, [pathname]);
-
-  // async function fetchDataOnMount() {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await getVacancies();
-  //       const { allRecords, uniqueTags } = response.props;
-  //       setTagsAr(uniqueTags)
-  //       setRecords(allRecords)
-  //       setIsFetchedS(true)
-  //     } catch (error) {
-  //       setIsErrorS(true)
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   }
-
-  //   fetchData();
-  // }
-
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(setTags(data.uniqueTags));
-  //   dispatch(setJobs(data.allRecords))
-  //   // dispatch(setIsFetched(isFetchedS))
-  //   // dispatch(setIsError(isErrorS))
-  // }, [data])
-
-
   const searchParams = useSearchParams()
   const router = useRouter();
   const jobsListState = useSelector(
@@ -149,11 +107,7 @@ export const Hero = (
       document.body.style.overflow = ''
     }
   }, [isDropdownMobile])
-  // useEffect(() => {
-  //   window.visualViewport?.addEventListener("resize", function () {
-  //     (document.querySelector("#content") as HTMLLIElement).style.height = window.visualViewport?.height + "px";
-  //   })
-  // }, []);
+
   return (
     <section className={`${s.hero} container`}>
       <h1 className={s.hero__title}>Find jobs & talents<br />
@@ -194,7 +148,9 @@ export const Hero = (
         </div>
       </div>
 
-      {isMobile && <div className={`${s.hero__dropdown_mobile} ${isDropdownMobile && s.active}`}>
+      {isMobile && <div className={`${s.hero__dropdown_mobile} ${isDropdownMobile && s.active}`}
+      style={{ height: window.visualViewport?.height}}
+      >
         <div className={s.hero__dropdown_mobile_block}>
           <button className={s.hero__dropdown_mobile_block_btn}
             onClick={() => setIsDropdownMobile(false)}
