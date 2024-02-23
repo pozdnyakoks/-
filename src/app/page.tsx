@@ -13,10 +13,10 @@ const getData = async () => {
   };
 };
 
-export async function load() {
-  const data = await getVacancies();
-  return { data };
-}
+// export async function load() {
+//   const data = await getVacancies();
+//   return { data };
+// }
 
 export default function Home() {
   return (
