@@ -21,7 +21,10 @@ const getData = async () => {
 export default function Home() {
   return (
     <main>
-      <Hero />
+      <Suspense>
+
+        <Hero />
+      </Suspense>
       <Suspense fallback={<Loading />}>
         <VacanciesWrapper />
       </Suspense>
