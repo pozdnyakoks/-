@@ -85,7 +85,7 @@
       z-index: 2;
 
       @include lg {
-        z-index: -1;
+        z-index: 1;
       }
 
       &.active {
