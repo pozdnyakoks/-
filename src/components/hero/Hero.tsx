@@ -100,20 +100,36 @@ export const Hero = () => {
   }
 
 
+  const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (isDropdownMobile) {
-      // document.body.style.overflow = 'hidden'
-      // document.body.style.position = 'fixed'
       document.body.classList.add('hidden')
-
     } else {
       document.body.classList.remove('hidden')
-
-      // document.body.style.overflow = ''
-      // document.body.style.position = 'relative'
-
     }
+
+
+    const handleScroll = (e: Event) => {
+      if (modalRef.current && modalRef.current.scrollTop > 0) {
+        // Если есть скролл у модального окна, предотвратить прокрутку по умолчанию
+        e.preventDefault();
+      }
+    };
+
+    if (isDropdownMobile) {
+      modalRef.current?.addEventListener('scroll', ((e) =>handleScroll(e)));
+    }
+    if (isDropdownMobile) {
+      window.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [isDropdownMobile])
+
+
+
 
   const [viewportHeight, setViewportHeight] = useState<undefined | number>(undefined);
   useEffect(() => {
@@ -173,7 +189,7 @@ export const Hero = () => {
         </div>
       </div>
 
-      {isMobile && <div className={`${s.hero__dropdown_mobile} ${isDropdownMobile && s.active}`}
+      {isMobile && <div ref={modalRef} className={`${s.hero__dropdown_mobile} ${isDropdownMobile && s.active}`}
         style={{ height: viewportHeight || '100%' }}
       >
         <div className={s.hero__dropdown_mobile_block}>
