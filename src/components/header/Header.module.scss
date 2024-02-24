@@ -96,10 +96,13 @@
     position: fixed;
     top: 80px;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100% - 80px);
+    // height: calc(100vh - 80px);
     right: 0;
+    bottom: 0;
     padding: 0;
     visibility: hidden;
+
     background-color: $dark;
     z-index: 100;
     overflow: hidden;

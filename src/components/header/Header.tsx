@@ -17,6 +17,8 @@ export const Header = () => {
   useEffect(() => {
     document.body.style.overflow = isShow ? 'hidden' : '';
     document.body.style.width = !isShow ? `calc(100% - ${scroll}px)` : '100%';
+    document.body.style.position = isShow ? 'fixed' : 'relative'
+
   }, [isShow])
 
   const closeMenu = () => {
