@@ -65,6 +65,7 @@
       z-index: 5;
       width: 16px;
       height: 16px;
+
       img {
         height: 100%;
         width: 100%;
@@ -85,7 +86,7 @@
       z-index: 2;
 
       @include lg {
-        z-index: 0;
+        // z-index: -1;
       }
 
       &.active {
@@ -115,7 +116,7 @@
         @include text;
 
         @include lg {
-        z-index: -1;
+          z-index: -1;
 
           border-radius: 16px;
           padding: 16px 16px 16px 34px;
@@ -188,7 +189,8 @@
           background-color: $light;
           transition: .3s ease;
 
-          &:hover, &:active {
+          &:hover,
+          &:active {
             background-color: $grey0;
           }
 
@@ -237,6 +239,11 @@
       border-bottom: 1px solid $grey4;
       padding: 7px 16px 4px;
       background-color: $grey5;
+      position: relative;
+
+      @include lg {
+        // z-index: -1;
+      }
 
       &_btn {
         @include transitionOPacity;
@@ -282,6 +289,16 @@
         }
       }
     }
-  }
 
+    
+  }
 }
+// .&__custom_select {
+//   width: 100%;
+//   position: relative;
+//   z-index: 2;
+
+//   @include lg {
+//     z-index: -1;
+//   }
+// }

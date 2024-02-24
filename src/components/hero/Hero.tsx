@@ -165,7 +165,7 @@ export const Hero = () => {
             height='15'
           />
         </span>
-        <div ref={dropdownRef} className={`${s.hero__custom_select} ${isDropdown && s.active}`}>
+        <div ref={dropdownRef} className={`${s.hero__custom_select} hide ${isDropdown && s.active}`}>
           <button className={s.select_button} onClick={dropdownHandler} aria-expanded={isDropdown}>
             <span className={s.selected_value}>{currentTag === '' ? 'All Jobs' : currentTag}</span>
             <span className={s.arrow}></span>

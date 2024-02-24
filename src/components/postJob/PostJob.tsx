@@ -68,7 +68,7 @@ export const PostJob = () => {
   const methods = useForm()
 
   const onSubmit = methods.handleSubmit(data => {
-    console.log(data)
+    // console.log(data)
     setIsSubmitted(true);
     // const formData = new FormData(e.currentTarget as HTMLFormElement)
   })
