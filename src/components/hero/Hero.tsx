@@ -111,14 +111,16 @@ export const Hero = () => {
 
   const [viewportHeight, setViewportHeight] = useState<undefined | number>(undefined);
   useEffect(() => {
-    function handleResize() {
-      if (window.visualViewport?.height !== null && window.visualViewport?.height !== undefined) {
-        setViewportHeight(window.visualViewport.height);
+    if (/iPhone|iPad|iPod/.test(window.navigator.userAgent)) {
+      const handleResize = () => {
+        if (window.visualViewport?.height !== null && window.visualViewport?.height !== undefined) {
+          setViewportHeight(window.visualViewport.height);
+        }
       }
+      window.visualViewport?.addEventListener('resize', handleResize);
+      handleResize();
+      return () => window.visualViewport?.removeEventListener('resize', handleResize);
     }
-    window.visualViewport?.addEventListener('resize', handleResize);
-    handleResize();
-    return () => window.visualViewport?.removeEventListener('resize', handleResize);
   }, []);
   // return viewportHeight;
 
@@ -166,7 +168,7 @@ export const Hero = () => {
       </div>
 
       {isMobile && <div className={`${s.hero__dropdown_mobile} ${isDropdownMobile && s.active}`}
-      style={{ height: viewportHeight, maxHeight: '100%'}}
+        style={{ height: viewportHeight || '100%' }}
       >
         <div className={s.hero__dropdown_mobile_block}>
           <button className={s.hero__dropdown_mobile_block_btn}
