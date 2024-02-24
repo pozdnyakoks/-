@@ -102,13 +102,15 @@ export const Hero = () => {
 
   useEffect(() => {
     if (isDropdownMobile) {
-      document.body.style.overflow = 'hidden'
-      document.body.style.position = 'fixed'
-
+      // document.body.style.overflow = 'hidden'
+      // document.body.style.position = 'fixed'
+      document.body.classList.add('hidden')
 
     } else {
-      document.body.style.overflow = ''
-      document.body.style.position = 'relative'
+      document.body.classList.remove('hidden')
+
+      // document.body.style.overflow = ''
+      // document.body.style.position = 'relative'
 
     }
   }, [isDropdownMobile])

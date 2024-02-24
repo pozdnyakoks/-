@@ -19,8 +19,8 @@ body {
 html, body {
 
   -webkit-overflow-scrolling : touch !important;
-  overflow: auto !important;
-  height: 100% !important;
+  // overflow: auto !important;
+  // height: 100% !important;
 }
 
 a {
@@ -46,3 +46,15 @@ button {
 ul {
   list-style: none;
 } 
+
+.hidden {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  max-height: 100vh;
+}
