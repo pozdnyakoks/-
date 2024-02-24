@@ -106,7 +106,7 @@
     visibility: hidden;
 
     background-color: $dark;
-    z-index: 100;
+    z-index: 1000;
     overflow: hidden;
 
     &.active {
