@@ -7,7 +7,7 @@ export const getVacancies = async () => {
   let allRecords: TJob[] = [];
   let shouldFetchMore = true;
   while (shouldFetchMore) {
-    const response = await fetch(`https://api.airtable.com/v0/${process.env.NEXT_PUBLIC_API_BASE_ID}/Jobs?pageSize=${pageSize}&offset=${offset}&sortField=Job%20ID&sortDirection=desc`, {
+    const response = await fetch(`https://api.airtable.com/v0/${process.env.NEXT_PUBLIC_API_BASE_ID}/Jobs?pageSize=${pageSize}&offset=${offset}&sortField=Job%20ID&sortDirection=desc`, ,  {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
       }
