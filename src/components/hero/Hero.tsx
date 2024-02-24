@@ -166,7 +166,7 @@ export const Hero = () => {
       </div>
 
       {isMobile && <div className={`${s.hero__dropdown_mobile} ${isDropdownMobile && s.active}`}
-      style={{ height: viewportHeight}}
+      style={{ height: viewportHeight, maxHeight: '100%'}}
       >
         <div className={s.hero__dropdown_mobile_block}>
           <button className={s.hero__dropdown_mobile_block_btn}
