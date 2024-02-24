@@ -28,6 +28,7 @@ export const Hero = () => {
   const [isDropdownMobile, setIsDropdownMobile] = useState(false);
   const [mobileInputValue, setMobileInputValue] = useState('');
   const [jobsCur, setJobsCur] = useState(jobsListState)
+  // const [height, setHeight] = useState(0);
   const { width } = useGetWindowDimensions()
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -108,6 +109,22 @@ export const Hero = () => {
     }
   }, [isDropdownMobile])
 
+  const [viewportHeight, setViewportHeight] = useState<undefined | number>(undefined);
+  useEffect(() => {
+    function handleResize() {
+      if (window.visualViewport?.height !== null && window.visualViewport?.height !== undefined) {
+        setViewportHeight(window.visualViewport.height);
+      }
+    }
+    window.visualViewport?.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.visualViewport?.removeEventListener('resize', handleResize);
+  }, []);
+  // return viewportHeight;
+
+
+
+
   return (
     <section className={`${s.hero} container`}>
       <h1 className={s.hero__title}>Find jobs & talents<br />
@@ -149,7 +166,7 @@ export const Hero = () => {
       </div>
 
       {isMobile && <div className={`${s.hero__dropdown_mobile} ${isDropdownMobile && s.active}`}
-      style={{ height: window.visualViewport?.height}}
+      style={{ height: viewportHeight}}
       >
         <div className={s.hero__dropdown_mobile_block}>
           <button className={s.hero__dropdown_mobile_block_btn}
