@@ -49,6 +49,8 @@
 
       @include lg {
         align-self: flex-end;
+        font-size: 15px;
+        line-height: 16px;
       }
     }
 
@@ -61,9 +63,9 @@
 
       @include lg {
         flex-wrap: wrap;
-        padding-top: 16px;
+        padding-top: 24px;
         border-top: 1px solid $grey4;
-        margin-top: 16px;
+        margin-top: 24px;
       }
 
       &_item {

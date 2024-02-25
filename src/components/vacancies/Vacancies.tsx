@@ -52,23 +52,26 @@ export const Vacancies = ({ data }: {
   useEffect(() => {
 
     // setIsLoading(true); // Установка isLoading в true перед запросом данных
-    // const fetchData = async () => {
+
       setCurrentPage(router.get('page') ? Number(router.get('page')) : 1);
       setCurrentTag(router.get('tag') || '');
+      // console.log(job)
 
       const queryTag: string = router.get('tag') || '';
       const filteredByTag = jobsArray.filter(job => {
-        return queryTag !== '' ? job.fields.Tags.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) : true;
+        return queryTag !== '' ? job.fields.Tags?.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) : true;
       });
       setFilteredArray(filteredByTag);
-      setIsLoading(false); // Установка isLoading в false после получения данных
-    // };
 
-    // const finishLoading = () => {
-    //   setIsLoading(false); // Установка isLoading в false после получения данных
-    // };
+      setIsLoading(false); 
 
-    // fetchData().then(finishLoading).catch(finishLoading);
+      // Установка isLoading в false после получения данных
+
+
+      // setIsLoading(false); // Установка isLoading в false после получения данных
+
+
+
   }, [router, jobsArray]);
 
   useEffect(() => {

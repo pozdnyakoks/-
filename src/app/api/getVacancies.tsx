@@ -11,7 +11,7 @@ export const getVacancies = async () => {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
       },
-      cache: 'no-store', 
+      // cache: 'no-store', 
     });
     const data = await response.json();
     allRecords = allRecords.concat(data.records);

@@ -67,7 +67,7 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
           </div>
 
           <div className={s.card__block}>
-            <div className={s.card__block_list}>
+            <div className={`${s.card__block_list} hide`}>
               <button className={`${s.card__block_list_item} ${cardInfo.fields.Status === 'Closed' && s.closed}`} disabled>
                 {cardInfo.fields.Status}
               </button>
