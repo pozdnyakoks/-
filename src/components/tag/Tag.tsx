@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import s from './Tag.module.scss';
 import { useDispatch } from 'react-redux';
 import { setIsLoading } from '@/lib/slices/isLoadingSlice';
+import s from './Tag.module.scss';
 
 export const Tag = ({ value }: { value: string }) => {
   const router = useRouter()

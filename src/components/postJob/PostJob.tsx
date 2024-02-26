@@ -63,14 +63,31 @@ const inputs = [
 
 export const PostJob = () => {
 
+  const encode = (data: { [key: string]: string }) => {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&");
+  }
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const methods = useForm()
 
   const onSubmit = methods.handleSubmit(data => {
-    // console.log(data)
-    setIsSubmitted(true);
-    // const formData = new FormData(e.currentTarget as HTMLFormElement)
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ "form-name": "postJob", ...data })
+    })
+      .then(() => {
+        setTimeout(() => {
+          setIsSubmitted(true);
+
+        }, 3000)
+      })
+      .catch(error => console.log(error));
+
   })
 
   return (
@@ -84,10 +101,14 @@ export const PostJob = () => {
             </p>
             <FormProvider {...methods}>
               <form
+                data-netlify="true"
+                name='postJob'
+                netlify-honeypot="bot-field"
                 noValidate
                 autoComplete="off"
                 onSubmit={(e) => e.preventDefault()}
                 className={s.postJob__form}>
+                <input type="hidden" name="form-name" value="postJob" />
                 {inputs.map(input => (
                   <Input
                     key={input.title}

@@ -12,14 +12,10 @@ export const FollowUs = ({ mode }: { mode: 'dark' | 'light' }) => {
         </p>
         <div className={s.follow__socials}>
           <Link target='_blank' href='https://twitter.com/home'>
-            {/* <a> */}
               <Image src='/twitter.svg' alt='twitter' width='56' height='56' />
-            {/* </a> */}
           </Link>
           <Link target='_blank' href='https://www.linkedin.com/company/incosmos-work'>
-            {/* <a> */}
               <Image src='/linkedIn.svg' alt='linkedIn' width='56' height='56' />
-            {/* </a> */}
           </Link>
         </div>
       </div>

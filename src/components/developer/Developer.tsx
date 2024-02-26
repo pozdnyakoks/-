@@ -1,9 +1,12 @@
 'use client'
 
+import { useState } from 'react';
 import Markdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import breaks from 'remark-breaks';
 import { TJob } from '@/lib/types';
+import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
+import { mobile } from '@/utils/constants';
 import { FollowUs } from '../followUs/FollowUs';
 import { Dollar } from '../icons/dollar';
 import { Door } from '../icons/door';
@@ -11,9 +14,6 @@ import { Location } from '../icons/location';
 import { Tick } from '../icons/tick';
 import s from './Developer.module.scss';
 
-import { useState } from 'react';
-import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
-import { mobile } from '@/utils/constants';
 
 export const Developer = ({ job }: { job: TJob | null }) => {
 

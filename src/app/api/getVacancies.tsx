@@ -1,11 +1,8 @@
 import { TJob } from "@/lib/types";
-// import { revalidatePath } from 'next/cache'
 
 // let cachedData: { props: { allRecords: TJob[]; uniqueTags: string[] } } | null = null;
 
 export const getVacancies = async () => {
-  // revalidatePath('/')
-
   // if (cachedData) return cachedData
 
   const pageSize = 100;
@@ -34,7 +31,6 @@ export const getVacancies = async () => {
     return tags;
   }, []).filter((tag, index, array) => array.indexOf(tag) === index).sort()
 
-  // console.log(allRecords)
   return {
     props: {
       allRecords,
@@ -43,4 +39,3 @@ export const getVacancies = async () => {
   }
 }
 
-// console.log(cachedData)

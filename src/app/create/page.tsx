@@ -1,6 +1,6 @@
-import { PostJob } from "@/components/postJob/PostJob";
 import { Metadata } from "next";
-import Head from "next/head";
+import { PostJob } from "@/components/postJob/PostJob";
+
 
 export const metadata: Metadata = {
   title: "Post a Job",

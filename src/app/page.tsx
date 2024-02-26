@@ -1,8 +1,8 @@
+import { Suspense } from "react";
 import { Hero } from "@/components/hero/Hero";
 import { Vacancies } from "@/components/vacancies/Vacancies";
-import { Suspense, useMemo } from "react";
-import { getVacancies } from "./api/getVacancies";
 import { Loading } from "@/components/loading";
+import { getVacancies } from "./api/getVacancies";
 
 const getData = async () => {
   const response = await getVacancies();
@@ -14,7 +14,6 @@ const getData = async () => {
 };
 
 export default function Home() {
-
 
   return (
     <main>
@@ -30,9 +29,6 @@ export default function Home() {
 
 async function VacanciesWrapper() {
   const data = await getData();
-  // const data = await fetch('http://localhost:3000/api')
-  // console.log(data)
-  // return <p>fgfgfgfg</p>
   return <Vacancies data={data} />;
 }
 

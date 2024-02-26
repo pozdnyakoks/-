@@ -7,14 +7,14 @@ import { RootState } from '@/lib/store';
 import { Loading } from '@/components/loading';
 import { ON_PAGE } from '@/utils/constants';
 import { TJob } from '@/lib/types';
+import { setTags } from '@/lib/slices/tagsSlice';
+import { setJobs } from '@/lib/slices/jobsSlice';
+import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 import { Tag } from '../tag/Tag';
 import { FollowUs } from '../followUs/FollowUs';
 import { VacancyCard } from './vacancyCard/VacancyCard';
 import { PaginationComp } from '../pagination/Pagination';
 import s from './Vacancies.module.scss';
-import { setTags } from '@/lib/slices/tagsSlice';
-import { setJobs } from '@/lib/slices/jobsSlice';
-import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 
 
 export const Vacancies = ({ data }: {
@@ -29,7 +29,6 @@ export const Vacancies = ({ data }: {
     dispatch(setJobs(data.allRecords))
   }, [data])
 
-  // console.log(data.allRecords)
 
   const router = useSearchParams();
   const jobsArray = useSelector((state: RootState) => state.jobs.jobs);

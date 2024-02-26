@@ -1,25 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { RootState } from '@/lib/store';
 import { makeDate } from '@/utils/makeDate';
 import { TJob } from '@/lib/types';
+import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 import { Door } from '../../icons/door';
 import { Location } from '../../icons/location';
 import s from './VacancyCard.module.scss';
-import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 
 export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
-console.log(cardInfo)
+
   const router = useRouter()
   const searchParams = useSearchParams();
   const pathname = usePathname();
-
-  // const jobsArray = useSelector(
-  //   (state: RootState) => state.jobs.jobs
-  // );
-  // const isLoading = useSelector(
-  //   (state: RootState) => state.iLoading.isLoading
-  // );
 
   const dispatch = useDispatch();
 
@@ -43,7 +35,6 @@ console.log(cardInfo)
     const isButton = target.tagName.toLowerCase() === 'button';
 
     if (!isButton) {
-      dispatch(setIsLoading(true))
       router.push(linkMaker());
     }
   }

@@ -1,7 +1,6 @@
+import { Metadata } from "next";
 import { Developer } from "@/components/developer/Developer";
 import { TJob } from "@/lib/types";
-import { Metadata } from "next";
-
 
 const getData = async (param: string) => {
   const jobId = param;
@@ -27,12 +26,9 @@ const getData = async (param: string) => {
   } else {
     return null
   }
-
 }
 
-
 const makeTitle = (current: TJob[] | null) => {
-  console.log(current)
   if (current !== null && current !== undefined) {
     const cur = current[0].fields
     const newTitle = `${cur['Job Title + Company']} - ${cur.Location}`
@@ -61,7 +57,6 @@ export async function generateMetadata(
 
 export default async function DeveloperPage({ params }: Props) {
 
-
   const data = await getData(params.jobId);
   if (data !== null) {
 
@@ -76,6 +71,4 @@ export default async function DeveloperPage({ params }: Props) {
 
     )
   }
-
-
 }

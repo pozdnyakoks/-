@@ -1,6 +1,5 @@
-import Head from "next/head";
-import { About } from "@/components/about/About";
 import { Metadata } from "next";
+import { About } from "@/components/about/About";
 
 export const metadata: Metadata = {
   title: "About Incosmos.Work",
