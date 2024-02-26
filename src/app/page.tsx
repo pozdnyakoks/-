@@ -15,14 +15,14 @@ const getData = async () => {
 
 export default function Home() {
 
-  
+
   return (
     <main>
       <Suspense>
         <Hero />
       </Suspense>
       <Suspense fallback={<Loading />}>
-        <VacanciesWrapper  />
+        <VacanciesWrapper />
       </Suspense>
     </main>
   );
@@ -30,6 +30,9 @@ export default function Home() {
 
 async function VacanciesWrapper() {
   const data = await getData();
-  return <Vacancies data={data}   />;
+  // const data = await fetch('http://localhost:3000/api')
+  // console.log(data)
+  // return <p>fgfgfgfg</p>
+  return <Vacancies data={data} />;
 }
 

@@ -29,6 +29,8 @@ export const Vacancies = ({ data }: {
     dispatch(setJobs(data.allRecords))
   }, [data])
 
+  // console.log(data.allRecords)
+
   const router = useSearchParams();
   const jobsArray = useSelector((state: RootState) => state.jobs.jobs);
   const isLoading = useSelector((state: RootState) => state.iLoading.isLoading);

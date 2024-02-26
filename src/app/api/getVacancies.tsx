@@ -1,10 +1,12 @@
 import { TJob } from "@/lib/types";
+// import { revalidatePath } from 'next/cache'
 
-let cachedData: { props: { allRecords: TJob[]; uniqueTags: string[] } } | null = null;
+// let cachedData: { props: { allRecords: TJob[]; uniqueTags: string[] } } | null = null;
 
 export const getVacancies = async () => {
+  // revalidatePath('/')
 
-  if (cachedData) return cachedData
+  // if (cachedData) return cachedData
 
   const pageSize = 100;
   let offset = '';
@@ -15,6 +17,7 @@ export const getVacancies = async () => {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
       },
+      cache: 'no-cache',
     });
     const data = await response.json();
     allRecords = allRecords.concat(data.records);
@@ -31,12 +34,13 @@ export const getVacancies = async () => {
     return tags;
   }, []).filter((tag, index, array) => array.indexOf(tag) === index).sort()
 
-  cachedData = {
+  // console.log(allRecords)
+  return {
     props: {
       allRecords,
       uniqueTags
     }
   }
-
-  return cachedData
 }
+
+// console.log(cachedData)
