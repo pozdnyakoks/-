@@ -1,3 +1,9 @@
 [build]
-  command = "next build" # Команда для сборки проекта
-  publish = ".next"         # Директория, из которой Netlify развернет ваше приложение
+  command = "next build && next export"
+  publish = "out"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
