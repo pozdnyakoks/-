@@ -108,7 +108,7 @@ export const PostJob = () => {
                 autoComplete="off"
                 onSubmit={(e) => e.preventDefault()}
                 className={s.postJob__form}>
-                <input type="hidden" name="form-name" value="postJob" />
+                <input type="hidden" name="postJob" value="postJob" />
                 {inputs.map(input => (
                   <Input
                     key={input.title}
