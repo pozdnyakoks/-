@@ -11,26 +11,18 @@ import { Location } from '../icons/location';
 import { Tick } from '../icons/tick';
 import s from './Developer.module.scss';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
 import { mobile } from '@/utils/constants';
 
 export const Developer = ({ job }: { job: TJob | null }) => {
 
-  const [details, setDetails] = useState<undefined | string>(job?.fields.Details)
+  const [details] = useState<undefined | string>(job?.fields.Details)
   const { width } = useGetWindowDimensions();
   const isMobile = width < mobile
 
-  useEffect(() => {
-    // console.log(job?.fields.Details)
-    // const replaced = job?.fields.Details.replaceAll(' **', '**').replaceAll('** ', '**');
-    // setDetails(replaced)
-    // console.log(replaced)
-  }, [job?.fields.Details])
-
 
   return (
-
     <section className={`${s.developer} container`}>
       {job?.fields &&
         <>
@@ -71,9 +63,7 @@ export const Developer = ({ job }: { job: TJob | null }) => {
             }
 
             {!job.fields['Salary Short'] && job.fields.Status !== 'Closed' &&
-              // <div className={s.developer__grid_cell}>
-                <button className={s.developer__grid_cell_btn}>Apply</button>
-              // </div>
+              <button className={s.developer__grid_cell_btn}>Apply</button>
             }
 
           </div>

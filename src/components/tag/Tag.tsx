@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import s from './Tag.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
-import { setIsFetched } from '@/lib/slices/isFetchedSlice';
+import { useDispatch } from 'react-redux';
+import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 
 export const Tag = ({ value }: { value: string }) => {
   const router = useRouter()
@@ -12,6 +11,7 @@ export const Tag = ({ value }: { value: string }) => {
   const dispatch = useDispatch();
 
   const tagHandler = () => {
+    dispatch(setIsLoading(true))
     router.push(pathname + '?page=1')
   }
 

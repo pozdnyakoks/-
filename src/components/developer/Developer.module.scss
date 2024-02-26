@@ -192,14 +192,11 @@
 
     }
     strong {
-      // color: $light;
       display: inline-block;
     }
 
     ul,
     ol {
-      // margin-bottom: 24px;
-
       li {
         @include text;
         color: $grey2;

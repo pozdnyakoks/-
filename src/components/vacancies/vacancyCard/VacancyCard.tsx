@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { RootState } from '@/lib/store';
-import { setfilteredJobs } from '@/lib/slices/filteredJobsSlice';
-import { makeDate } from '@/lib/makeDate';
+import { makeDate } from '@/utils/makeDate';
 import { TJob } from '@/lib/types';
 import { Door } from '../../icons/door';
 import { Location } from '../../icons/location';
 import s from './VacancyCard.module.scss';
+import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 
 export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
 
@@ -17,16 +17,19 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
   const jobsArray = useSelector(
     (state: RootState) => state.jobs.jobs
   );
+  const isLoading = useSelector(
+    (state: RootState) => state.iLoading.isLoading
+  );
 
   const dispatch = useDispatch();
 
   const tagHandler = (ev: React.MouseEvent, value: string) => {
     ev.preventDefault()
     ev.stopPropagation();
+    dispatch(setIsLoading(true))
     if (value !== '') {
       router.push(pathname + '?' + `page=1&tag=${value}`);
     } else {
-      dispatch(setfilteredJobs(jobsArray))
       router.push(pathname + '?' + `page=${searchParams.get('page') || 1}`);
     }
   }
@@ -40,6 +43,7 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
     const isButton = target.tagName.toLowerCase() === 'button';
 
     if (!isButton) {
+      dispatch(setIsLoading(true))
       router.push(linkMaker());
     }
   }

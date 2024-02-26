@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { DOTS, usePagination } from '@/utils/usePagination';
 import { ON_PAGE, mobile } from '@/utils/constants';
 import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
 import { TJob } from '@/lib/types'
+import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 import s from './Pagination.module.scss';
 
 export const PaginationComp = ({ arr }: { arr: TJob[] }) => {
@@ -11,6 +13,7 @@ export const PaginationComp = ({ arr }: { arr: TJob[] }) => {
   const pathname = usePathname()
   const { width } = useGetWindowDimensions();
   const isMobile = width <= mobile
+  const dispatch = useDispatch()
 
 const searchParams = useSearchParams();
   const [array, setArray] = useState(arr)
@@ -29,6 +32,7 @@ const searchParams = useSearchParams();
     if (typeof page === 'number') {
       if (currentPage !== page) {
         const tag = searchParams.get('tag');
+        dispatch(setIsLoading(true))
         router.push(`${pathname}?page=${page}${tag === null ? '' : `&tag=${tag}`}`)
       }
     }
@@ -41,6 +45,7 @@ const searchParams = useSearchParams();
 
 
   useEffect(() => {
+    dispatch(setIsLoading(false))
     setCurrentPage(searchParams.get('page') === null ? 1 : Number(searchParams.get('page')))
   }, [searchParams])
 

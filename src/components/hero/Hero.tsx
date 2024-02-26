@@ -7,12 +7,7 @@ import Image from 'next/image'
 import { useGetWindowDimensions } from '@/utils/use-get-window-dimensions';
 import { mobile } from '@/utils/constants';
 import { RootState } from '@/lib/store';
-import { TJob } from '@/lib/types';
-import { setTags } from '@/lib/slices/tagsSlice';
-import { setIsFetched } from '@/lib/slices/isFetchedSlice';
-import { setIsError } from '@/lib/slices/isErrorSlice';
-import { setJobs } from '@/lib/slices/jobsSlice';
-import { getVacancies } from '@/app/api/getVacancies';
+import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 import s from './Hero.module.scss'
 
 export const Hero = () => {
@@ -23,17 +18,15 @@ export const Hero = () => {
   const jobsListState = useSelector(
     (state: RootState) => state.tags.tags
   );
-
+  const { width } = useGetWindowDimensions()
+  const dispatch = useDispatch()
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const isMobile = width < mobile;
+  
   const [isDropdown, setIsDropdown] = useState(false);
   const [isDropdownMobile, setIsDropdownMobile] = useState(false);
   const [mobileInputValue, setMobileInputValue] = useState('');
   const [jobsCur, setJobsCur] = useState(jobsListState)
-  // const [height, setHeight] = useState(0);
-  const { width } = useGetWindowDimensions()
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const isMobile = width < mobile;
-
   const [currentTag, setCurrentTag] = useState(searchParams.get('tag') === null ? '' : searchParams.get('tag'))
 
   useEffect(() => {
@@ -59,6 +52,7 @@ export const Hero = () => {
   }, [isDropdown]);
 
   useEffect(() => {
+    dispatch(setIsLoading(false))
     if (searchParams.get('tag') !== '' && typeof searchParams.get('tag') !== 'object' && searchParams.get('tag') !== null) {
       setCurrentTag(searchParams.get('tag'))
     } else {
@@ -67,6 +61,7 @@ export const Hero = () => {
   }, [searchParams])
 
   const changeJob = (value: string) => {
+    dispatch(setIsLoading(true))
     if (value !== '') {
       router.push(pathname + '?' + 'page=1' + '&' + 'tag=' + value,)
     } else {
@@ -111,13 +106,12 @@ export const Hero = () => {
 
     const handleScroll = (e: Event) => {
       if (modalRef.current && modalRef.current.scrollTop > 0) {
-        // Если есть скролл у модального окна, предотвратить прокрутку по умолчанию
         e.preventDefault();
       }
     };
 
     if (isDropdownMobile) {
-      modalRef.current?.addEventListener('scroll', ((e) =>handleScroll(e)));
+      modalRef.current?.addEventListener('scroll', ((e) => handleScroll(e)));
     }
     if (isDropdownMobile) {
       window.addEventListener('scroll', handleScroll);
@@ -127,9 +121,6 @@ export const Hero = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isDropdownMobile])
-
-
-
 
   const [viewportHeight, setViewportHeight] = useState<undefined | number>(undefined);
   useEffect(() => {
@@ -144,10 +135,6 @@ export const Hero = () => {
       return () => window.visualViewport?.removeEventListener('resize', handleResize);
     }
   }, []);
-  // return viewportHeight;
-
-
-
 
   return (
     <section className={`${s.hero} container`}>

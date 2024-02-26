@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
@@ -14,6 +14,7 @@ import { PaginationComp } from '../pagination/Pagination';
 import s from './Vacancies.module.scss';
 import { setTags } from '@/lib/slices/tagsSlice';
 import { setJobs } from '@/lib/slices/jobsSlice';
+import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 
 
 export const Vacancies = ({ data }: {
@@ -26,12 +27,11 @@ export const Vacancies = ({ data }: {
   useEffect(() => {
     dispatch(setTags(data.uniqueTags));
     dispatch(setJobs(data.allRecords))
-    // dispatch(setIsFetched(isFetchedS))
-    // dispatch(setIsError(isErrorS))
   }, [data])
 
   const router = useSearchParams();
   const jobsArray = useSelector((state: RootState) => state.jobs.jobs);
+  const isLoading = useSelector((state: RootState) => state.iLoading.isLoading);
 
   const filtering = (arr: TJob[]) => {
     return arr.slice(
@@ -40,7 +40,7 @@ export const Vacancies = ({ data }: {
     );
   };
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingState, setIsLoadingState] = useState(isLoading);
   const [currentTag, setCurrentTag] = useState<string>(router.get('tag') || '');
   const [currentPage, setCurrentPage] = useState<number>(
     router.get('page') ? Number(router.get('page')) : 1
@@ -50,33 +50,25 @@ export const Vacancies = ({ data }: {
 
 
   useEffect(() => {
+    dispatch(setIsLoading(false))
+    setCurrentPage(router.get('page') ? Number(router.get('page')) : 1);
+    setCurrentTag(router.get('tag') || '');
 
-    // setIsLoading(true); // Установка isLoading в true перед запросом данных
-
-      setCurrentPage(router.get('page') ? Number(router.get('page')) : 1);
-      setCurrentTag(router.get('tag') || '');
-      // console.log(job)
-
-      const queryTag: string = router.get('tag') || '';
-      const filteredByTag = jobsArray.filter(job => {
-        return queryTag !== '' ? job.fields.Tags?.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) : true;
-      });
-      setFilteredArray(filteredByTag);
-
-      setIsLoading(false); 
-
-      // Установка isLoading в false после получения данных
-
-
-      // setIsLoading(false); // Установка isLoading в false после получения данных
-
-
+    const queryTag: string = router.get('tag') || '';
+    const filteredByTag = jobsArray.filter(job => {
+      return queryTag !== '' ? job.fields.Tags?.some(tag => tag.toLowerCase() === queryTag.toLowerCase()) : true;
+    });
+    setFilteredArray(filteredByTag);
 
   }, [router, jobsArray]);
 
   useEffect(() => {
     setCurrentJobsArray(filtering(filteredArray));
   }, [currentPage, filteredArray]);
+
+  useEffect(() => {
+    setIsLoadingState(isLoading)
+  }, [isLoading])
 
 
   return (
@@ -90,12 +82,7 @@ export const Vacancies = ({ data }: {
         </div>
       }
 
-      {/* isError ?  */}
-      {/* <p className={s.vacancies__title} style={{ textAlign: 'center' }}> Oops... Smth went wrong</p> : */}
-      {/* <Suspense fallback={<Loading />}> */}
-      {/* {isLoading ? <Loading /> : */}
-      <Suspense fallback={<Loading />}>
-
+      {isLoadingState ? <Loading /> :
         <div className={s.vacancies}>
           {
             currentJobsArray.slice(0, 2).map((vacancy => (
@@ -103,7 +90,6 @@ export const Vacancies = ({ data }: {
             )))
           }
           {
-            // !isError && 
             currentPage === 1
             && < FollowUs mode='light' />
           }
@@ -114,15 +100,10 @@ export const Vacancies = ({ data }: {
           }
 
         </div>
-      </Suspense>
-
-      {/* } */}
-      {/* } */}
+      }
 
       {filteredArray.length > 15 &&
         <PaginationComp arr={filteredArray} />}
-
-
     </section>
   )
 }
