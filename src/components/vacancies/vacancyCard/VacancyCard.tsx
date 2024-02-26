@@ -9,17 +9,17 @@ import s from './VacancyCard.module.scss';
 import { setIsLoading } from '@/lib/slices/isLoadingSlice';
 
 export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
-
+console.log(cardInfo)
   const router = useRouter()
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const jobsArray = useSelector(
-    (state: RootState) => state.jobs.jobs
-  );
-  const isLoading = useSelector(
-    (state: RootState) => state.iLoading.isLoading
-  );
+  // const jobsArray = useSelector(
+  //   (state: RootState) => state.jobs.jobs
+  // );
+  // const isLoading = useSelector(
+  //   (state: RootState) => state.iLoading.isLoading
+  // );
 
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
   }
 
   const linkMaker = () => {
-    return `/job/${(cardInfo.fields['Job Title + Company'].trim().replaceAll(/[^a-zA-Z]+/g, '-'))}-${cardInfo.fields['Job ID']}`
+    return `/job/${(cardInfo.fields['Job Title + Company']?.trim().replaceAll(/[^a-zA-Z]+/g, '-'))}-${cardInfo.fields['Job ID']}`
   }
 
   const cardHandler = (ev: React.MouseEvent) => {
@@ -58,7 +58,7 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
         <div className={s.card__content}>
           <div className={s.card__block}>
             <h2 className={s.card__block_title}>{cardInfo.fields['Job Title']}</h2>
-            <p className={s.card__block_desc}>{makeDate(cardInfo.fields['Posted Actual Time'])}</p>
+            <p className={s.card__block_desc}>{makeDate(cardInfo.fields['Posted Actual Time'] || '0')}</p>
           </div>
 
           <div className={s.card__icon_block}>
@@ -75,7 +75,7 @@ export const VacancyCard = ({ cardInfo }: { cardInfo: TJob }) => {
               <button className={`${s.card__block_list_item} ${cardInfo.fields.Status === 'Closed' && s.closed}`} disabled>
                 {cardInfo.fields.Status}
               </button>
-              {cardInfo.fields.Tags.map(tag => (
+              {cardInfo.fields.Tags?.map(tag => (
                 <button onClick={(ev) => tagHandler(ev, tag)} className={s.card__block_list_item} key={tag}>{tag}</button>
               ))}
             </div>
