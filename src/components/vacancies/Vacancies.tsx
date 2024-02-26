@@ -41,14 +41,16 @@ export const Vacancies = ({ data }: {
     );
   };
 
-  const [isLoadingState, setIsLoadingState] = useState(isLoading);
+  const [isLoadingState, setIsLoadingState] = useState(false);
   const [currentTag, setCurrentTag] = useState<string>(router.get('tag') || '');
   const [currentPage, setCurrentPage] = useState<number>(
     router.get('page') ? Number(router.get('page')) : 1
   );
   const [filteredArray, setFilteredArray] = useState<TJob[]>(jobsArray);
   const [currentJobsArray, setCurrentJobsArray] = useState<TJob[]>([]);
+  // console.log(currentJobsArray)
 
+  // console.log(isLoading)
 
   useEffect(() => {
     dispatch(setIsLoading(false))
@@ -83,7 +85,7 @@ export const Vacancies = ({ data }: {
         </div>
       }
 
-      {isLoadingState ? <Loading /> :
+      {currentJobsArray && isLoadingState ? <Loading /> :
         <div className={s.vacancies}>
           {
             currentJobsArray.slice(0, 2).map((vacancy => (
@@ -101,7 +103,7 @@ export const Vacancies = ({ data }: {
           }
 
         </div>
-      }
+       } 
 
       {filteredArray.length > 15 &&
         <PaginationComp arr={filteredArray} />}
