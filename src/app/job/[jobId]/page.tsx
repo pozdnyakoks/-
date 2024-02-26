@@ -9,9 +9,9 @@ const getData = async (param: string) => {
 
   if (id !== 'undefined') {
     const response = await fetch(
-      `https://api.airtable.com/v0/${process.env.API_BASE_ID}/Jobs?filterByFormula=${filterByFormula}`, {
+      `https://api.airtable.com/v0/${process.env.NEXT_PUBLIC_API_BASE_ID}/Jobs?filterByFormula=${filterByFormula}`, {
       headers: {
-        Authorization: `Bearer ${process.env.API_TOKEN}`
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
       }
     });
     const data = await response.json();
