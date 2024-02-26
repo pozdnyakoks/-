@@ -2,7 +2,5 @@
   command = "next build" # Команда для сборки проекта
   publish = ".next"         # Директория, из которой Netlify развернет ваше приложение
 
-[[redirects]]                # Настройка перенаправлений, если нужно
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
