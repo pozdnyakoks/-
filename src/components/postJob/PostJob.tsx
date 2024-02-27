@@ -154,13 +154,13 @@ export const PostJob = () => {
             </p>
             {/* <FormProvider {...methods}> */}
             <form
-              // method="POST"
+              method="POST"
               data-netlify="true"
               name='postJob'
               netlify-honeypot="bot-field"
               noValidate
               autoComplete="off"
-              onSubmit={onSubmit}
+              // onSubmit={onSubmit}
               className={s.postJob__form}>
               <input type="hidden" name="postJob" value="postJob" />
               {inputs.map(({ placeholder, title, name, type }) => (
