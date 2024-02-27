@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormEvent, useState } from 'react';
 
 import { Input } from '../input/Input';
 import s from './PostJob.module.scss';
+import { emailPattern } from '@/utils/regex';
 
 const inputs = [
   {
@@ -62,8 +62,6 @@ const inputs = [
   },
 ]
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 
 export const PostJob = () => {
 
@@ -75,73 +73,72 @@ export const PostJob = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // const methods = useForm()
 
-  // const onSubmit = methods.handleSubmit(data => {
-
-  //   fetch("/", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //     body: encode({ "form-name": "postJob", ...data })
-  //   })
-  //     .then(() => {
-  //       setTimeout(() => {
-  //         setIsSubmitted(true);
-
-  //       }, 3000)
-  //     })
-  //     .catch(error => console.log(error));
-
-  // })
-
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
-    mode: 'onChange',
-  })
-  const onSubmit = handleSubmit((data, e) => {
-    e?.preventDefault();
-    // console.log(data)
-
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": "postJob", ...data })
-    })
-      .then(() => {
-        setTimeout(() => {
-          setIsSubmitted(true);
-
-        }, 2000)
-      })
-      .catch(error => console.log(error))
-  })
-
-  // let validationRules = {};
-
-  // if (!isOptional) {
-  //   validationRules = {
-  //     required: {
-  //       value: true,
-  //       message: "Can't be empty",
-  //     },
-  //     pattern: {
-  //       value: type === 'email' ? emailPattern : /.+/,
-  //       message: 'Please enter correct Email'
-  //     }
-  //   };
-  // }
-
-  const validate = (type: string) => {
-    return {
-      required: {
-        value: true,
-        message: "Can't be empty",
-      },
-      pattern: {
-        value: type === 'email' ? emailPattern : /.+/,
-        message: 'Please enter correct Email'
-      }
-    };
+  type Inputs = {
+    // 'Company': string;
+    // 'Company Website': string;
+    // 'Email': string;
+    // 'Details': string;
+    // 'Location': string;
+    // 'Salary': string;
+    // 'Apply Link': string;
+    [key: string]: string;
   }
+
+
+
+  const [errors, setErrors] = useState<Inputs>({
+    'Company': '',
+    'Company Website': '',
+    'Email': '',
+    'Details': '',
+    'Location': '',
+    'Salary': '',
+    'Apply Link': '',
+  })
+  const [data, setData] = useState<Inputs>({
+    'Company': '',
+    'Company Website': '',
+    'Email': '',
+    'Details': '',
+    'Location': '',
+    'Salary': '',
+    'Apply Link': '',
+  })
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    inputs.forEach(input => {
+      const value = data[input.name]
+      if (!input.isOptional) {
+        if (value === '') setErrors(prev => ({ ...prev, [input.name]: "Can't be empty" }))
+        else {
+          if (input.type === 'email' && !emailPattern.test(value)) setErrors(prev => ({ ...prev, [input.name]: "Please enter correct Email" }))
+          else {
+            if (value !== '') setErrors(prev => ({ ...prev, [input.name]: "" }))
+          }
+        }
+      }
+    })
+
+    if (Object.values(errors).every(error => error === '')) {
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "postJob", ...data })
+      })
+        .then(() => {
+          setTimeout(() => {
+            setIsSubmitted(true);
+          }, 2000)
+        })
+        .catch(error => console.log(error))
+    }
+
+   
+  }
+
 
   return (
     <section className={`${s.postJob} container`}>
@@ -152,54 +149,34 @@ export const PostJob = () => {
             <p className={s.postJob__desc}>
               We’re the only job board in Cosmos and tailored specifically for companies that search talents in the ecosystem. We charge 20 ATOMs per job post. We’ll be contacting you once you’ve submitted your job info.
             </p>
-            {/* <FormProvider {...methods}> */}
             <form
-              method="POST"
+              // method="POST"
               data-netlify="true"
               name='postJob'
               netlify-honeypot="bot-field"
               noValidate
               autoComplete="off"
-              // onSubmit={onSubmit}
+              onSubmit={onSubmit}
               className={s.postJob__form}>
               <input type="hidden" name="postJob" value="postJob" />
-              {inputs.map(({ placeholder, title, name, type }) => (
-                // <>
-                  <div className={s.input__block} key={title}>
-                    <label htmlFor={placeholder} className={s.input__block_label}>{title}</label>
-                    {
-                      type !== 'textarea' ?
-                        <input
-                          id={placeholder}
-                          type='text'
-                          className={`${s.input__block_input} 
-                        ${errors[name] && s.error}
-                        `}
-                          placeholder={placeholder}
-                          // {...register(name, validate(type))}
-
-                        />
-                        :
-                        <textarea
-                          id={placeholder}
-                          className={`${s.input__block_input} ${s.textarea} 
-                        ${errors[name] && s.error}
-                        `}
-                          placeholder={placeholder}
-                          // {...register(name, validate(type))}
-                        ></textarea>
-                    }
-                    {
-                      errors[name] && <div className={s.input__block_error}>{errors[name]?.message as string}</div>
-                    }
-                  </div>
-                // </>
+              {inputs.map(({ placeholder, title, name, type, isOptional }) => (
+                <Input
+                  key={title}
+                  placeholder={placeholder}
+                  label={title}
+                  isOptional={isOptional}
+                  type={type}
+                  name={name}
+                  errors={errors}
+                  setErrors={setErrors}
+                  data={data}
+                  setData={setData}
+                />
               ))}
               <button
-                // onClick={onSubmit} 
+                onClick={onSubmit}
                 className={s.postJob__form_btn}>Submit</button>
             </form>
-            {/* </FormProvider> */}
 
           </div>
         </>
@@ -210,14 +187,7 @@ export const PostJob = () => {
   )
 }
 
-{/* <Input
-key={input.title}
-placeholder={input.placeholder}
-label={input.title}
-isOptional={input.isOptional}
-type={input.type}
-name={input.name}
-/> */}
+
 
 
 

@@ -1,5 +1,12 @@
-import { useFormContext } from 'react-hook-form';
+import { emailPattern } from '@/utils/regex';
 import s from './Input.module.scss';
+
+import { ChangeEvent, SetStateAction } from 'react';
+
+type Inputs = {
+  [key: string]: string
+
+}
 
 interface TInputProps {
   type: string;
@@ -7,56 +14,54 @@ interface TInputProps {
   label: string;
   isOptional: boolean;
   name: string;
+  errors: Inputs
+  setErrors: React.Dispatch<React.SetStateAction<Inputs>>
+  data: Inputs
+  setData: React.Dispatch<React.SetStateAction<Inputs>>
 }
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-export const Input = ({ type = 'text', placeholder, label, isOptional, name }: TInputProps) => {
-  const { register, formState: { errors } } = useFormContext();
-
-  let validationRules = {};
-
-  if (!isOptional) {
-    validationRules = {
-      required: {
-        value: true,
-        message: "Can't be empty",
-      },
-      pattern: {
-        value: type === 'email' ? emailPattern : /.+/,
-        message: 'Please enter correct Email'
+export const Input = ({ type = 'text', placeholder, label, isOptional, name, errors, setErrors, data, setData }: TInputProps) => {
+  const changeHandler = ((ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = ev.target.value;
+    if (!isOptional) {
+      if (value === '') setErrors(prev => ({ ...prev, [name]: "Can't be empty" }))
+      else {
+        if (type === 'email' && !emailPattern.test(value)) setErrors(prev => ({ ...prev, [name]: "Please enter correct Email" }))
+        else {
+          if (value !== '') setErrors(prev => ({ ...prev, [name]: "" }))
+        }
       }
-    };
-  }
+    }
+
+    setData(prev => ({ ...prev, [name]: value }))
+  })
 
   return (
-    <div className={s.input__block}>
+    <div className={s.input__block} key={label}>
       <label htmlFor={placeholder} className={s.input__block_label}>{label}</label>
       {
         type !== 'textarea' ?
           <input
             id={placeholder}
             type='text'
-            className={`${s.input__block_input} 
-            ${errors[name] && s.error}
-            `}
+            className={`${s.input__block_input}`}
+            onChange={(e) => changeHandler(e)}
             placeholder={placeholder}
-            {...register(name, validationRules)}
-
           />
           :
           <textarea
             id={placeholder}
             className={`${s.input__block_input} ${s.textarea} 
-            ${errors[name] && s.error}
-            `}
+           `}
             placeholder={placeholder}
-            {...register(name, validationRules)}
+            onChange={(e) => changeHandler(e)}
+
           ></textarea>
       }
       {
-        errors[name] && <div className={s.input__block_error}>{errors[name]?.message as string}</div>
+        errors[name as keyof Inputs] !== '' && <div className={s.input__block_error}>{errors[name as keyof Inputs]}</div>
       }
     </div>
   )
 }
+
