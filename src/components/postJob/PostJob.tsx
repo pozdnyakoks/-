@@ -122,8 +122,8 @@ export const PostJob = () => {
       fetch("/create", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: requestBody
-        // body: encode({ "form-name": "postJob", ...data })
+        // body: requestBody
+        body: encode({ "form-name": "postJob", ...data })
       })
         .then(() => {
           setTimeout(() => {
