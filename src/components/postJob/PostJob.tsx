@@ -79,35 +79,37 @@ export const PostJob = () => {
 
   const [errors, setErrors] = useState<Inputs>({
     'Company': '',
-    'Company Website': '',
+    'Website': '',
     'Email': '',
     'Details': '',
     'Location': '',
     'Salary': '',
-    'Apply Link': '',
+    'Link': '',
   })
   const [data, setData] = useState<Inputs>({
     'Company': '',
-    'Company Website': '',
+    'Website': '',
     'Email': '',
     'Details': '',
     'Location': '',
     'Salary': '',
-    'Apply Link': '',
+    'Link': '',
   })
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // console.log(e.target)
+ 
 
     inputs.forEach(input => {
-      const value = data[input.name]
+      const inputValue = input.name.split(' ')[input.name.split(' ').length - 1]
+      const value = data[inputValue]
+
       if (!input.isOptional) {
-        if (value === '') setErrors(prev => ({ ...prev, [input.name]: "Can't be empty" }))
+        if (value === '') setErrors(prev => ({ ...prev, [inputValue]: "Can't be empty" }))
         else {
-          if (input.type === 'email' && !emailPattern.test(value)) setErrors(prev => ({ ...prev, [input.name]: "Please enter correct Email" }))
+          if (input.type === 'email' && !emailPattern.test(value)) setErrors(prev => ({ ...prev, [inputValue]: "Please enter correct Email" }))
           else {
-            if (value !== '') setErrors(prev => ({ ...prev, [input.name]: "" }))
+            if (value !== '') setErrors(prev => ({ ...prev, [inputValue]: "" }))
           }
         }
       }
@@ -115,22 +117,23 @@ export const PostJob = () => {
 
     if (Object.values(errors).every(error => error === '')) {
 
-      // const myForm = e.target as HTMLFormElement;
-      // const formData = new FormData(myForm);
-      // const urlSearchParams = new URLSearchParams(data); // as any для обхода ограничений TypeScript
-      const requestBody = new URLSearchParams(data).toString()
-      fetch("/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        // body: requestBody
-        body: encode({ "form-name": "postJob", ...data })
-      })
-        .then(() => {
-          setTimeout(() => {
-            setIsSubmitted(true);
-          }, 2000)
+
+        // const myForm = e.target as HTMLFormElement;
+        // const formData = new FormData(myForm);
+        // const urlSearchParams = new URLSearchParams(data); // as any для обхода ограничений TypeScript
+        // const requestBody = new URLSearchParams(data).toString()
+        fetch("/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          // body: requestBody
+          body: encode({ "form-name": "postJob", ...data })
         })
-        .catch(error => console.log(error))
+          .then(() => {
+            setTimeout(() => {
+              setIsSubmitted(true);
+            }, 2000)
+          })
+          .catch(error => console.log(error))
     }
 
 

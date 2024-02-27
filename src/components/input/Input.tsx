@@ -21,22 +21,26 @@ interface TInputProps {
 }
 
 export const Input = ({ type = 'text', placeholder, label, isOptional, name, errors, setErrors, data, setData }: TInputProps) => {
+  const splited = name.split(' ')
+  const nameCur = splited[splited.length - 1];
+  // console.log(nameCur)
   const changeHandler = ((ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = ev.target.value;
+
     if (!isOptional) {
-      if (value === '') setErrors(prev => ({ ...prev, [name]: "Can't be empty" }))
+      if (value === '') setErrors(prev => ({ ...prev, [nameCur]: "Can't be empty" }))
       else {
-        if (type === 'email' && !emailPattern.test(value)) setErrors(prev => ({ ...prev, [name]: "Please enter correct Email" }))
+        if (type === 'email' && !emailPattern.test(value)) setErrors(prev => ({ ...prev, [nameCur]: "Please enter correct Email" }))
         else {
-          if (value !== '') setErrors(prev => ({ ...prev, [name]: "" }))
+          if (value !== '') setErrors(prev => ({ ...prev, [nameCur]: "" }))
         }
       }
     }
 
-    setData(prev => ({ ...prev, [name]: value }))
+    setData(prev => ({ ...prev, [nameCur]: value }))
   })
 
-  // console.log(name.split(' '))
+  // console.log(errors)
 
   return (
     <div className={s.input__block} key={label}>
@@ -49,7 +53,7 @@ export const Input = ({ type = 'text', placeholder, label, isOptional, name, err
             className={`${s.input__block_input}`}
             onChange={(e) => changeHandler(e)}
             placeholder={placeholder}
-            // name={name.split(' ')[0]}
+          // name={name.split(' ')[0]}
           />
           :
           <textarea
@@ -58,12 +62,12 @@ export const Input = ({ type = 'text', placeholder, label, isOptional, name, err
            `}
             placeholder={placeholder}
             onChange={(e) => changeHandler(e)}
-            // name={name.split(' ')[0]}
+          // name={name.split(' ')[0]}
 
           ></textarea>
       }
       {
-        errors[name as keyof Inputs] !== '' && <div className={s.input__block_error}>{errors[name as keyof Inputs]}</div>
+        errors[nameCur] !== '' && <div className={s.input__block_error}>{errors[nameCur as keyof Inputs]}</div>
       }
     </div>
   )
