@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+
 import { Input } from '../input/Input';
 import s from './PostJob.module.scss';
 
@@ -100,7 +101,7 @@ export const PostJob = () => {
               We’re the only job board in Cosmos and tailored specifically for companies that search talents in the ecosystem. We charge 20 ATOMs per job post. We’ll be contacting you once you’ve submitted your job info.
             </p>
             {/* <FormProvider {...methods}> */}
-              <form
+            {/* <form
                 method="POST"
                 data-netlify="true"
                 name='postJob'
@@ -123,8 +124,29 @@ export const PostJob = () => {
                 <button
                   // onClick={onSubmit} 
                   className={s.postJob__form_btn}>Submit</button>
-              </form>
+              </form> */}
             {/* </FormProvider> */}
+            <form name="contact" method="POST" data-netlify="true">
+              <input type="hidden" name="form-name" value="contact" />
+                <p>
+                  <label>Your Name: <input type="text" name="name" /></label>
+                </p>
+                <p>
+                  <label>Your Email: <input type="email" name="email" /></label>
+                </p>
+                <p>
+                  <label>Your Role: <select name="role[]" multiple>
+                    <option value="leader">Leader</option>
+                    <option value="follower">Follower</option>
+                  </select></label>
+                </p>
+                <p>
+                  <label>Message: <textarea name="message"></textarea></label>
+                </p>
+                <p>
+                  <button type="submit">Send</button>
+                </p>
+            </form>
           </div>
         </>
         :
