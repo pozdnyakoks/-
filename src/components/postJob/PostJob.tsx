@@ -123,7 +123,7 @@ export const PostJob = () => {
     })
 
     if (Object.values(errors).every(error => error === '')) {
-      fetch("/", {
+      fetch("/create", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encode({ "form-name": "postJob", ...data })
