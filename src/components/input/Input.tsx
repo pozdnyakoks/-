@@ -47,6 +47,7 @@ export const Input = ({ type = 'text', placeholder, label, isOptional, name, err
             className={`${s.input__block_input}`}
             onChange={(e) => changeHandler(e)}
             placeholder={placeholder}
+            name={label}
           />
           :
           <textarea
@@ -55,6 +56,7 @@ export const Input = ({ type = 'text', placeholder, label, isOptional, name, err
            `}
             placeholder={placeholder}
             onChange={(e) => changeHandler(e)}
+            name={label}
 
           ></textarea>
       }
