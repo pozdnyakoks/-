@@ -2,6 +2,15 @@
 
 .postJob {
 
+  min-height: calc(100% - 96px - 128px);
+
+  @include lg {
+  min-height: calc(100% - 80px - 282px);
+
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   &__title {
     padding: 64px 0;
     @include title;

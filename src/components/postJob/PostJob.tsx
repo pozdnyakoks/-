@@ -118,11 +118,11 @@ export const PostJob = () => {
       // const myForm = e.target as HTMLFormElement;
       // const formData = new FormData(myForm);
       // const urlSearchParams = new URLSearchParams(data); // as any для обхода ограничений TypeScript
-      // const requestBody = urlSearchParams.toString();
+      const requestBody = new URLSearchParams(data).toString()
       fetch("/create", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(data).toString()
+        body: requestBody
         // body: encode({ "form-name": "postJob", ...data })
       })
         .then(() => {
