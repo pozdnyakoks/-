@@ -36,6 +36,8 @@ export const Input = ({ type = 'text', placeholder, label, isOptional, name, err
     setData(prev => ({ ...prev, [name]: value }))
   })
 
+  // console.log(name.split(' '))
+
   return (
     <div className={s.input__block} key={label}>
       <label htmlFor={placeholder} className={s.input__block_label}>{label}</label>
@@ -47,7 +49,7 @@ export const Input = ({ type = 'text', placeholder, label, isOptional, name, err
             className={`${s.input__block_input}`}
             onChange={(e) => changeHandler(e)}
             placeholder={placeholder}
-            name={name}
+            name={name.split(' ')[0]}
           />
           :
           <textarea
@@ -56,7 +58,7 @@ export const Input = ({ type = 'text', placeholder, label, isOptional, name, err
            `}
             placeholder={placeholder}
             onChange={(e) => changeHandler(e)}
-            name={name}
+            name={name.split(' ')[0]}
 
           ></textarea>
       }
