@@ -75,17 +75,8 @@ export const PostJob = () => {
 
 
   type Inputs = {
-    // 'Company': string;
-    // 'Company Website': string;
-    // 'Email': string;
-    // 'Details': string;
-    // 'Location': string;
-    // 'Salary': string;
-    // 'Apply Link': string;
     [key: string]: string;
   }
-
-
 
   const [errors, setErrors] = useState<Inputs>({
     'Company': '',
@@ -123,10 +114,16 @@ export const PostJob = () => {
     })
 
     if (Object.values(errors).every(error => error === '')) {
+
+      const myForm = e.target as HTMLFormElement;
+      const formData = new FormData(myForm);
+      const urlSearchParams = new URLSearchParams(formData as any); // as any для обхода ограничений TypeScript
+      const requestBody = urlSearchParams.toString();
       fetch("/create", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({ "form-name": "postJob", ...data })
+        body: requestBody
+        // body: encode({ "form-name": "postJob", ...data })
       })
         .then(() => {
           setTimeout(() => {
@@ -136,7 +133,7 @@ export const PostJob = () => {
         .catch(error => console.log(error))
     }
 
-   
+
   }
 
 
