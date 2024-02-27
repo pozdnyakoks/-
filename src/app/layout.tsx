@@ -3,6 +3,7 @@ import { Urbanist } from "next/font/google";
 import { Header } from "@/components/header/Header";
 import { Footer } from "@/components/footer/Footer";
 import StoreProvider from "./StoreProvider";
+import GoogleAnalytics from "@/components/googleAnalytics";
 import "@/styles/globals.scss";
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -24,8 +25,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+     
       <body className={urbanist.className}>
-
+        <GoogleAnalytics ga_id="G-RMJ8YFQP66"  />
         <form name='postJob'
           data-netlify="true"
           netlify-honeypot="bot-field" hidden>

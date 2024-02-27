@@ -13,6 +13,7 @@ import { Door } from '../icons/door';
 import { Location } from '../icons/location';
 import { Tick } from '../icons/tick';
 import s from './Developer.module.scss';
+import Link from 'next/link';
 
 
 export const Developer = ({ job }: { job: TJob | null }) => {
@@ -58,12 +59,12 @@ export const Developer = ({ job }: { job: TJob | null }) => {
                   <Tick />
                   <span>Open</span>
                 </div>
-                {job.fields['Salary Short'] && <button className={s.developer__grid_cell_btn}>Apply</button>}
+                {job.fields['Salary Short'] && <a href={job?.fields['Apply Link']} target='_blank' className={s.developer__grid_cell_btn}>Apply</a>}
               </div>
             }
 
             {!job.fields['Salary Short'] && job.fields.Status !== 'Closed' &&
-              <button className={s.developer__grid_cell_btn}>Apply</button>
+              <a href={job?.fields['Apply Link']} target='_blank' className={s.developer__grid_cell_btn}>Apply</a>
             }
 
           </div>

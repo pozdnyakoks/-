@@ -5,6 +5,7 @@ import { FormEvent, useState } from 'react';
 import { Input } from '../input/Input';
 import s from './PostJob.module.scss';
 import { emailPattern } from '@/utils/regex';
+import Link from 'next/link';
 
 const inputs = [
   {
@@ -171,7 +172,10 @@ export const PostJob = () => {
           </div>
         </>
         :
-        <h2 className={`${s.postJob__title} ${s.postJob__success}`}>You’ve successfully submitted your job info!</h2>
+        <>
+          <h2 className={`${s.postJob__title} ${s.postJob__success}`}>You’ve successfully submitted your job info!</h2>
+          <Link className={s.postJob__done} href='/'>Done</Link>
+        </>
       }
     </section>
   )
