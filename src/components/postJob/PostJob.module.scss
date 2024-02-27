@@ -62,3 +62,64 @@
     }
   }
 }
+
+.input__block {
+  @include text;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &_label {
+    @include letterMore;
+    color: $light;
+  }
+
+  &_input {
+    font-family: inherit;
+    @include text;
+    @include letterMore;
+
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid $grey4;
+    background-color: $dark;
+    transition: .3s ease;
+    width: 100%;
+    outline: none;
+    color: $light;
+
+    &::placeholder {
+      color: $grey3;
+    }
+
+    &:hover {
+      border-color: $light;
+    }
+
+    &:active {
+      border-color: $primary;
+    }
+
+    &:focus-visible {
+      border-color: $primary;
+    }
+
+    &.error {
+      border-color: $disruptive;
+    }
+
+    &.textarea {
+      min-height: 536px;
+
+      @include lg {
+        min-height: 560px;
+      }
+    }
+  }
+
+  &_error {
+    color: $disruptive;
+    @include letterMore
+  }
+
+}

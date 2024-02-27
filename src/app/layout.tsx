@@ -25,15 +25,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={urbanist.className}>
-        {/* <form name="postJob" data-netlify="true" netlify-honeypot="bot-field" hidden>
-          <input type="text" name="Company" />
-          <input type="text" name="Company Website" />
-          <input type="email" name="Email" />
-          <textarea name="Details"></textarea>
-          <input type="text" name="Location" />
-          <input type="text" name="Salary" />
-          <input type="text" name="Apply Link" />
-        </form> */}
         <Header />
         <StoreProvider>{children}</StoreProvider>
         <Footer />
