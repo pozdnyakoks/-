@@ -12,7 +12,7 @@ const socials = [
   },
   {
     icon: <LinkedinIcon />,
-    link: 'https://www.linkedin.com/company/incosmos-work',
+    link: 'https://www.linkedin.com/company/incosmos-dot-work',
   },
   {
     icon: <TelegramIcon />,

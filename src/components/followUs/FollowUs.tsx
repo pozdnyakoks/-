@@ -14,7 +14,7 @@ export const FollowUs = ({ mode }: { mode: 'dark' | 'light' }) => {
           <Link target='_blank' href='https://twitter.com/home'>
               <Image src='/twitter.svg' alt='twitter' width='56' height='56' />
           </Link>
-          <Link target='_blank' href='https://www.linkedin.com/company/incosmos-work'>
+          <Link target='_blank' href='https://www.linkedin.com/company/incosmos-dot-work'>
               <Image src='/linkedIn.svg' alt='linkedIn' width='56' height='56' />
           </Link>
         </div>

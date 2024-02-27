@@ -62,7 +62,6 @@ const inputs = [
   },
 ]
 
-
 export const PostJob = () => {
 
   const encode = (data: { [key: string]: string }) => {
@@ -99,6 +98,7 @@ export const PostJob = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    // console.log(e.target)
 
     inputs.forEach(input => {
       const value = data[input.name]
@@ -115,14 +115,14 @@ export const PostJob = () => {
 
     if (Object.values(errors).every(error => error === '')) {
 
-      const myForm = e.target as HTMLFormElement;
-      const formData = new FormData(myForm);
-      const urlSearchParams = new URLSearchParams(formData as any); // as any для обхода ограничений TypeScript
-      const requestBody = urlSearchParams.toString();
+      // const myForm = e.target as HTMLFormElement;
+      // const formData = new FormData(myForm);
+      // const urlSearchParams = new URLSearchParams(data); // as any для обхода ограничений TypeScript
+      // const requestBody = urlSearchParams.toString();
       fetch("/create", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: requestBody
+        body: new URLSearchParams(data).toString()
         // body: encode({ "form-name": "postJob", ...data })
       })
         .then(() => {
