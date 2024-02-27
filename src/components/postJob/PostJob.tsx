@@ -176,7 +176,7 @@ export const PostJob = () => {
                         ${errors[name] && s.error}
                         `}
                           placeholder={placeholder}
-                          {...register(name, validate(type))}
+                          // {...register(name, validate(type))}
 
                         />
                         :
@@ -186,7 +186,7 @@ export const PostJob = () => {
                         ${errors[name] && s.error}
                         `}
                           placeholder={placeholder}
-                          {...register(name, validate(type))}
+                          // {...register(name, validate(type))}
                         ></textarea>
                     }
                     {
