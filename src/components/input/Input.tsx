@@ -23,7 +23,6 @@ interface TInputProps {
 export const Input = ({ type = 'text', placeholder, label, isOptional, name, errors, setErrors, data, setData }: TInputProps) => {
   const splited = name.split(' ')
   const nameCur = splited[splited.length - 1];
-  // console.log(nameCur)
   const changeHandler = ((ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = ev.target.value;
 
@@ -40,7 +39,6 @@ export const Input = ({ type = 'text', placeholder, label, isOptional, name, err
     setData(prev => ({ ...prev, [nameCur]: value }))
   })
 
-  // console.log(errors)
 
   return (
     <div className={s.input__block} key={label}>

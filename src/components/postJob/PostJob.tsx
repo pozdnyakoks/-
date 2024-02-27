@@ -98,7 +98,6 @@ export const PostJob = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
- 
 
     inputs.forEach(input => {
       const inputValue = input.name.split(' ')[input.name.split(' ').length - 1]
@@ -117,28 +116,19 @@ export const PostJob = () => {
 
     if (Object.values(errors).every(error => error === '')) {
 
-
-        // const myForm = e.target as HTMLFormElement;
-        // const formData = new FormData(myForm);
-        // const urlSearchParams = new URLSearchParams(data); // as any для обхода ограничений TypeScript
-        // const requestBody = new URLSearchParams(data).toString()
-        fetch("/create", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          // body: requestBody
-          body: encode({ "form-name": "postJob", ...data })
+      fetch("/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "postJob", ...data })
+      })
+        .then(() => {
+          setTimeout(() => {
+            setIsSubmitted(true);
+          }, 2000)
         })
-          .then(() => {
-            setTimeout(() => {
-              setIsSubmitted(true);
-            }, 2000)
-          })
-          .catch(error => console.log(error))
+        .catch(error => console.log(error))
     }
-
-
   }
-
 
   return (
     <section className={`${s.postJob} container`}>
@@ -186,29 +176,3 @@ export const PostJob = () => {
     </section>
   )
 }
-
-
-
-
-
-{/* <form name="contact" method="POST" data-netlify="true">
-              <input type="hidden" name="form-name" value="contact" />
-                <p>
-                  <label>Your Name: <input type="text" name="name" /></label>
-                </p>
-                <p>
-                  <label>Your Email: <input type="email" name="email" /></label>
-                </p>
-                <p>
-                  <label>Your Role: <select name="role[]" multiple>
-                    <option value="leader">Leader</option>
-                    <option value="follower">Follower</option>
-                  </select></label>
-                </p>
-                <p>
-                  <label>Message: <textarea name="message"></textarea></label>
-                </p>
-                <p>
-                  <button type="submit">Send</button>
-                </p>
-            </form> */}
