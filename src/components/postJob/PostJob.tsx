@@ -99,7 +99,7 @@ export const PostJob = () => {
             <p className={s.postJob__desc}>
               We’re the only job board in Cosmos and tailored specifically for companies that search talents in the ecosystem. We charge 20 ATOMs per job post. We’ll be contacting you once you’ve submitted your job info.
             </p>
-            <FormProvider {...methods}>
+            {/* <FormProvider {...methods}> */}
               <form
                 method="POST"
                 data-netlify="true"
@@ -124,7 +124,7 @@ export const PostJob = () => {
                   // onClick={onSubmit} 
                   className={s.postJob__form_btn}>Submit</button>
               </form>
-            </FormProvider>
+            {/* </FormProvider> */}
           </div>
         </>
         :
