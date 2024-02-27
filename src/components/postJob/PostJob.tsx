@@ -73,22 +73,22 @@ export const PostJob = () => {
 
   const methods = useForm()
 
-  const onSubmit = methods.handleSubmit(data => {
+  // const onSubmit = methods.handleSubmit(data => {
 
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": "postJob", ...data })
-    })
-      .then(() => {
-        setTimeout(() => {
-          setIsSubmitted(true);
+  //   fetch("/", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  //     body: encode({ "form-name": "postJob", ...data })
+  //   })
+  //     .then(() => {
+  //       setTimeout(() => {
+  //         setIsSubmitted(true);
 
-        }, 3000)
-      })
-      .catch(error => console.log(error));
+  //       }, 3000)
+  //     })
+  //     .catch(error => console.log(error));
 
-  })
+  // })
 
   return (
     <section className={`${s.postJob} container`}>
@@ -101,6 +101,7 @@ export const PostJob = () => {
             </p>
             <FormProvider {...methods}>
               <form
+                method="POST"
                 data-netlify="true"
                 name='postJob'
                 netlify-honeypot="bot-field"
@@ -119,7 +120,9 @@ export const PostJob = () => {
                     name={input.name}
                   />
                 ))}
-                <button onClick={onSubmit} className={s.postJob__form_btn}>Submit</button>
+                <button
+                  // onClick={onSubmit} 
+                  className={s.postJob__form_btn}>Submit</button>
               </form>
             </FormProvider>
           </div>
