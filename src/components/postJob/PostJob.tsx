@@ -133,7 +133,7 @@ export const PostJob = () => {
 
   return (
     <section className={`${s.postJob} container`}>
-      {!isSubmitted ?
+      {/* {!isSubmitted ?
         <>
           <div className={s.postJob__block}>
             <h2 className={s.postJob__title}>Post a Job</h2>
@@ -171,12 +171,12 @@ export const PostJob = () => {
 
           </div>
         </>
-        :
+        : */}
         <>
           <h2 className={`${s.postJob__title} ${s.postJob__success}`}>You’ve successfully submitted your job info!</h2>
           <Link className={s.postJob__done} href='/'>Done</Link>
         </>
-      }
+      {/* } */}
     </section>
   )
 }

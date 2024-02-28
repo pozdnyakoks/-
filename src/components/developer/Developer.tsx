@@ -22,6 +22,9 @@ export const Developer = ({ job }: { job: TJob | null }) => {
   const { width } = useGetWindowDimensions();
   const isMobile = width < mobile
 
+  const replaceCode = (code: string) => {
+    return code.replaceAll('    ', '')
+  }
 
   return (
     <section className={`${s.developer} container`}>
@@ -75,7 +78,8 @@ export const Developer = ({ job }: { job: TJob | null }) => {
               rehypePlugins={[rehypeRaw]}
               remarkPlugins={[breaks]}
             >
-              {details}
+              {replaceCode(details || '')}
+              {/* {details} */}
             </Markdown>
           </div>
         </>

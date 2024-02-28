@@ -77,7 +77,7 @@ export const Vacancies = ({ data }: {
   return (
     <section className={`${s.container} container`}>
       <p className={s.vacancies__title}>
-        {currentTag === '' ? 'All' : currentTag} jobs, All locations
+        {currentTag === '' ? 'All' : currentTag} jobs
       </p>
       {currentTag !== '' &&
         <div className={s.vacancies__tag}>

@@ -140,7 +140,7 @@ export const Hero = () => {
     <section className={`${s.hero} container`}>
       <h1 className={s.hero__title}>Find jobs & talents<br />
         in the Cosmos blockchain</h1>
-      <p className={s.hero__desc}>or at companies that use Cosmos SDK, CosmWasm, Ignite CLI
+      <p className={s.hero__desc}>or at companies that use Cosmos SDK, CosmWasm, Ignite CLI<br />
         and other tech related to the blockchain.</p>
 
       <div className={s.hero__block}>
